@@ -13,4 +13,10 @@ for p in www-ink3d-001 www-ink3d-002 www-ink3d-003; do
   cp "$A"/music/{hook_curious_bounce,body_light_steady,twist_suspense_break}.mp3 projects/$p/public/music/
   cp "$A/narration/$p.wav" projects/$p/public/audio/narration.wav
 done
+# 004: chưa có giọng chốt trong shared_assets, chỉ chép nhạc (giọng lấy từ voice_post.py)
+for p in www-ink3d-004; do
+  mkdir -p projects/$p/public/music projects/$p/public/audio
+  cp "$A"/music/{hook_curious_bounce,body_light_steady,twist_suspense_break}.mp3 projects/$p/public/music/
+  [ -f "$A/narration/$p.wav" ] && cp "$A/narration/$p.wav" projects/$p/public/audio/narration.wav
+done
 echo done
