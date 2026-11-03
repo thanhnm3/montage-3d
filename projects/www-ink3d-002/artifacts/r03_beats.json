@@ -1,0 +1,17 @@
+{
+ "starts": [
+  0.0,
+  4.14,
+  14.44,
+  25.96
+ ],
+ "total": 34.325,
+ "words_per_beat": [
+  11,
+  30,
+  31,
+  29
+ ],
+ "whisper_words": 105,
+ "script_words": 101
+}

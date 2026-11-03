@@ -1,0 +1,892 @@
+{
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "totalFrames": 1208,
+ "overlap": 10,
+ "scenes": [
+  {
+   "beat": 1,
+   "startFrame": 0,
+   "durationFrames": 233,
+   "src": "media/v01_hook_v.mp4",
+   "full": true,
+   "tag": "ARTIST RECONSTRUCTION",
+   "focus": [
+    0.45,
+    0.5
+   ],
+   "punchAt": 81,
+   "playbackRate": 0.988
+  },
+  {
+   "beat": 2,
+   "startFrame": 233,
+   "durationFrames": 122,
+   "src": "media/02.jpg",
+   "tag": "PHOTOGRAPH · SKELETON",
+   "real": true,
+   "credit": "Diagram Lajard / Wikimedia Commons, CC0",
+   "fit": "contain",
+   "move": "push"
+  },
+  {
+   "beat": 3,
+   "startFrame": 355,
+   "durationFrames": 114,
+   "src": "media/03.jpg",
+   "tag": "PAINTING · VELOCIRAPTOR",
+   "real": true,
+   "credit": "Dragos Andrei / Wikimedia Commons, CC BY-SA 4.0",
+   "focus": [
+    0.55,
+    0.45
+   ],
+   "move": "push"
+  },
+  {
+   "beat": 4,
+   "startFrame": 469,
+   "durationFrames": 183,
+   "src": "media/06.jpg",
+   "tag": "PHOTOGRAPH · SERENGETI",
+   "real": true,
+   "credit": "Giles Laurent / Wikimedia Commons, CC BY-SA 4.0",
+   "focus": [
+    0.5,
+    0.4
+   ],
+   "move": "push"
+  },
+  {
+   "beat": 5,
+   "startFrame": 652,
+   "durationFrames": 138,
+   "src": "media/05.jpg",
+   "tag": "PHOTOGRAPH · DEINONYCHUS",
+   "real": true,
+   "credit": "Daderot / Wikimedia Commons, CC0",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "move": "pull"
+  },
+  {
+   "beat": 6,
+   "startFrame": 790,
+   "durationFrames": 146,
+   "src": "media/09_utah.jpg",
+   "tag": "PHOTOGRAPH · UTAHRAPTOR",
+   "real": true,
+   "credit": "Jaren Wilkey / Wikimedia Commons, CC BY-SA 4.0",
+   "focus": [
+    0.5,
+    0.4
+   ],
+   "move": "push"
+  },
+  {
+   "beat": 7,
+   "startFrame": 936,
+   "durationFrames": 94,
+   "src": "media/10_utah_claw.jpg",
+   "tag": "PHOTOGRAPH · SICKLE CLAW",
+   "real": true,
+   "credit": "Jaren Wilkey / Wikimedia Commons, CC BY-SA 4.0",
+   "focus": [
+    0.52,
+    0.55
+   ],
+   "move": "push"
+  },
+  {
+   "beat": 8,
+   "startFrame": 1030,
+   "durationFrames": 178,
+   "src": "media/06.jpg",
+   "tag": "PHOTOGRAPH · SERENGETI",
+   "real": true,
+   "credit": "Giles Laurent / Wikimedia Commons, CC BY-SA 4.0",
+   "focus": [
+    0.5,
+    0.35
+   ],
+   "move": "pull"
+  }
+ ],
+ "notes": [
+  {
+   "startFrame": 275,
+   "durationFrames": 54,
+   "big": "2 m",
+   "small": "mostly tail"
+  },
+  {
+   "startFrame": 362,
+   "durationFrames": 66,
+   "big": "~15 kg",
+   "small": "about a big turkey"
+  },
+  {
+   "startFrame": 505,
+   "durationFrames": 66,
+   "big": "190 kg",
+   "small": "adult male lion"
+  },
+  {
+   "startFrame": 857,
+   "durationFrames": 76,
+   "big": "~6 m · ~300 kg",
+   "small": "Utahraptor · Early Cretaceous, Utah"
+  },
+  {
+   "startFrame": 976,
+   "durationFrames": 51,
+   "big": "22–24 cm",
+   "small": "sickle claw · Kirkland et al. 1993"
+  }
+ ],
+ "endCard": {
+  "startFrame": 1082,
+  "durationFrames": 126,
+  "label": "YOUR VERDICT  ·  COMMENTS ↓",
+  "name": "Utahraptor vs lion?"
+ },
+ "karaoke": [
+  {
+   "startMs": 0,
+   "endMs": 1040,
+   "words": [
+    {
+     "text": "Velociraptor",
+     "startMs": 0,
+     "endMs": 840
+    },
+    {
+     "text": "versus",
+     "startMs": 840,
+     "endMs": 1040
+    }
+   ]
+  },
+  {
+   "startMs": 1040,
+   "endMs": 2060,
+   "words": [
+    {
+     "text": "a",
+     "startMs": 1040,
+     "endMs": 1320
+    },
+    {
+     "text": "lion.",
+     "startMs": 1320,
+     "endMs": 2060
+    }
+   ]
+  },
+  {
+   "startMs": 2060,
+   "endMs": 2960,
+   "words": [
+    {
+     "text": "The",
+     "startMs": 2060,
+     "endMs": 2180
+    },
+    {
+     "text": "real",
+     "startMs": 2180,
+     "endMs": 2500
+    },
+    {
+     "text": "raptor",
+     "startMs": 2500,
+     "endMs": 2960
+    }
+   ]
+  },
+  {
+   "startMs": 2960,
+   "endMs": 4020,
+   "words": [
+    {
+     "text": "loses.",
+     "startMs": 2960,
+     "endMs": 4020
+    }
+   ]
+  },
+  {
+   "startMs": 4020,
+   "endMs": 5240,
+   "words": [
+    {
+     "text": "But",
+     "startMs": 4020,
+     "endMs": 4340
+    },
+    {
+     "text": "its",
+     "startMs": 4340,
+     "endMs": 4880
+    },
+    {
+     "text": "biggest",
+     "startMs": 4880,
+     "endMs": 5240
+    }
+   ]
+  },
+  {
+   "startMs": 5240,
+   "endMs": 5740,
+   "words": [
+    {
+     "text": "cousin?",
+     "startMs": 5240,
+     "endMs": 5740
+    }
+   ]
+  },
+  {
+   "startMs": 5740,
+   "endMs": 6900,
+   "words": [
+    {
+     "text": "That's",
+     "startMs": 5740,
+     "endMs": 6560
+    },
+    {
+     "text": "a",
+     "startMs": 6560,
+     "endMs": 6660
+    },
+    {
+     "text": "different",
+     "startMs": 6660,
+     "endMs": 6900
+    }
+   ]
+  },
+  {
+   "startMs": 6900,
+   "endMs": 7780,
+   "words": [
+    {
+     "text": "fight.",
+     "startMs": 6900,
+     "endMs": 7780
+    }
+   ]
+  },
+  {
+   "startMs": 7780,
+   "endMs": 8840,
+   "words": [
+    {
+     "text": "A",
+     "startMs": 7780,
+     "endMs": 7880
+    },
+    {
+     "text": "real",
+     "startMs": 7880,
+     "endMs": 8120
+    },
+    {
+     "text": "Velociraptor",
+     "startMs": 8120,
+     "endMs": 8840
+    }
+   ]
+  },
+  {
+   "startMs": 8840,
+   "endMs": 9400,
+   "words": [
+    {
+     "text": "was",
+     "startMs": 8840,
+     "endMs": 8960
+    },
+    {
+     "text": "about",
+     "startMs": 8960,
+     "endMs": 9160
+    },
+    {
+     "text": "2",
+     "startMs": 9160,
+     "endMs": 9400
+    }
+   ]
+  },
+  {
+   "startMs": 9400,
+   "endMs": 10560,
+   "words": [
+    {
+     "text": "metres",
+     "startMs": 9400,
+     "endMs": 9600
+    },
+    {
+     "text": "long,",
+     "startMs": 9600,
+     "endMs": 10560
+    }
+   ]
+  },
+  {
+   "startMs": 10560,
+   "endMs": 11820,
+   "words": [
+    {
+     "text": "mostly",
+     "startMs": 10560,
+     "endMs": 10980
+    },
+    {
+     "text": "tail.",
+     "startMs": 10980,
+     "endMs": 11820
+    }
+   ]
+  },
+  {
+   "startMs": 11820,
+   "endMs": 12060,
+   "words": [
+    {
+     "text": "Around",
+     "startMs": 11820,
+     "endMs": 12060
+    }
+   ]
+  },
+  {
+   "startMs": 12060,
+   "endMs": 13460,
+   "words": [
+    {
+     "text": "15",
+     "startMs": 12060,
+     "endMs": 12460
+    },
+    {
+     "text": "kilos.",
+     "startMs": 12460,
+     "endMs": 13460
+    }
+   ]
+  },
+  {
+   "startMs": 13460,
+   "endMs": 14140,
+   "words": [
+    {
+     "text": "Turkey",
+     "startMs": 13460,
+     "endMs": 13840
+    },
+    {
+     "text": "sized,",
+     "startMs": 13840,
+     "endMs": 14140
+    }
+   ]
+  },
+  {
+   "startMs": 14140,
+   "endMs": 14860,
+   "words": [
+    {
+     "text": "and",
+     "startMs": 14140,
+     "endMs": 14420
+    },
+    {
+     "text": "covered",
+     "startMs": 14420,
+     "endMs": 14680
+    },
+    {
+     "text": "in",
+     "startMs": 14680,
+     "endMs": 14860
+    }
+   ]
+  },
+  {
+   "startMs": 14860,
+   "endMs": 15660,
+   "words": [
+    {
+     "text": "feathers.",
+     "startMs": 14860,
+     "endMs": 15660
+    }
+   ]
+  },
+  {
+   "startMs": 15660,
+   "endMs": 16340,
+   "words": [
+    {
+     "text": "A",
+     "startMs": 15660,
+     "endMs": 15740
+    },
+    {
+     "text": "male",
+     "startMs": 15740,
+     "endMs": 15940
+    },
+    {
+     "text": "lion",
+     "startMs": 15940,
+     "endMs": 16340
+    }
+   ]
+  },
+  {
+   "startMs": 16340,
+   "endMs": 17520,
+   "words": [
+    {
+     "text": "is",
+     "startMs": 16340,
+     "endMs": 16580
+    },
+    {
+     "text": "around",
+     "startMs": 16580,
+     "endMs": 16820
+    },
+    {
+     "text": "190",
+     "startMs": 16820,
+     "endMs": 17520
+    }
+   ]
+  },
+  {
+   "startMs": 17520,
+   "endMs": 17980,
+   "words": [
+    {
+     "text": "kilos.",
+     "startMs": 17520,
+     "endMs": 17980
+    }
+   ]
+  },
+  {
+   "startMs": 17980,
+   "endMs": 20180,
+   "words": [
+    {
+     "text": "Ten",
+     "startMs": 17980,
+     "endMs": 18820
+    },
+    {
+     "text": "raptors'",
+     "startMs": 18820,
+     "endMs": 19340
+    },
+    {
+     "text": "worth.",
+     "startMs": 19340,
+     "endMs": 20180
+    }
+   ]
+  },
+  {
+   "startMs": 20180,
+   "endMs": 21090,
+   "words": [
+    {
+     "text": "Lion",
+     "startMs": 20180,
+     "endMs": 20500
+    },
+    {
+     "text": "wins.",
+     "startMs": 20500,
+     "endMs": 21090
+    }
+   ]
+  },
+  {
+   "startMs": 21680,
+   "endMs": 21820,
+   "words": [
+    {
+     "text": "But",
+     "startMs": 21680,
+     "endMs": 21820
+    }
+   ]
+  },
+  {
+   "startMs": 21820,
+   "endMs": 22620,
+   "words": [
+    {
+     "text": "the",
+     "startMs": 21820,
+     "endMs": 21920
+    },
+    {
+     "text": "movie",
+     "startMs": 21920,
+     "endMs": 22120
+    },
+    {
+     "text": "raptors",
+     "startMs": 22120,
+     "endMs": 22620
+    }
+   ]
+  },
+  {
+   "startMs": 22620,
+   "endMs": 23300,
+   "words": [
+    {
+     "text": "weren't",
+     "startMs": 22620,
+     "endMs": 22880
+    },
+    {
+     "text": "based",
+     "startMs": 22880,
+     "endMs": 23120
+    },
+    {
+     "text": "on",
+     "startMs": 23120,
+     "endMs": 23300
+    }
+   ]
+  },
+  {
+   "startMs": 23300,
+   "endMs": 24400,
+   "words": [
+    {
+     "text": "Velociraptor.",
+     "startMs": 23300,
+     "endMs": 24400
+    }
+   ]
+  },
+  {
+   "startMs": 24400,
+   "endMs": 24900,
+   "words": [
+    {
+     "text": "They",
+     "startMs": 24400,
+     "endMs": 24540
+    },
+    {
+     "text": "were",
+     "startMs": 24540,
+     "endMs": 24640
+    },
+    {
+     "text": "based",
+     "startMs": 24640,
+     "endMs": 24900
+    }
+   ]
+  },
+  {
+   "startMs": 24900,
+   "endMs": 25420,
+   "words": [
+    {
+     "text": "on",
+     "startMs": 24900,
+     "endMs": 25060
+    },
+    {
+     "text": "its",
+     "startMs": 25060,
+     "endMs": 25180
+    },
+    {
+     "text": "bigger",
+     "startMs": 25180,
+     "endMs": 25420
+    }
+   ]
+  },
+  {
+   "startMs": 25420,
+   "endMs": 25760,
+   "words": [
+    {
+     "text": "cousins.",
+     "startMs": 25420,
+     "endMs": 25760
+    }
+   ]
+  },
+  {
+   "startMs": 25760,
+   "endMs": 26440,
+   "words": [
+    {
+     "text": "The",
+     "startMs": 25760,
+     "endMs": 26440
+    }
+   ]
+  },
+  {
+   "startMs": 26440,
+   "endMs": 27060,
+   "words": [
+    {
+     "text": "biggest",
+     "startMs": 26440,
+     "endMs": 26660
+    },
+    {
+     "text": "was",
+     "startMs": 26660,
+     "endMs": 27060
+    }
+   ]
+  },
+  {
+   "startMs": 27060,
+   "endMs": 28360,
+   "words": [
+    {
+     "text": "Utahraptor.",
+     "startMs": 27060,
+     "endMs": 28360
+    }
+   ]
+  },
+  {
+   "startMs": 28360,
+   "endMs": 29120,
+   "words": [
+    {
+     "text": "About",
+     "startMs": 28360,
+     "endMs": 28560
+    },
+    {
+     "text": "6",
+     "startMs": 28560,
+     "endMs": 28880
+    },
+    {
+     "text": "metres",
+     "startMs": 28880,
+     "endMs": 29120
+    }
+   ]
+  },
+  {
+   "startMs": 29120,
+   "endMs": 29520,
+   "words": [
+    {
+     "text": "long,",
+     "startMs": 29120,
+     "endMs": 29520
+    }
+   ]
+  },
+  {
+   "startMs": 29520,
+   "endMs": 30340,
+   "words": [
+    {
+     "text": "and",
+     "startMs": 29520,
+     "endMs": 29840
+    },
+    {
+     "text": "heavier",
+     "startMs": 29840,
+     "endMs": 30140
+    },
+    {
+     "text": "than",
+     "startMs": 30140,
+     "endMs": 30340
+    }
+   ]
+  },
+  {
+   "startMs": 30340,
+   "endMs": 31240,
+   "words": [
+    {
+     "text": "the",
+     "startMs": 30340,
+     "endMs": 30440
+    },
+    {
+     "text": "lion.",
+     "startMs": 30440,
+     "endMs": 31240
+    }
+   ]
+  },
+  {
+   "startMs": 31240,
+   "endMs": 32020,
+   "words": [
+    {
+     "text": "Its",
+     "startMs": 31240,
+     "endMs": 31340
+    },
+    {
+     "text": "killing",
+     "startMs": 31340,
+     "endMs": 31660
+    },
+    {
+     "text": "claw",
+     "startMs": 31660,
+     "endMs": 32020
+    }
+   ]
+  },
+  {
+   "startMs": 32020,
+   "endMs": 32960,
+   "words": [
+    {
+     "text": "was",
+     "startMs": 32020,
+     "endMs": 32320
+    },
+    {
+     "text": "over",
+     "startMs": 32320,
+     "endMs": 32540
+    },
+    {
+     "text": "20",
+     "startMs": 32540,
+     "endMs": 32960
+    }
+   ]
+  },
+  {
+   "startMs": 32960,
+   "endMs": 33880,
+   "words": [
+    {
+     "text": "centimetres",
+     "startMs": 32960,
+     "endMs": 33380
+    },
+    {
+     "text": "long.",
+     "startMs": 33380,
+     "endMs": 33880
+    }
+   ]
+  },
+  {
+   "startMs": 33880,
+   "endMs": 34600,
+   "words": [
+    {
+     "text": "Utahraptor",
+     "startMs": 33880,
+     "endMs": 34600
+    }
+   ]
+  },
+  {
+   "startMs": 34600,
+   "endMs": 36260,
+   "words": [
+    {
+     "text": "versus",
+     "startMs": 34600,
+     "endMs": 35320
+    },
+    {
+     "text": "a",
+     "startMs": 35320,
+     "endMs": 35560
+    },
+    {
+     "text": "lion.",
+     "startMs": 35560,
+     "endMs": 36260
+    }
+   ]
+  },
+  {
+   "startMs": 36260,
+   "endMs": 37580,
+   "words": [
+    {
+     "text": "Now",
+     "startMs": 36260,
+     "endMs": 36460
+    },
+    {
+     "text": "who",
+     "startMs": 36460,
+     "endMs": 36660
+    },
+    {
+     "text": "wins?",
+     "startMs": 36660,
+     "endMs": 37580
+    }
+   ]
+  },
+  {
+   "startMs": 37580,
+   "endMs": 38350,
+   "words": [
+    {
+     "text": "Tell",
+     "startMs": 37580,
+     "endMs": 37680
+    },
+    {
+     "text": "me",
+     "startMs": 37680,
+     "endMs": 37860
+    },
+    {
+     "text": "below.",
+     "startMs": 37860,
+     "endMs": 38350
+    }
+   ]
+  }
+ ],
+ "narrationSrc": "audio/narration.wav",
+ "musicSrc": "music/fossil_mysteries.mp3",
+ "musicVolume": 0.1,
+ "grain": [
+  "brand/grain_0.png",
+  "brand/grain_1.png",
+  "brand/grain_2.png",
+  "brand/grain_3.png"
+ ],
+ "hookText": "THE REAL RAPTOR LOSES",
+ "dropAt": 21.795
+}

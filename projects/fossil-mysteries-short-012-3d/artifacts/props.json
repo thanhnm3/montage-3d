@@ -1,0 +1,1321 @@
+{
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "totalFrames": 1873,
+ "overlap": 10,
+ "scenes": [
+  {
+   "beat": 1,
+   "startFrame": 0,
+   "durationFrames": 203,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 2,
+   "startFrame": 203,
+   "durationFrames": 131,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 3,
+   "startFrame": 334,
+   "durationFrames": 199,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 4,
+   "startFrame": 533,
+   "durationFrames": 240,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 5,
+   "startFrame": 773,
+   "durationFrames": 119,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 6,
+   "startFrame": 892,
+   "durationFrames": 304,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 7,
+   "startFrame": 1196,
+   "durationFrames": 237,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 8,
+   "startFrame": 1433,
+   "durationFrames": 440,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  }
+ ],
+ "notes": [
+  {
+   "startFrame": 256,
+   "durationFrames": 72,
+   "big": "~1,135 kg",
+   "small": "estimate from vertebrae · Head et al. 2009"
+  },
+  {
+   "startFrame": 623,
+   "durationFrames": 78,
+   "big": "Sanajeh",
+   "small": "67 million years ago · Wilson et al. 2010"
+  },
+  {
+   "startFrame": 1098,
+   "durationFrames": 72,
+   "big": "~7–12 °C",
+   "small": "Hell Creek leaf-fossil estimates"
+  },
+  {
+   "startFrame": 1500,
+   "durationFrames": 78,
+   "big": "survivors",
+   "small": "every living snake descends from a few · Klein 2021"
+  }
+ ],
+ "endCard": {
+  "startFrame": 1747,
+  "durationFrames": 126,
+  "label": "YOUR PICK  ·  COMMENTS ↓",
+  "name": "Which animal should we drop in next?"
+ },
+ "karaoke": [
+  {
+   "startMs": 0,
+   "endMs": 820,
+   "words": [
+    {
+     "text": "The",
+     "startMs": 0,
+     "endMs": 140
+    },
+    {
+     "text": "biggest",
+     "startMs": 140,
+     "endMs": 420
+    },
+    {
+     "text": "snake",
+     "startMs": 420,
+     "endMs": 820
+    }
+   ]
+  },
+  {
+   "startMs": 820,
+   "endMs": 1800,
+   "words": [
+    {
+     "text": "that",
+     "startMs": 820,
+     "endMs": 1120
+    },
+    {
+     "text": "ever",
+     "startMs": 1120,
+     "endMs": 1440
+    },
+    {
+     "text": "lived",
+     "startMs": 1440,
+     "endMs": 1800
+    }
+   ]
+  },
+  {
+   "startMs": 1800,
+   "endMs": 2840,
+   "words": [
+    {
+     "text": "missed",
+     "startMs": 1800,
+     "endMs": 2140
+    },
+    {
+     "text": "the",
+     "startMs": 2140,
+     "endMs": 2340
+    },
+    {
+     "text": "dinosaurs",
+     "startMs": 2340,
+     "endMs": 2840
+    }
+   ]
+  },
+  {
+   "startMs": 2840,
+   "endMs": 3820,
+   "words": [
+    {
+     "text": "by",
+     "startMs": 2840,
+     "endMs": 3140
+    },
+    {
+     "text": "6",
+     "startMs": 3140,
+     "endMs": 3500
+    },
+    {
+     "text": "million",
+     "startMs": 3500,
+     "endMs": 3820
+    }
+   ]
+  },
+  {
+   "startMs": 3820,
+   "endMs": 4940,
+   "words": [
+    {
+     "text": "years.",
+     "startMs": 3820,
+     "endMs": 4940
+    }
+   ]
+  },
+  {
+   "startMs": 4940,
+   "endMs": 5820,
+   "words": [
+    {
+     "text": "So",
+     "startMs": 4940,
+     "endMs": 5260
+    },
+    {
+     "text": "let's",
+     "startMs": 5260,
+     "endMs": 5620
+    },
+    {
+     "text": "send",
+     "startMs": 5620,
+     "endMs": 5820
+    }
+   ]
+  },
+  {
+   "startMs": 5820,
+   "endMs": 6740,
+   "words": [
+    {
+     "text": "it",
+     "startMs": 5820,
+     "endMs": 6000
+    },
+    {
+     "text": "back.",
+     "startMs": 6000,
+     "endMs": 6740
+    }
+   ]
+  },
+  {
+   "startMs": 6740,
+   "endMs": 7060,
+   "words": [
+    {
+     "text": "13",
+     "startMs": 6740,
+     "endMs": 7060
+    }
+   ]
+  },
+  {
+   "startMs": 7060,
+   "endMs": 8040,
+   "words": [
+    {
+     "text": "meters.",
+     "startMs": 7060,
+     "endMs": 8040
+    }
+   ]
+  },
+  {
+   "startMs": 8040,
+   "endMs": 8950,
+   "words": [
+    {
+     "text": "Over",
+     "startMs": 8040,
+     "endMs": 8320
+    },
+    {
+     "text": "a",
+     "startMs": 8320,
+     "endMs": 8540
+    },
+    {
+     "text": "ton.",
+     "startMs": 8540,
+     "endMs": 8950
+    }
+   ]
+  },
+  {
+   "startMs": 9620,
+   "endMs": 10100,
+   "words": [
+    {
+     "text": "As",
+     "startMs": 9620,
+     "endMs": 9780
+    },
+    {
+     "text": "long",
+     "startMs": 9780,
+     "endMs": 9960
+    },
+    {
+     "text": "as",
+     "startMs": 9960,
+     "endMs": 10100
+    }
+   ]
+  },
+  {
+   "startMs": 10100,
+   "endMs": 10360,
+   "words": [
+    {
+     "text": "a",
+     "startMs": 10100,
+     "endMs": 10200
+    },
+    {
+     "text": "T.",
+     "startMs": 10200,
+     "endMs": 10360
+    }
+   ]
+  },
+  {
+   "startMs": 10360,
+   "endMs": 11100,
+   "words": [
+    {
+     "text": "rex.",
+     "startMs": 10360,
+     "endMs": 11100
+    }
+   ]
+  },
+  {
+   "startMs": 11100,
+   "endMs": 11620,
+   "words": [
+    {
+     "text": "66",
+     "startMs": 11100,
+     "endMs": 11620
+    }
+   ]
+  },
+  {
+   "startMs": 11620,
+   "endMs": 13020,
+   "words": [
+    {
+     "text": "million",
+     "startMs": 11620,
+     "endMs": 12040
+    },
+    {
+     "text": "years",
+     "startMs": 12040,
+     "endMs": 12320
+    },
+    {
+     "text": "ago,",
+     "startMs": 12320,
+     "endMs": 13020
+    }
+   ]
+  },
+  {
+   "startMs": 13020,
+   "endMs": 13160,
+   "words": [
+    {
+     "text": "T.",
+     "startMs": 13020,
+     "endMs": 13160
+    }
+   ]
+  },
+  {
+   "startMs": 13160,
+   "endMs": 14600,
+   "words": [
+    {
+     "text": "rex's",
+     "startMs": 13160,
+     "endMs": 13600
+    },
+    {
+     "text": "river.",
+     "startMs": 13600,
+     "endMs": 14600
+    }
+   ]
+  },
+  {
+   "startMs": 14600,
+   "endMs": 15880,
+   "words": [
+    {
+     "text": "Plenty",
+     "startMs": 14600,
+     "endMs": 14940
+    },
+    {
+     "text": "of",
+     "startMs": 14940,
+     "endMs": 15140
+    },
+    {
+     "text": "fish.",
+     "startMs": 15140,
+     "endMs": 15880
+    }
+   ]
+  },
+  {
+   "startMs": 15880,
+   "endMs": 16620,
+   "words": [
+    {
+     "text": "Plenty",
+     "startMs": 15880,
+     "endMs": 16180
+    },
+    {
+     "text": "of",
+     "startMs": 16180,
+     "endMs": 16400
+    },
+    {
+     "text": "baby",
+     "startMs": 16400,
+     "endMs": 16620
+    }
+   ]
+  },
+  {
+   "startMs": 16620,
+   "endMs": 17700,
+   "words": [
+    {
+     "text": "dinosaurs.",
+     "startMs": 16620,
+     "endMs": 17700
+    }
+   ]
+  },
+  {
+   "startMs": 17700,
+   "endMs": 17880,
+   "words": [
+    {
+     "text": "And",
+     "startMs": 17700,
+     "endMs": 17880
+    }
+   ]
+  },
+  {
+   "startMs": 17880,
+   "endMs": 18800,
+   "words": [
+    {
+     "text": "snakes",
+     "startMs": 17880,
+     "endMs": 18140
+    },
+    {
+     "text": "really",
+     "startMs": 18140,
+     "endMs": 18500
+    },
+    {
+     "text": "did",
+     "startMs": 18500,
+     "endMs": 18800
+    }
+   ]
+  },
+  {
+   "startMs": 18800,
+   "endMs": 19910,
+   "words": [
+    {
+     "text": "eat",
+     "startMs": 18800,
+     "endMs": 19080
+    },
+    {
+     "text": "dinosaurs.",
+     "startMs": 19080,
+     "endMs": 19910
+    }
+   ]
+  },
+  {
+   "startMs": 20520,
+   "endMs": 21100,
+   "words": [
+    {
+     "text": "In",
+     "startMs": 20520,
+     "endMs": 20780
+    },
+    {
+     "text": "India,",
+     "startMs": 20780,
+     "endMs": 21100
+    }
+   ]
+  },
+  {
+   "startMs": 21100,
+   "endMs": 21880,
+   "words": [
+    {
+     "text": "one",
+     "startMs": 21100,
+     "endMs": 21400
+    },
+    {
+     "text": "was",
+     "startMs": 21400,
+     "endMs": 21660
+    },
+    {
+     "text": "found",
+     "startMs": 21660,
+     "endMs": 21880
+    }
+   ]
+  },
+  {
+   "startMs": 21880,
+   "endMs": 22780,
+   "words": [
+    {
+     "text": "coiled",
+     "startMs": 21880,
+     "endMs": 22320
+    },
+    {
+     "text": "around",
+     "startMs": 22320,
+     "endMs": 22580
+    },
+    {
+     "text": "a",
+     "startMs": 22580,
+     "endMs": 22780
+    }
+   ]
+  },
+  {
+   "startMs": 22780,
+   "endMs": 24000,
+   "words": [
+    {
+     "text": "dinosaur",
+     "startMs": 22780,
+     "endMs": 23120
+    },
+    {
+     "text": "nest,",
+     "startMs": 23120,
+     "endMs": 24000
+    }
+   ]
+  },
+  {
+   "startMs": 24000,
+   "endMs": 24780,
+   "words": [
+    {
+     "text": "right",
+     "startMs": 24000,
+     "endMs": 24260
+    },
+    {
+     "text": "next",
+     "startMs": 24260,
+     "endMs": 24540
+    },
+    {
+     "text": "to",
+     "startMs": 24540,
+     "endMs": 24780
+    }
+   ]
+  },
+  {
+   "startMs": 24780,
+   "endMs": 25720,
+   "words": [
+    {
+     "text": "a",
+     "startMs": 24780,
+     "endMs": 24860
+    },
+    {
+     "text": "hatchling.",
+     "startMs": 24860,
+     "endMs": 25720
+    }
+   ]
+  },
+  {
+   "startMs": 25720,
+   "endMs": 25920,
+   "words": [
+    {
+     "text": "So",
+     "startMs": 25720,
+     "endMs": 25920
+    }
+   ]
+  },
+  {
+   "startMs": 25920,
+   "endMs": 26580,
+   "words": [
+    {
+     "text": "our",
+     "startMs": 25920,
+     "endMs": 26080
+    },
+    {
+     "text": "snake",
+     "startMs": 26080,
+     "endMs": 26280
+    },
+    {
+     "text": "rules",
+     "startMs": 26280,
+     "endMs": 26580
+    }
+   ]
+  },
+  {
+   "startMs": 26580,
+   "endMs": 27340,
+   "words": [
+    {
+     "text": "the",
+     "startMs": 26580,
+     "endMs": 26780
+    },
+    {
+     "text": "river,",
+     "startMs": 26780,
+     "endMs": 27340
+    }
+   ]
+  },
+  {
+   "startMs": 27340,
+   "endMs": 27810,
+   "words": [
+    {
+     "text": "right?",
+     "startMs": 27340,
+     "endMs": 27810
+    }
+   ]
+  },
+  {
+   "startMs": 28400,
+   "endMs": 29793,
+   "words": [
+    {
+     "text": "Not",
+     "startMs": 28400,
+     "endMs": 28660
+    },
+    {
+     "text": "so",
+     "startMs": 28660,
+     "endMs": 28900
+    },
+    {
+     "text": "fast.",
+     "startMs": 28900,
+     "endMs": 29793
+    }
+   ]
+  },
+  {
+   "startMs": 29793,
+   "endMs": 30360,
+   "words": [
+    {
+     "text": "Titanoboa",
+     "startMs": 29793,
+     "endMs": 30360
+    }
+   ]
+  },
+  {
+   "startMs": 30360,
+   "endMs": 31240,
+   "words": [
+    {
+     "text": "grew",
+     "startMs": 30360,
+     "endMs": 30680
+    },
+    {
+     "text": "this",
+     "startMs": 30680,
+     "endMs": 30980
+    },
+    {
+     "text": "big",
+     "startMs": 30980,
+     "endMs": 31240
+    }
+   ]
+  },
+  {
+   "startMs": 31240,
+   "endMs": 31800,
+   "words": [
+    {
+     "text": "in",
+     "startMs": 31240,
+     "endMs": 31380
+    },
+    {
+     "text": "a",
+     "startMs": 31380,
+     "endMs": 31480
+    },
+    {
+     "text": "jungle",
+     "startMs": 31480,
+     "endMs": 31800
+    }
+   ]
+  },
+  {
+   "startMs": 31800,
+   "endMs": 32980,
+   "words": [
+    {
+     "text": "around",
+     "startMs": 31800,
+     "endMs": 32220
+    },
+    {
+     "text": "30",
+     "startMs": 32220,
+     "endMs": 32620
+    },
+    {
+     "text": "degrees,",
+     "startMs": 32620,
+     "endMs": 32980
+    }
+   ]
+  },
+  {
+   "startMs": 32980,
+   "endMs": 34050,
+   "words": [
+    {
+     "text": "all",
+     "startMs": 32980,
+     "endMs": 33460
+    },
+    {
+     "text": "year.",
+     "startMs": 33460,
+     "endMs": 34050
+    }
+   ]
+  },
+  {
+   "startMs": 35130,
+   "endMs": 36110,
+   "words": [
+    {
+     "text": "This",
+     "startMs": 35130,
+     "endMs": 35350
+    },
+    {
+     "text": "river?",
+     "startMs": 35350,
+     "endMs": 36110
+    }
+   ]
+  },
+  {
+   "startMs": 36110,
+   "endMs": 37470,
+   "words": [
+    {
+     "text": "Closer",
+     "startMs": 36110,
+     "endMs": 36490
+    },
+    {
+     "text": "to",
+     "startMs": 36490,
+     "endMs": 36610
+    },
+    {
+     "text": "10.",
+     "startMs": 36610,
+     "endMs": 37470
+    }
+   ]
+  },
+  {
+   "startMs": 37470,
+   "endMs": 38190,
+   "words": [
+    {
+     "text": "A",
+     "startMs": 37470,
+     "endMs": 37690
+    },
+    {
+     "text": "cold",
+     "startMs": 37690,
+     "endMs": 37890
+    },
+    {
+     "text": "snake",
+     "startMs": 37890,
+     "endMs": 38190
+    }
+   ]
+  },
+  {
+   "startMs": 38190,
+   "endMs": 38810,
+   "words": [
+    {
+     "text": "is",
+     "startMs": 38190,
+     "endMs": 38450
+    },
+    {
+     "text": "a",
+     "startMs": 38450,
+     "endMs": 38570
+    },
+    {
+     "text": "slow",
+     "startMs": 38570,
+     "endMs": 38810
+    }
+   ]
+  },
+  {
+   "startMs": 38810,
+   "endMs": 39770,
+   "words": [
+    {
+     "text": "snake.",
+     "startMs": 38810,
+     "endMs": 39770
+    }
+   ]
+  },
+  {
+   "startMs": 39770,
+   "endMs": 40650,
+   "words": [
+    {
+     "text": "Slow,",
+     "startMs": 39770,
+     "endMs": 40650
+    }
+   ]
+  },
+  {
+   "startMs": 40650,
+   "endMs": 41590,
+   "words": [
+    {
+     "text": "on",
+     "startMs": 40650,
+     "endMs": 40830
+    },
+    {
+     "text": "the",
+     "startMs": 40830,
+     "endMs": 40930
+    },
+    {
+     "text": "bank,",
+     "startMs": 40930,
+     "endMs": 41590
+    }
+   ]
+  },
+  {
+   "startMs": 41590,
+   "endMs": 42030,
+   "words": [
+    {
+     "text": "next",
+     "startMs": 41590,
+     "endMs": 41750
+    },
+    {
+     "text": "to",
+     "startMs": 41750,
+     "endMs": 41950
+    },
+    {
+     "text": "an",
+     "startMs": 41950,
+     "endMs": 42030
+    }
+   ]
+  },
+  {
+   "startMs": 42030,
+   "endMs": 42670,
+   "words": [
+    {
+     "text": "8",
+     "startMs": 42030,
+     "endMs": 42150
+    },
+    {
+     "text": "ton",
+     "startMs": 42150,
+     "endMs": 42370
+    },
+    {
+     "text": "T.",
+     "startMs": 42370,
+     "endMs": 42670
+    }
+   ]
+  },
+  {
+   "startMs": 42670,
+   "endMs": 43470,
+   "words": [
+    {
+     "text": "rex.",
+     "startMs": 42670,
+     "endMs": 43470
+    }
+   ]
+  },
+  {
+   "startMs": 43470,
+   "endMs": 44550,
+   "words": [
+    {
+     "text": "Then",
+     "startMs": 43470,
+     "endMs": 43810
+    },
+    {
+     "text": "the",
+     "startMs": 43810,
+     "endMs": 44170
+    },
+    {
+     "text": "asteroid",
+     "startMs": 44170,
+     "endMs": 44550
+    }
+   ]
+  },
+  {
+   "startMs": 44550,
+   "endMs": 45590,
+   "words": [
+    {
+     "text": "hit.",
+     "startMs": 44550,
+     "endMs": 45590
+    }
+   ]
+  },
+  {
+   "startMs": 45590,
+   "endMs": 46410,
+   "words": [
+    {
+     "text": "Every",
+     "startMs": 45590,
+     "endMs": 45870
+    },
+    {
+     "text": "giant",
+     "startMs": 45870,
+     "endMs": 46170
+    },
+    {
+     "text": "on",
+     "startMs": 46170,
+     "endMs": 46410
+    }
+   ]
+  },
+  {
+   "startMs": 46410,
+   "endMs": 47050,
+   "words": [
+    {
+     "text": "land,",
+     "startMs": 46410,
+     "endMs": 47050
+    }
+   ]
+  },
+  {
+   "startMs": 47050,
+   "endMs": 47750,
+   "words": [
+    {
+     "text": "gone.",
+     "startMs": 47050,
+     "endMs": 47750
+    }
+   ]
+  },
+  {
+   "startMs": 47750,
+   "endMs": 47870,
+   "words": [
+    {
+     "text": "The",
+     "startMs": 47750,
+     "endMs": 47870
+    }
+   ]
+  },
+  {
+   "startMs": 47870,
+   "endMs": 48650,
+   "words": [
+    {
+     "text": "snakes",
+     "startMs": 47870,
+     "endMs": 48150
+    },
+    {
+     "text": "that",
+     "startMs": 48150,
+     "endMs": 48410
+    },
+    {
+     "text": "made",
+     "startMs": 48410,
+     "endMs": 48650
+    }
+   ]
+  },
+  {
+   "startMs": 48650,
+   "endMs": 49510,
+   "words": [
+    {
+     "text": "it",
+     "startMs": 48650,
+     "endMs": 48830
+    },
+    {
+     "text": "hid",
+     "startMs": 48830,
+     "endMs": 49010
+    },
+    {
+     "text": "underground",
+     "startMs": 49010,
+     "endMs": 49510
+    }
+   ]
+  },
+  {
+   "startMs": 49510,
+   "endMs": 50350,
+   "words": [
+    {
+     "text": "and",
+     "startMs": 49510,
+     "endMs": 49850
+    },
+    {
+     "text": "went",
+     "startMs": 49850,
+     "endMs": 50010
+    },
+    {
+     "text": "months",
+     "startMs": 50010,
+     "endMs": 50350
+    }
+   ]
+  },
+  {
+   "startMs": 50350,
+   "endMs": 51690,
+   "words": [
+    {
+     "text": "without",
+     "startMs": 50350,
+     "endMs": 50710
+    },
+    {
+     "text": "food.",
+     "startMs": 50710,
+     "endMs": 51690
+    }
+   ]
+  },
+  {
+   "startMs": 51690,
+   "endMs": 52750,
+   "words": [
+    {
+     "text": "Titanoboa",
+     "startMs": 51690,
+     "endMs": 52270
+    },
+    {
+     "text": "grew",
+     "startMs": 52270,
+     "endMs": 52550
+    },
+    {
+     "text": "from",
+     "startMs": 52550,
+     "endMs": 52750
+    }
+   ]
+  },
+  {
+   "startMs": 52750,
+   "endMs": 53390,
+   "words": [
+    {
+     "text": "them.",
+     "startMs": 52750,
+     "endMs": 53390
+    }
+   ]
+  },
+  {
+   "startMs": 53390,
+   "endMs": 53870,
+   "words": [
+    {
+     "text": "So",
+     "startMs": 53390,
+     "endMs": 53570
+    },
+    {
+     "text": "could",
+     "startMs": 53570,
+     "endMs": 53750
+    },
+    {
+     "text": "it",
+     "startMs": 53750,
+     "endMs": 53870
+    }
+   ]
+  },
+  {
+   "startMs": 53870,
+   "endMs": 54770,
+   "words": [
+    {
+     "text": "survive",
+     "startMs": 53870,
+     "endMs": 54130
+    },
+    {
+     "text": "the",
+     "startMs": 54130,
+     "endMs": 54410
+    },
+    {
+     "text": "dinosaur",
+     "startMs": 54410,
+     "endMs": 54770
+    }
+   ]
+  },
+  {
+   "startMs": 54770,
+   "endMs": 55650,
+   "words": [
+    {
+     "text": "era?",
+     "startMs": 54770,
+     "endMs": 55650
+    }
+   ]
+  },
+  {
+   "startMs": 55650,
+   "endMs": 55910,
+   "words": [
+    {
+     "text": "No.",
+     "startMs": 55650,
+     "endMs": 55910
+    }
+   ]
+  },
+  {
+   "startMs": 55910,
+   "endMs": 56910,
+   "words": [
+    {
+     "text": "It",
+     "startMs": 55910,
+     "endMs": 56550
+    },
+    {
+     "text": "had",
+     "startMs": 56550,
+     "endMs": 56730
+    },
+    {
+     "text": "to",
+     "startMs": 56730,
+     "endMs": 56910
+    }
+   ]
+  },
+  {
+   "startMs": 56910,
+   "endMs": 57430,
+   "words": [
+    {
+     "text": "wait",
+     "startMs": 56910,
+     "endMs": 57070
+    },
+    {
+     "text": "for",
+     "startMs": 57070,
+     "endMs": 57290
+    },
+    {
+     "text": "them",
+     "startMs": 57290,
+     "endMs": 57430
+    }
+   ]
+  },
+  {
+   "startMs": 57430,
+   "endMs": 58550,
+   "words": [
+    {
+     "text": "to",
+     "startMs": 57430,
+     "endMs": 57570
+    },
+    {
+     "text": "disappear.",
+     "startMs": 57570,
+     "endMs": 58550
+    }
+   ]
+  },
+  {
+   "startMs": 58550,
+   "endMs": 59410,
+   "words": [
+    {
+     "text": "Which",
+     "startMs": 58550,
+     "endMs": 58830
+    },
+    {
+     "text": "animal",
+     "startMs": 58830,
+     "endMs": 59150
+    },
+    {
+     "text": "should",
+     "startMs": 59150,
+     "endMs": 59410
+    }
+   ]
+  },
+  {
+   "startMs": 59410,
+   "endMs": 59930,
+   "words": [
+    {
+     "text": "we",
+     "startMs": 59410,
+     "endMs": 59550
+    },
+    {
+     "text": "drop",
+     "startMs": 59550,
+     "endMs": 59730
+    },
+    {
+     "text": "in",
+     "startMs": 59730,
+     "endMs": 59930
+    }
+   ]
+  },
+  {
+   "startMs": 59930,
+   "endMs": 60500,
+   "words": [
+    {
+     "text": "next?",
+     "startMs": 59930,
+     "endMs": 60500
+    }
+   ]
+  }
+ ],
+ "narrationSrc": "audio/narration.wav",
+ "musicSrc": "music/fossil_mysteries.mp3",
+ "musicVolume": 0.1,
+ "grain": [
+  "brand/grain_0.png",
+  "brand/grain_1.png",
+  "brand/grain_2.png",
+  "brand/grain_3.png"
+ ],
+ "hookText": "TITANOBOA VS DINOSAUR ERA",
+ "dropAt": 39.918
+}

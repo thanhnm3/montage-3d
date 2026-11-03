@@ -1,0 +1,5 @@
+{"cues": [
+ {"file": "music/hook_curious_bounce.mp3", "from_s": 0, "at_s": 0, "until_s": 13.4, "gain_db": -23.5},
+ {"file": "music/body_light_steady.mp3", "from_s": 10, "at_s": 13.0, "until_s": 27.9, "gain_db": -26.5},
+ {"file": "music/twist_suspense_break.mp3", "from_s": 87.2, "at_s": 27.7, "until_s": 32.2, "gain_db": -21.5}
+]}

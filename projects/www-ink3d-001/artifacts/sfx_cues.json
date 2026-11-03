@@ -1,0 +1,109 @@
+{
+ "cues": [
+  {
+   "file": "D:/youtube/tts/assets/sfx/soft_whoosh.wav",
+   "at_s": 4.3,
+   "gain_db": -16
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/pop_click.wav",
+   "at_s": 7.28,
+   "gain_db": -12
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/swoosh_reverse.wav",
+   "at_s": 8.1,
+   "gain_db": -18
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/whoosh.wav",
+   "at_s": 9.62,
+   "gain_db": -14
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/bell_ding.wav",
+   "at_s": 10.82,
+   "gain_db": -20
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/water_splash.wav",
+   "at_s": 13.92,
+   "gain_db": -20
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/water_splash.wav",
+   "at_s": 14.92,
+   "gain_db": -21
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/bubble_pop.wav",
+   "at_s": 15.56,
+   "gain_db": -16
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/water_splash.wav",
+   "at_s": 16.44,
+   "gain_db": -19
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/soft_whoosh.wav",
+   "at_s": 17.08,
+   "gain_db": -18
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/soft_whoosh.wav",
+   "at_s": 19.98,
+   "gain_db": -18
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/bubble_pop.wav",
+   "at_s": 20.9,
+   "gain_db": -18
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/magic_chime.wav",
+   "at_s": 22.16,
+   "gain_db": -16
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/swoosh_reverse.wav",
+   "at_s": 23.7,
+   "gain_db": -14
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/pop_click.wav",
+   "at_s": 25.1,
+   "gain_db": -14
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/wind_howl.wav",
+   "at_s": 25.84,
+   "gain_db": -24
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/sub_impact.wav",
+   "at_s": 29.4,
+   "gain_db": -8
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/deep_thud.wav",
+   "at_s": 29.42,
+   "gain_db": -12
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/magic_chime.wav",
+   "at_s": 31.5,
+   "gain_db": -15
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/deep_thud.wav",
+   "at_s": 34.75,
+   "gain_db": -18
+  },
+  {
+   "file": "D:/youtube/tts/assets/sfx/deep_thud.wav",
+   "at_s": 35.35,
+   "gain_db": -20
+  }
+ ]
+}

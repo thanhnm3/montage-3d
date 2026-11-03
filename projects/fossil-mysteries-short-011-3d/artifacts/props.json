@@ -1,0 +1,957 @@
+{
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "totalFrames": 1276,
+ "overlap": 10,
+ "scenes": [
+  {
+   "beat": 1,
+   "startFrame": 0,
+   "durationFrames": 133,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 2,
+   "startFrame": 133,
+   "durationFrames": 133,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 3,
+   "startFrame": 266,
+   "durationFrames": 134,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 4,
+   "startFrame": 400,
+   "durationFrames": 173,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 5,
+   "startFrame": 573,
+   "durationFrames": 95,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 6,
+   "startFrame": 668,
+   "durationFrames": 183,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 7,
+   "startFrame": 851,
+   "durationFrames": 179,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 8,
+   "startFrame": 1030,
+   "durationFrames": 246,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  }
+ ],
+ "notes": [
+  {
+   "startFrame": 212,
+   "durationFrames": 50,
+   "big": "3,700 psi",
+   "small": "highest bite force ever measured · Erickson 2012"
+  },
+  {
+   "startFrame": 450,
+   "durationFrames": 72,
+   "big": "~7.7 m",
+   "small": "2025 estimate · older books said 12 m"
+  },
+  {
+   "startFrame": 544,
+   "durationFrames": 27,
+   "big": "bite marks",
+   "small": "on duck-billed dinosaur tail bones"
+  },
+  {
+   "startFrame": 988,
+   "durationFrames": 39,
+   "big": "months",
+   "small": "without food · low-energy cold blood"
+  }
+ ],
+ "endCard": {
+  "startFrame": 1150,
+  "durationFrames": 126,
+  "label": "YOUR PICK  ·  COMMENTS ↓",
+  "name": "Which animal should we drop in next?"
+ },
+ "karaoke": [
+  {
+   "startMs": 0,
+   "endMs": 580,
+   "words": [
+    {
+     "text": "Drop",
+     "startMs": 0,
+     "endMs": 180
+    },
+    {
+     "text": "the",
+     "startMs": 180,
+     "endMs": 360
+    },
+    {
+     "text": "biggest",
+     "startMs": 360,
+     "endMs": 580
+    }
+   ]
+  },
+  {
+   "startMs": 580,
+   "endMs": 1740,
+   "words": [
+    {
+     "text": "crocodile",
+     "startMs": 580,
+     "endMs": 980
+    },
+    {
+     "text": "alive",
+     "startMs": 980,
+     "endMs": 1460
+    },
+    {
+     "text": "into",
+     "startMs": 1460,
+     "endMs": 1740
+    }
+   ]
+  },
+  {
+   "startMs": 1740,
+   "endMs": 2200,
+   "words": [
+    {
+     "text": "the",
+     "startMs": 1740,
+     "endMs": 1880
+    },
+    {
+     "text": "age",
+     "startMs": 1880,
+     "endMs": 2100
+    },
+    {
+     "text": "of",
+     "startMs": 2100,
+     "endMs": 2200
+    }
+   ]
+  },
+  {
+   "startMs": 2200,
+   "endMs": 3200,
+   "words": [
+    {
+     "text": "dinosaurs.",
+     "startMs": 2200,
+     "endMs": 3200
+    }
+   ]
+  },
+  {
+   "startMs": 3200,
+   "endMs": 4500,
+   "words": [
+    {
+     "text": "Does",
+     "startMs": 3200,
+     "endMs": 3400
+    },
+    {
+     "text": "it",
+     "startMs": 3400,
+     "endMs": 3540
+    },
+    {
+     "text": "survive?",
+     "startMs": 3540,
+     "endMs": 4500
+    }
+   ]
+  },
+  {
+   "startMs": 4500,
+   "endMs": 5600,
+   "words": [
+    {
+     "text": "6",
+     "startMs": 4500,
+     "endMs": 4700
+    },
+    {
+     "text": "meters.",
+     "startMs": 4700,
+     "endMs": 5600
+    }
+   ]
+  },
+  {
+   "startMs": 5600,
+   "endMs": 6200,
+   "words": [
+    {
+     "text": "A",
+     "startMs": 5600,
+     "endMs": 5760
+    },
+    {
+     "text": "ton",
+     "startMs": 5760,
+     "endMs": 5960
+    },
+    {
+     "text": "of",
+     "startMs": 5960,
+     "endMs": 6200
+    }
+   ]
+  },
+  {
+   "startMs": 6200,
+   "endMs": 6960,
+   "words": [
+    {
+     "text": "armor.",
+     "startMs": 6200,
+     "endMs": 6960
+    }
+   ]
+  },
+  {
+   "startMs": 6960,
+   "endMs": 7700,
+   "words": [
+    {
+     "text": "The",
+     "startMs": 6960,
+     "endMs": 7080
+    },
+    {
+     "text": "strongest",
+     "startMs": 7080,
+     "endMs": 7360
+    },
+    {
+     "text": "bite",
+     "startMs": 7360,
+     "endMs": 7700
+    }
+   ]
+  },
+  {
+   "startMs": 7700,
+   "endMs": 8880,
+   "words": [
+    {
+     "text": "ever",
+     "startMs": 7700,
+     "endMs": 8080
+    },
+    {
+     "text": "measured.",
+     "startMs": 8080,
+     "endMs": 8880
+    }
+   ]
+  },
+  {
+   "startMs": 8880,
+   "endMs": 10060,
+   "words": [
+    {
+     "text": "75",
+     "startMs": 8880,
+     "endMs": 9380
+    },
+    {
+     "text": "million",
+     "startMs": 9380,
+     "endMs": 9780
+    },
+    {
+     "text": "years",
+     "startMs": 9780,
+     "endMs": 10060
+    }
+   ]
+  },
+  {
+   "startMs": 10060,
+   "endMs": 10700,
+   "words": [
+    {
+     "text": "ago,",
+     "startMs": 10060,
+     "endMs": 10700
+    }
+   ]
+  },
+  {
+   "startMs": 10700,
+   "endMs": 11300,
+   "words": [
+    {
+     "text": "this",
+     "startMs": 10700,
+     "endMs": 10880
+    },
+    {
+     "text": "river",
+     "startMs": 10880,
+     "endMs": 11100
+    },
+    {
+     "text": "looks",
+     "startMs": 11100,
+     "endMs": 11300
+    }
+   ]
+  },
+  {
+   "startMs": 11300,
+   "endMs": 11980,
+   "words": [
+    {
+     "text": "easy.",
+     "startMs": 11300,
+     "endMs": 11980
+    }
+   ]
+  },
+  {
+   "startMs": 11980,
+   "endMs": 12600,
+   "words": [
+    {
+     "text": "Until",
+     "startMs": 11980,
+     "endMs": 12200
+    },
+    {
+     "text": "the",
+     "startMs": 12200,
+     "endMs": 12380
+    },
+    {
+     "text": "water",
+     "startMs": 12380,
+     "endMs": 12600
+    }
+   ]
+  },
+  {
+   "startMs": 12600,
+   "endMs": 13393,
+   "words": [
+    {
+     "text": "moves.",
+     "startMs": 12600,
+     "endMs": 13393
+    }
+   ]
+  },
+  {
+   "startMs": 13393,
+   "endMs": 15000,
+   "words": [
+    {
+     "text": "Deinosuchus.",
+     "startMs": 13393,
+     "endMs": 15000
+    }
+   ]
+  },
+  {
+   "startMs": 15000,
+   "endMs": 15700,
+   "words": [
+    {
+     "text": "Bigger,",
+     "startMs": 15000,
+     "endMs": 15700
+    }
+   ]
+  },
+  {
+   "startMs": 15700,
+   "endMs": 16180,
+   "words": [
+    {
+     "text": "heavier,",
+     "startMs": 15700,
+     "endMs": 16180
+    }
+   ]
+  },
+  {
+   "startMs": 16180,
+   "endMs": 16960,
+   "words": [
+    {
+     "text": "and",
+     "startMs": 16180,
+     "endMs": 16240
+    },
+    {
+     "text": "dinosaur",
+     "startMs": 16240,
+     "endMs": 16600
+    },
+    {
+     "text": "bones",
+     "startMs": 16600,
+     "endMs": 16960
+    }
+   ]
+  },
+  {
+   "startMs": 16960,
+   "endMs": 17620,
+   "words": [
+    {
+     "text": "from",
+     "startMs": 16960,
+     "endMs": 17140
+    },
+    {
+     "text": "this",
+     "startMs": 17140,
+     "endMs": 17320
+    },
+    {
+     "text": "time",
+     "startMs": 17320,
+     "endMs": 17620
+    }
+   ]
+  },
+  {
+   "startMs": 17620,
+   "endMs": 18320,
+   "words": [
+    {
+     "text": "carry",
+     "startMs": 17620,
+     "endMs": 17940
+    },
+    {
+     "text": "its",
+     "startMs": 17940,
+     "endMs": 18120
+    },
+    {
+     "text": "bite",
+     "startMs": 18120,
+     "endMs": 18320
+    }
+   ]
+  },
+  {
+   "startMs": 18320,
+   "endMs": 19100,
+   "words": [
+    {
+     "text": "marks.",
+     "startMs": 18320,
+     "endMs": 19100
+    }
+   ]
+  },
+  {
+   "startMs": 19100,
+   "endMs": 19240,
+   "words": [
+    {
+     "text": "So",
+     "startMs": 19100,
+     "endMs": 19240
+    }
+   ]
+  },
+  {
+   "startMs": 19240,
+   "endMs": 19760,
+   "words": [
+    {
+     "text": "our",
+     "startMs": 19240,
+     "endMs": 19340
+    },
+    {
+     "text": "croc",
+     "startMs": 19340,
+     "endMs": 19660
+    },
+    {
+     "text": "is",
+     "startMs": 19660,
+     "endMs": 19760
+    }
+   ]
+  },
+  {
+   "startMs": 19760,
+   "endMs": 20540,
+   "words": [
+    {
+     "text": "the",
+     "startMs": 19760,
+     "endMs": 19900
+    },
+    {
+     "text": "snack,",
+     "startMs": 19900,
+     "endMs": 20540
+    }
+   ]
+  },
+  {
+   "startMs": 20540,
+   "endMs": 21000,
+   "words": [
+    {
+     "text": "right?",
+     "startMs": 20540,
+     "endMs": 21000
+    }
+   ]
+  },
+  {
+   "startMs": 21000,
+   "endMs": 22220,
+   "words": [
+    {
+     "text": "Not",
+     "startMs": 21000,
+     "endMs": 21060
+    },
+    {
+     "text": "so",
+     "startMs": 21060,
+     "endMs": 21280
+    },
+    {
+     "text": "fast.",
+     "startMs": 21280,
+     "endMs": 22220
+    }
+   ]
+  },
+  {
+   "startMs": 22220,
+   "endMs": 22680,
+   "words": [
+    {
+     "text": "66",
+     "startMs": 22220,
+     "endMs": 22680
+    }
+   ]
+  },
+  {
+   "startMs": 22680,
+   "endMs": 23660,
+   "words": [
+    {
+     "text": "million",
+     "startMs": 22680,
+     "endMs": 23100
+    },
+    {
+     "text": "years",
+     "startMs": 23100,
+     "endMs": 23400
+    },
+    {
+     "text": "ago,",
+     "startMs": 23400,
+     "endMs": 23660
+    }
+   ]
+  },
+  {
+   "startMs": 23660,
+   "endMs": 25000,
+   "words": [
+    {
+     "text": "the",
+     "startMs": 23660,
+     "endMs": 23780
+    },
+    {
+     "text": "asteroid",
+     "startMs": 23780,
+     "endMs": 24160
+    },
+    {
+     "text": "hit.",
+     "startMs": 24160,
+     "endMs": 25000
+    }
+   ]
+  },
+  {
+   "startMs": 25000,
+   "endMs": 25160,
+   "words": [
+    {
+     "text": "T.",
+     "startMs": 25000,
+     "endMs": 25160
+    }
+   ]
+  },
+  {
+   "startMs": 25160,
+   "endMs": 25720,
+   "words": [
+    {
+     "text": "rex,",
+     "startMs": 25160,
+     "endMs": 25720
+    }
+   ]
+  },
+  {
+   "startMs": 25720,
+   "endMs": 26380,
+   "words": [
+    {
+     "text": "gone.",
+     "startMs": 25720,
+     "endMs": 26380
+    }
+   ]
+  },
+  {
+   "startMs": 26380,
+   "endMs": 27080,
+   "words": [
+    {
+     "text": "Every",
+     "startMs": 26380,
+     "endMs": 26620
+    },
+    {
+     "text": "giant",
+     "startMs": 26620,
+     "endMs": 26860
+    },
+    {
+     "text": "on",
+     "startMs": 26860,
+     "endMs": 27080
+    }
+   ]
+  },
+  {
+   "startMs": 27080,
+   "endMs": 27680,
+   "words": [
+    {
+     "text": "land,",
+     "startMs": 27080,
+     "endMs": 27680
+    }
+   ]
+  },
+  {
+   "startMs": 27680,
+   "endMs": 28427,
+   "words": [
+    {
+     "text": "gone.",
+     "startMs": 27680,
+     "endMs": 28427
+    }
+   ]
+  },
+  {
+   "startMs": 28427,
+   "endMs": 28620,
+   "words": [
+    {
+     "text": "But",
+     "startMs": 28427,
+     "endMs": 28620
+    }
+   ]
+  },
+  {
+   "startMs": 28620,
+   "endMs": 28820,
+   "words": [
+    {
+     "text": "down",
+     "startMs": 28620,
+     "endMs": 28620
+    },
+    {
+     "text": "in",
+     "startMs": 28620,
+     "endMs": 28740
+    },
+    {
+     "text": "the",
+     "startMs": 28740,
+     "endMs": 28820
+    }
+   ]
+  },
+  {
+   "startMs": 28820,
+   "endMs": 29420,
+   "words": [
+    {
+     "text": "rivers,",
+     "startMs": 28820,
+     "endMs": 29420
+    }
+   ]
+  },
+  {
+   "startMs": 29420,
+   "endMs": 30760,
+   "words": [
+    {
+     "text": "crocodiles",
+     "startMs": 29420,
+     "endMs": 29900
+    },
+    {
+     "text": "waited.",
+     "startMs": 29900,
+     "endMs": 30760
+    }
+   ]
+  },
+  {
+   "startMs": 30760,
+   "endMs": 31680,
+   "words": [
+    {
+     "text": "Cold",
+     "startMs": 30760,
+     "endMs": 30960
+    },
+    {
+     "text": "blood,",
+     "startMs": 30960,
+     "endMs": 31680
+    }
+   ]
+  },
+  {
+   "startMs": 31680,
+   "endMs": 32920,
+   "words": [
+    {
+     "text": "tiny",
+     "startMs": 31680,
+     "endMs": 31940
+    },
+    {
+     "text": "appetites,",
+     "startMs": 31940,
+     "endMs": 32920
+    }
+   ]
+  },
+  {
+   "startMs": 32920,
+   "endMs": 33720,
+   "words": [
+    {
+     "text": "months",
+     "startMs": 32920,
+     "endMs": 33180
+    },
+    {
+     "text": "without",
+     "startMs": 33180,
+     "endMs": 33540
+    },
+    {
+     "text": "a",
+     "startMs": 33540,
+     "endMs": 33720
+    }
+   ]
+  },
+  {
+   "startMs": 33720,
+   "endMs": 34360,
+   "words": [
+    {
+     "text": "meal.",
+     "startMs": 33720,
+     "endMs": 34360
+    }
+   ]
+  },
+  {
+   "startMs": 34360,
+   "endMs": 34940,
+   "words": [
+    {
+     "text": "So",
+     "startMs": 34360,
+     "endMs": 34560
+    },
+    {
+     "text": "could",
+     "startMs": 34560,
+     "endMs": 34820
+    },
+    {
+     "text": "a",
+     "startMs": 34820,
+     "endMs": 34940
+    }
+   ]
+  },
+  {
+   "startMs": 34940,
+   "endMs": 35760,
+   "words": [
+    {
+     "text": "crocodile",
+     "startMs": 34940,
+     "endMs": 35280
+    },
+    {
+     "text": "survive",
+     "startMs": 35280,
+     "endMs": 35760
+    }
+   ]
+  },
+  {
+   "startMs": 35760,
+   "endMs": 37420,
+   "words": [
+    {
+     "text": "the",
+     "startMs": 35760,
+     "endMs": 36040
+    },
+    {
+     "text": "dinosaur",
+     "startMs": 36040,
+     "endMs": 36440
+    },
+    {
+     "text": "era?",
+     "startMs": 36440,
+     "endMs": 37420
+    }
+   ]
+  },
+  {
+   "startMs": 37420,
+   "endMs": 38920,
+   "words": [
+    {
+     "text": "It",
+     "startMs": 37420,
+     "endMs": 37600
+    },
+    {
+     "text": "already",
+     "startMs": 37600,
+     "endMs": 37860
+    },
+    {
+     "text": "did.",
+     "startMs": 37860,
+     "endMs": 38920
+    }
+   ]
+  },
+  {
+   "startMs": 38920,
+   "endMs": 39640,
+   "words": [
+    {
+     "text": "Which",
+     "startMs": 38920,
+     "endMs": 39120
+    },
+    {
+     "text": "animal",
+     "startMs": 39120,
+     "endMs": 39420
+    },
+    {
+     "text": "should",
+     "startMs": 39420,
+     "endMs": 39640
+    }
+   ]
+  },
+  {
+   "startMs": 39640,
+   "endMs": 40120,
+   "words": [
+    {
+     "text": "we",
+     "startMs": 39640,
+     "endMs": 39760
+    },
+    {
+     "text": "drop",
+     "startMs": 39760,
+     "endMs": 39960
+    },
+    {
+     "text": "in",
+     "startMs": 39960,
+     "endMs": 40120
+    }
+   ]
+  },
+  {
+   "startMs": 40120,
+   "endMs": 40690,
+   "words": [
+    {
+     "text": "next?",
+     "startMs": 40120,
+     "endMs": 40690
+    }
+   ]
+  }
+ ],
+ "narrationSrc": "audio/narration.wav",
+ "musicSrc": "music/fossil_mysteries.mp3",
+ "musicVolume": 0.1,
+ "grain": [
+  "brand/grain_0.png",
+  "brand/grain_1.png",
+  "brand/grain_2.png",
+  "brand/grain_3.png"
+ ],
+ "hookText": "CROC VS DINOSAUR ERA",
+ "dropAt": 22.312
+}

@@ -1,0 +1,612 @@
+[
+ {
+  "word": "every",
+  "start": 0.0,
+  "end": 0.38
+ },
+ {
+  "word": "giant",
+  "start": 0.38,
+  "end": 0.8
+ },
+ {
+  "word": "sea",
+  "start": 0.8,
+  "end": 1.12
+ },
+ {
+  "word": "monster",
+  "start": 1.12,
+  "end": 1.52
+ },
+ {
+  "word": "lined",
+  "start": 2.02,
+  "end": 2.3
+ },
+ {
+  "word": "up",
+  "start": 2.3,
+  "end": 2.48
+ },
+ {
+  "word": "by",
+  "start": 2.48,
+  "end": 2.66
+ },
+ {
+  "word": "size",
+  "start": 2.66,
+  "end": 2.98
+ },
+ {
+  "word": "the",
+  "start": 3.5,
+  "end": 3.62
+ },
+ {
+  "word": "biggest",
+  "start": 3.62,
+  "end": 3.82
+ },
+ {
+  "word": "one",
+  "start": 3.82,
+  "end": 4.18
+ },
+ {
+  "word": "is",
+  "start": 4.18,
+  "end": 4.68
+ },
+ {
+  "word": "still",
+  "start": 4.68,
+  "end": 4.88
+ },
+ {
+  "word": "alive",
+  "start": 4.88,
+  "end": 5.24
+ },
+ {
+  "word": "this",
+  "start": 5.72,
+  "end": 5.86
+ },
+ {
+  "word": "is",
+  "start": 5.86,
+  "end": 6.02
+ },
+ {
+  "word": "you",
+  "start": 6.02,
+  "end": 6.28
+ },
+ {
+  "word": "1",
+  "start": 7.21,
+  "end": 7.35
+ },
+ {
+  "word": "8",
+  "start": 7.35,
+  "end": 7.99
+ },
+ {
+  "word": "meters",
+  "start": 7.99,
+  "end": 8.33
+ },
+ {
+  "word": "a",
+  "start": 9.05,
+  "end": 9.13
+ },
+ {
+  "word": "great",
+  "start": 9.13,
+  "end": 9.35
+ },
+ {
+  "word": "wide",
+  "start": 9.35,
+  "end": 9.61
+ },
+ {
+  "word": "shark",
+  "start": 9.61,
+  "end": 9.93
+ },
+ {
+  "word": "6",
+  "start": 10.65,
+  "end": 10.85
+ },
+ {
+  "word": "meters",
+  "start": 10.85,
+  "end": 11.19
+ },
+ {
+  "word": "and",
+  "start": 11.19,
+  "end": 11.67
+ },
+ {
+  "word": "it",
+  "start": 11.67,
+  "end": 11.79
+ },
+ {
+  "word": "already",
+  "start": 11.79,
+  "end": 12.11
+ },
+ {
+  "word": "feels",
+  "start": 12.11,
+  "end": 12.45
+ },
+ {
+  "word": "huge",
+  "start": 12.45,
+  "end": 12.87
+ },
+ {
+  "word": "liar",
+  "start": 13.41,
+  "end": 13.75
+ },
+ {
+  "word": "pluridon",
+  "start": 13.75,
+  "end": 14.35
+ },
+ {
+  "word": "old",
+  "start": 14.97,
+  "end": 15.21
+ },
+ {
+  "word": "documentaries",
+  "start": 15.21,
+  "end": 15.75
+ },
+ {
+  "word": "made",
+  "start": 15.75,
+  "end": 16.09
+ },
+ {
+  "word": "it",
+  "start": 16.09,
+  "end": 16.21
+ },
+ {
+  "word": "25",
+  "start": 16.21,
+  "end": 16.63
+ },
+ {
+  "word": "meters",
+  "start": 16.63,
+  "end": 17.05
+ },
+ {
+  "word": "the",
+  "start": 17.73,
+  "end": 17.83
+ },
+ {
+  "word": "real",
+  "start": 17.83,
+  "end": 18.07
+ },
+ {
+  "word": "one",
+  "start": 18.07,
+  "end": 18.29
+ },
+ {
+  "word": "about",
+  "start": 19.03,
+  "end": 19.27
+ },
+ {
+  "word": "6",
+  "start": 19.27,
+  "end": 19.67
+ },
+ {
+  "word": "mosasaurus",
+  "start": 20.23,
+  "end": 20.83
+ },
+ {
+  "word": "12",
+  "start": 21.39,
+  "end": 21.65
+ },
+ {
+  "word": "meters",
+  "start": 21.65,
+  "end": 21.99
+ },
+ {
+  "word": "a",
+  "start": 22.47,
+  "end": 22.57
+ },
+ {
+  "word": "sea",
+  "start": 22.57,
+  "end": 22.71
+ },
+ {
+  "word": "lizard",
+  "start": 22.71,
+  "end": 22.95
+ },
+ {
+  "word": "as",
+  "start": 22.95,
+  "end": 23.23
+ },
+ {
+  "word": "long",
+  "start": 23.23,
+  "end": 23.39
+ },
+ {
+  "word": "as",
+  "start": 23.39,
+  "end": 23.51
+ },
+ {
+  "word": "a",
+  "start": 23.51,
+  "end": 23.61
+ },
+ {
+  "word": "bus",
+  "start": 23.61,
+  "end": 23.75
+ },
+ {
+  "word": "livyarten",
+  "start": 23.75,
+  "end": 24.87
+ },
+ {
+  "word": "a",
+  "start": 25.23,
+  "end": 25.33
+ },
+ {
+  "word": "killer",
+  "start": 25.33,
+  "end": 25.57
+ },
+ {
+  "word": "sperm",
+  "start": 25.57,
+  "end": 25.85
+ },
+ {
+  "word": "whale",
+  "start": 25.85,
+  "end": 26.23
+ },
+ {
+  "word": "17",
+  "start": 26.69,
+  "end": 27.13
+ },
+ {
+  "word": "meters",
+  "start": 27.13,
+  "end": 27.47
+ },
+ {
+  "word": "with",
+  "start": 28.09,
+  "end": 28.25
+ },
+ {
+  "word": "teeth",
+  "start": 28.25,
+  "end": 28.51
+ },
+ {
+  "word": "longer",
+  "start": 28.51,
+  "end": 28.85
+ },
+ {
+  "word": "than",
+  "start": 28.85,
+  "end": 29.07
+ },
+ {
+  "word": "your",
+  "start": 29.07,
+  "end": 29.21
+ },
+ {
+  "word": "forearm",
+  "start": 29.21,
+  "end": 29.63
+ },
+ {
+  "word": "megalodon",
+  "start": 30.19,
+  "end": 30.73
+ },
+ {
+  "word": "new",
+  "start": 31.37,
+  "end": 31.53
+ },
+ {
+  "word": "estimates",
+  "start": 31.53,
+  "end": 31.93
+ },
+ {
+  "word": "say",
+  "start": 31.93,
+  "end": 32.25
+ },
+ {
+  "word": "up",
+  "start": 32.25,
+  "end": 32.41
+ },
+ {
+  "word": "to",
+  "start": 32.41,
+  "end": 32.51
+ },
+ {
+  "word": "24",
+  "start": 32.51,
+  "end": 32.93
+ },
+ {
+  "word": "meters",
+  "start": 32.93,
+  "end": 33.31
+ },
+ {
+  "word": "ictheotitan",
+  "start": 34.07,
+  "end": 34.65
+ },
+ {
+  "word": "a",
+  "start": 35.09,
+  "end": 35.21
+ },
+ {
+  "word": "giant",
+  "start": 35.21,
+  "end": 35.53
+ },
+ {
+  "word": "ichthyosaur",
+  "start": 35.53,
+  "end": 36.11
+ },
+ {
+  "word": "around",
+  "start": 36.79,
+  "end": 37.01
+ },
+ {
+  "word": "25",
+  "start": 37.01,
+  "end": 37.53
+ },
+ {
+  "word": "meters",
+  "start": 37.53,
+  "end": 37.95
+ },
+ {
+  "word": "its",
+  "start": 38.61,
+  "end": 38.79
+ },
+ {
+  "word": "jaw",
+  "start": 38.79,
+  "end": 39.09
+ },
+ {
+  "word": "was",
+  "start": 39.09,
+  "end": 39.31
+ },
+ {
+  "word": "found",
+  "start": 39.31,
+  "end": 39.59
+ },
+ {
+  "word": "on",
+  "start": 39.59,
+  "end": 39.79
+ },
+ {
+  "word": "a",
+  "start": 39.79,
+  "end": 39.89
+ },
+ {
+  "word": "british",
+  "start": 39.89,
+  "end": 40.09
+ },
+ {
+  "word": "beach",
+  "start": 40.09,
+  "end": 40.45
+ },
+ {
+  "word": "by",
+  "start": 40.45,
+  "end": 40.73
+ },
+ {
+  "word": "an",
+  "start": 40.73,
+  "end": 40.85
+ },
+ {
+  "word": "11",
+  "start": 40.85,
+  "end": 41.07
+ },
+ {
+  "word": "year",
+  "start": 41.07,
+  "end": 41.27
+ },
+ {
+  "word": "old",
+  "start": 41.27,
+  "end": 41.43
+ },
+ {
+  "word": "girl",
+  "start": 41.43,
+  "end": 41.79
+ },
+ {
+  "word": "but",
+  "start": 42.35,
+  "end": 42.57
+ },
+ {
+  "word": "they",
+  "start": 42.57,
+  "end": 42.71
+ },
+ {
+  "word": "all",
+  "start": 42.71,
+  "end": 42.99
+ },
+ {
+  "word": "lose",
+  "start": 42.99,
+  "end": 43.27
+ },
+ {
+  "word": "to",
+  "start": 43.27,
+  "end": 43.43
+ },
+ {
+  "word": "an",
+  "start": 43.43,
+  "end": 43.53
+ },
+ {
+  "word": "animal",
+  "start": 43.53,
+  "end": 43.85
+ },
+ {
+  "word": "alive",
+  "start": 43.85,
+  "end": 44.31
+ },
+ {
+  "word": "right",
+  "start": 44.31,
+  "end": 44.57
+ },
+ {
+  "word": "now",
+  "start": 44.57,
+  "end": 44.85
+ },
+ {
+  "word": "the",
+  "start": 45.35,
+  "end": 45.45
+ },
+ {
+  "word": "blue",
+  "start": 45.45,
+  "end": 45.69
+ },
+ {
+  "word": "whale",
+  "start": 45.69,
+  "end": 46.01
+ },
+ {
+  "word": "30",
+  "start": 46.79,
+  "end": 47.17
+ },
+ {
+  "word": "meters",
+  "start": 47.17,
+  "end": 47.49
+ },
+ {
+  "word": "which",
+  "start": 48.03,
+  "end": 48.27
+ },
+ {
+  "word": "one",
+  "start": 48.27,
+  "end": 48.51
+ },
+ {
+  "word": "would",
+  "start": 48.51,
+  "end": 48.69
+ },
+ {
+  "word": "you",
+  "start": 48.69,
+  "end": 48.83
+ },
+ {
+  "word": "never",
+  "start": 48.83,
+  "end": 49.03
+ },
+ {
+  "word": "swim",
+  "start": 49.03,
+  "end": 49.33
+ },
+ {
+  "word": "with",
+  "start": 49.33,
+  "end": 49.63
+ },
+ {
+  "word": "tell",
+  "start": 50.6,
+  "end": 50.8
+ },
+ {
+  "word": "me",
+  "start": 50.8,
+  "end": 51.0
+ },
+ {
+  "word": "below",
+  "start": 51.0,
+  "end": 51.28
+ }
+]

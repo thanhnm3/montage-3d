@@ -1,0 +1,1036 @@
+{
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "totalFrames": 1605,
+ "overlap": 10,
+ "scenes": [
+  {
+   "beat": 1,
+   "startFrame": 0,
+   "durationFrames": 170,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 2,
+   "startFrame": 170,
+   "durationFrames": 100,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 3,
+   "startFrame": 270,
+   "durationFrames": 131,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 4,
+   "startFrame": 401,
+   "durationFrames": 204,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 5,
+   "startFrame": 605,
+   "durationFrames": 124,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 6,
+   "startFrame": 729,
+   "durationFrames": 175,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 7,
+   "startFrame": 904,
+   "durationFrames": 112,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 8,
+   "startFrame": 1016,
+   "durationFrames": 258,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 9,
+   "startFrame": 1274,
+   "durationFrames": 168,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  },
+  {
+   "beat": 10,
+   "startFrame": 1442,
+   "durationFrames": 163,
+   "src": "media/3d.jpg",
+   "tag": "3D ILLUSTRATION"
+  }
+ ],
+ "notes": [
+  {
+   "startFrame": 571,
+   "durationFrames": 31,
+   "big": "~6 m",
+   "small": "modern estimate · TV said 25 m"
+  },
+  {
+   "startFrame": 975,
+   "durationFrames": 37,
+   "big": "up to 24 m",
+   "small": "Shimada et al. 2025 · classic 15-18 m"
+  },
+  {
+   "startFrame": 1197,
+   "durationFrames": 75,
+   "big": "Blue Anchor, UK",
+   "small": "found 2020 · Lomax et al. 2024"
+  },
+  {
+   "startFrame": 1364,
+   "durationFrames": 66,
+   "big": "largest ever",
+   "small": "bigger than any dinosaur"
+  }
+ ],
+ "endCard": {
+  "startFrame": 1479,
+  "durationFrames": 126,
+  "label": "YOUR PICK  ·  COMMENTS ↓",
+  "name": "Which one wouldn't you swim with?"
+ },
+ "karaoke": [
+  {
+   "startMs": 0,
+   "endMs": 1120,
+   "words": [
+    {
+     "text": "Every",
+     "startMs": 0,
+     "endMs": 380
+    },
+    {
+     "text": "giant",
+     "startMs": 380,
+     "endMs": 800
+    },
+    {
+     "text": "sea",
+     "startMs": 800,
+     "endMs": 1120
+    }
+   ]
+  },
+  {
+   "startMs": 1120,
+   "endMs": 2020,
+   "words": [
+    {
+     "text": "monster,",
+     "startMs": 1120,
+     "endMs": 2020
+    }
+   ]
+  },
+  {
+   "startMs": 2020,
+   "endMs": 2660,
+   "words": [
+    {
+     "text": "lined",
+     "startMs": 2020,
+     "endMs": 2300
+    },
+    {
+     "text": "up",
+     "startMs": 2300,
+     "endMs": 2480
+    },
+    {
+     "text": "by",
+     "startMs": 2480,
+     "endMs": 2660
+    }
+   ]
+  },
+  {
+   "startMs": 2660,
+   "endMs": 3500,
+   "words": [
+    {
+     "text": "size.",
+     "startMs": 2660,
+     "endMs": 3500
+    }
+   ]
+  },
+  {
+   "startMs": 3500,
+   "endMs": 4180,
+   "words": [
+    {
+     "text": "The",
+     "startMs": 3500,
+     "endMs": 3620
+    },
+    {
+     "text": "biggest",
+     "startMs": 3620,
+     "endMs": 3820
+    },
+    {
+     "text": "one",
+     "startMs": 3820,
+     "endMs": 4180
+    }
+   ]
+  },
+  {
+   "startMs": 4180,
+   "endMs": 5720,
+   "words": [
+    {
+     "text": "is",
+     "startMs": 4180,
+     "endMs": 4680
+    },
+    {
+     "text": "still",
+     "startMs": 4680,
+     "endMs": 4880
+    },
+    {
+     "text": "alive.",
+     "startMs": 4880,
+     "endMs": 5720
+    }
+   ]
+  },
+  {
+   "startMs": 5720,
+   "endMs": 6530,
+   "words": [
+    {
+     "text": "This",
+     "startMs": 5720,
+     "endMs": 5860
+    },
+    {
+     "text": "is",
+     "startMs": 5860,
+     "endMs": 6020
+    },
+    {
+     "text": "you.",
+     "startMs": 6020,
+     "endMs": 6530
+    }
+   ]
+  },
+  {
+   "startMs": 7210,
+   "endMs": 9050,
+   "words": [
+    {
+     "text": "1.8",
+     "startMs": 7210,
+     "endMs": 7990
+    },
+    {
+     "text": "meters.",
+     "startMs": 7990,
+     "endMs": 9050
+    }
+   ]
+  },
+  {
+   "startMs": 9050,
+   "endMs": 9610,
+   "words": [
+    {
+     "text": "A",
+     "startMs": 9050,
+     "endMs": 9130
+    },
+    {
+     "text": "great",
+     "startMs": 9130,
+     "endMs": 9350
+    },
+    {
+     "text": "white",
+     "startMs": 9350,
+     "endMs": 9610
+    }
+   ]
+  },
+  {
+   "startMs": 9610,
+   "endMs": 10650,
+   "words": [
+    {
+     "text": "shark.",
+     "startMs": 9610,
+     "endMs": 10650
+    }
+   ]
+  },
+  {
+   "startMs": 10650,
+   "endMs": 11190,
+   "words": [
+    {
+     "text": "6",
+     "startMs": 10650,
+     "endMs": 10850
+    },
+    {
+     "text": "meters,",
+     "startMs": 10850,
+     "endMs": 11190
+    }
+   ]
+  },
+  {
+   "startMs": 11190,
+   "endMs": 12110,
+   "words": [
+    {
+     "text": "and",
+     "startMs": 11190,
+     "endMs": 11670
+    },
+    {
+     "text": "it",
+     "startMs": 11670,
+     "endMs": 11790
+    },
+    {
+     "text": "already",
+     "startMs": 11790,
+     "endMs": 12110
+    }
+   ]
+  },
+  {
+   "startMs": 12110,
+   "endMs": 13427,
+   "words": [
+    {
+     "text": "feels",
+     "startMs": 12110,
+     "endMs": 12450
+    },
+    {
+     "text": "huge.",
+     "startMs": 12450,
+     "endMs": 13427
+    }
+   ]
+  },
+  {
+   "startMs": 13427,
+   "endMs": 14970,
+   "words": [
+    {
+     "text": "Liopleurodon.",
+     "startMs": 13427,
+     "endMs": 14970
+    }
+   ]
+  },
+  {
+   "startMs": 14970,
+   "endMs": 15750,
+   "words": [
+    {
+     "text": "Old",
+     "startMs": 14970,
+     "endMs": 15210
+    },
+    {
+     "text": "documentaries",
+     "startMs": 15210,
+     "endMs": 15750
+    }
+   ]
+  },
+  {
+   "startMs": 15750,
+   "endMs": 16630,
+   "words": [
+    {
+     "text": "made",
+     "startMs": 15750,
+     "endMs": 16090
+    },
+    {
+     "text": "it",
+     "startMs": 16090,
+     "endMs": 16210
+    },
+    {
+     "text": "25",
+     "startMs": 16210,
+     "endMs": 16630
+    }
+   ]
+  },
+  {
+   "startMs": 16630,
+   "endMs": 17730,
+   "words": [
+    {
+     "text": "meters.",
+     "startMs": 16630,
+     "endMs": 17730
+    }
+   ]
+  },
+  {
+   "startMs": 17730,
+   "endMs": 19030,
+   "words": [
+    {
+     "text": "The",
+     "startMs": 17730,
+     "endMs": 17830
+    },
+    {
+     "text": "real",
+     "startMs": 17830,
+     "endMs": 18070
+    },
+    {
+     "text": "one?",
+     "startMs": 18070,
+     "endMs": 19030
+    }
+   ]
+  },
+  {
+   "startMs": 19030,
+   "endMs": 20230,
+   "words": [
+    {
+     "text": "About",
+     "startMs": 19030,
+     "endMs": 19270
+    },
+    {
+     "text": "6.",
+     "startMs": 19270,
+     "endMs": 20230
+    }
+   ]
+  },
+  {
+   "startMs": 20230,
+   "endMs": 21390,
+   "words": [
+    {
+     "text": "Mosasaurus.",
+     "startMs": 20230,
+     "endMs": 21390
+    }
+   ]
+  },
+  {
+   "startMs": 21390,
+   "endMs": 22470,
+   "words": [
+    {
+     "text": "12",
+     "startMs": 21390,
+     "endMs": 21650
+    },
+    {
+     "text": "meters,",
+     "startMs": 21650,
+     "endMs": 22470
+    }
+   ]
+  },
+  {
+   "startMs": 22470,
+   "endMs": 22950,
+   "words": [
+    {
+     "text": "a",
+     "startMs": 22470,
+     "endMs": 22570
+    },
+    {
+     "text": "sea",
+     "startMs": 22570,
+     "endMs": 22710
+    },
+    {
+     "text": "lizard",
+     "startMs": 22710,
+     "endMs": 22950
+    }
+   ]
+  },
+  {
+   "startMs": 22950,
+   "endMs": 23510,
+   "words": [
+    {
+     "text": "as",
+     "startMs": 22950,
+     "endMs": 23230
+    },
+    {
+     "text": "long",
+     "startMs": 23230,
+     "endMs": 23390
+    },
+    {
+     "text": "as",
+     "startMs": 23390,
+     "endMs": 23510
+    }
+   ]
+  },
+  {
+   "startMs": 23510,
+   "endMs": 24360,
+   "words": [
+    {
+     "text": "a",
+     "startMs": 23510,
+     "endMs": 23610
+    },
+    {
+     "text": "bus.",
+     "startMs": 23610,
+     "endMs": 24360
+    }
+   ]
+  },
+  {
+   "startMs": 24360,
+   "endMs": 25230,
+   "words": [
+    {
+     "text": "Livyatan,",
+     "startMs": 24360,
+     "endMs": 25230
+    }
+   ]
+  },
+  {
+   "startMs": 25230,
+   "endMs": 25850,
+   "words": [
+    {
+     "text": "a",
+     "startMs": 25230,
+     "endMs": 25330
+    },
+    {
+     "text": "killer",
+     "startMs": 25330,
+     "endMs": 25570
+    },
+    {
+     "text": "sperm",
+     "startMs": 25570,
+     "endMs": 25850
+    }
+   ]
+  },
+  {
+   "startMs": 25850,
+   "endMs": 26690,
+   "words": [
+    {
+     "text": "whale.",
+     "startMs": 25850,
+     "endMs": 26690
+    }
+   ]
+  },
+  {
+   "startMs": 26690,
+   "endMs": 28090,
+   "words": [
+    {
+     "text": "17",
+     "startMs": 26690,
+     "endMs": 27130
+    },
+    {
+     "text": "meters,",
+     "startMs": 27130,
+     "endMs": 28090
+    }
+   ]
+  },
+  {
+   "startMs": 28090,
+   "endMs": 28850,
+   "words": [
+    {
+     "text": "with",
+     "startMs": 28090,
+     "endMs": 28250
+    },
+    {
+     "text": "teeth",
+     "startMs": 28250,
+     "endMs": 28510
+    },
+    {
+     "text": "longer",
+     "startMs": 28510,
+     "endMs": 28850
+    }
+   ]
+  },
+  {
+   "startMs": 28850,
+   "endMs": 30190,
+   "words": [
+    {
+     "text": "than",
+     "startMs": 28850,
+     "endMs": 29070
+    },
+    {
+     "text": "your",
+     "startMs": 29070,
+     "endMs": 29210
+    },
+    {
+     "text": "forearm.",
+     "startMs": 29210,
+     "endMs": 30190
+    }
+   ]
+  },
+  {
+   "startMs": 30190,
+   "endMs": 31370,
+   "words": [
+    {
+     "text": "Megalodon.",
+     "startMs": 30190,
+     "endMs": 31370
+    }
+   ]
+  },
+  {
+   "startMs": 31370,
+   "endMs": 32250,
+   "words": [
+    {
+     "text": "New",
+     "startMs": 31370,
+     "endMs": 31530
+    },
+    {
+     "text": "estimates",
+     "startMs": 31530,
+     "endMs": 31930
+    },
+    {
+     "text": "say",
+     "startMs": 31930,
+     "endMs": 32250
+    }
+   ]
+  },
+  {
+   "startMs": 32250,
+   "endMs": 32930,
+   "words": [
+    {
+     "text": "up",
+     "startMs": 32250,
+     "endMs": 32410
+    },
+    {
+     "text": "to",
+     "startMs": 32410,
+     "endMs": 32510
+    },
+    {
+     "text": "24",
+     "startMs": 32510,
+     "endMs": 32930
+    }
+   ]
+  },
+  {
+   "startMs": 32930,
+   "endMs": 33927,
+   "words": [
+    {
+     "text": "meters.",
+     "startMs": 32930,
+     "endMs": 33927
+    }
+   ]
+  },
+  {
+   "startMs": 33927,
+   "endMs": 35090,
+   "words": [
+    {
+     "text": "Ichthyotitan,",
+     "startMs": 33927,
+     "endMs": 35090
+    }
+   ]
+  },
+  {
+   "startMs": 35090,
+   "endMs": 36790,
+   "words": [
+    {
+     "text": "a",
+     "startMs": 35090,
+     "endMs": 35210
+    },
+    {
+     "text": "giant",
+     "startMs": 35210,
+     "endMs": 35530
+    },
+    {
+     "text": "ichthyosaur.",
+     "startMs": 35530,
+     "endMs": 36790
+    }
+   ]
+  },
+  {
+   "startMs": 36790,
+   "endMs": 38610,
+   "words": [
+    {
+     "text": "Around",
+     "startMs": 36790,
+     "endMs": 37010
+    },
+    {
+     "text": "25",
+     "startMs": 37010,
+     "endMs": 37530
+    },
+    {
+     "text": "meters.",
+     "startMs": 37530,
+     "endMs": 38610
+    }
+   ]
+  },
+  {
+   "startMs": 38610,
+   "endMs": 39310,
+   "words": [
+    {
+     "text": "Its",
+     "startMs": 38610,
+     "endMs": 38790
+    },
+    {
+     "text": "jaw",
+     "startMs": 38790,
+     "endMs": 39090
+    },
+    {
+     "text": "was",
+     "startMs": 39090,
+     "endMs": 39310
+    }
+   ]
+  },
+  {
+   "startMs": 39310,
+   "endMs": 39890,
+   "words": [
+    {
+     "text": "found",
+     "startMs": 39310,
+     "endMs": 39590
+    },
+    {
+     "text": "on",
+     "startMs": 39590,
+     "endMs": 39790
+    },
+    {
+     "text": "a",
+     "startMs": 39790,
+     "endMs": 39890
+    }
+   ]
+  },
+  {
+   "startMs": 39890,
+   "endMs": 40730,
+   "words": [
+    {
+     "text": "British",
+     "startMs": 39890,
+     "endMs": 40090
+    },
+    {
+     "text": "beach",
+     "startMs": 40090,
+     "endMs": 40450
+    },
+    {
+     "text": "by",
+     "startMs": 40450,
+     "endMs": 40730
+    }
+   ]
+  },
+  {
+   "startMs": 40730,
+   "endMs": 41270,
+   "words": [
+    {
+     "text": "an",
+     "startMs": 40730,
+     "endMs": 40850
+    },
+    {
+     "text": "11",
+     "startMs": 40850,
+     "endMs": 41070
+    },
+    {
+     "text": "year",
+     "startMs": 41070,
+     "endMs": 41270
+    }
+   ]
+  },
+  {
+   "startMs": 41270,
+   "endMs": 42527,
+   "words": [
+    {
+     "text": "old",
+     "startMs": 41270,
+     "endMs": 41430
+    },
+    {
+     "text": "girl.",
+     "startMs": 41430,
+     "endMs": 42527
+    }
+   ]
+  },
+  {
+   "startMs": 42527,
+   "endMs": 42570,
+   "words": [
+    {
+     "text": "But",
+     "startMs": 42527,
+     "endMs": 42570
+    }
+   ]
+  },
+  {
+   "startMs": 42570,
+   "endMs": 43270,
+   "words": [
+    {
+     "text": "they",
+     "startMs": 42570,
+     "endMs": 42710
+    },
+    {
+     "text": "all",
+     "startMs": 42710,
+     "endMs": 42990
+    },
+    {
+     "text": "lose",
+     "startMs": 42990,
+     "endMs": 43270
+    }
+   ]
+  },
+  {
+   "startMs": 43270,
+   "endMs": 43850,
+   "words": [
+    {
+     "text": "to",
+     "startMs": 43270,
+     "endMs": 43430
+    },
+    {
+     "text": "an",
+     "startMs": 43430,
+     "endMs": 43530
+    },
+    {
+     "text": "animal",
+     "startMs": 43530,
+     "endMs": 43850
+    }
+   ]
+  },
+  {
+   "startMs": 43850,
+   "endMs": 45350,
+   "words": [
+    {
+     "text": "alive",
+     "startMs": 43850,
+     "endMs": 44310
+    },
+    {
+     "text": "right",
+     "startMs": 44310,
+     "endMs": 44570
+    },
+    {
+     "text": "now.",
+     "startMs": 44570,
+     "endMs": 45350
+    }
+   ]
+  },
+  {
+   "startMs": 45350,
+   "endMs": 46790,
+   "words": [
+    {
+     "text": "The",
+     "startMs": 45350,
+     "endMs": 45450
+    },
+    {
+     "text": "blue",
+     "startMs": 45450,
+     "endMs": 45690
+    },
+    {
+     "text": "whale.",
+     "startMs": 45690,
+     "endMs": 46790
+    }
+   ]
+  },
+  {
+   "startMs": 46790,
+   "endMs": 48030,
+   "words": [
+    {
+     "text": "30",
+     "startMs": 46790,
+     "endMs": 47170
+    },
+    {
+     "text": "meters.",
+     "startMs": 47170,
+     "endMs": 48030
+    }
+   ]
+  },
+  {
+   "startMs": 48030,
+   "endMs": 48270,
+   "words": [
+    {
+     "text": "Which",
+     "startMs": 48030,
+     "endMs": 48270
+    }
+   ]
+  },
+  {
+   "startMs": 48270,
+   "endMs": 48830,
+   "words": [
+    {
+     "text": "one",
+     "startMs": 48270,
+     "endMs": 48510
+    },
+    {
+     "text": "would",
+     "startMs": 48510,
+     "endMs": 48690
+    },
+    {
+     "text": "you",
+     "startMs": 48690,
+     "endMs": 48830
+    }
+   ]
+  },
+  {
+   "startMs": 48830,
+   "endMs": 49880,
+   "words": [
+    {
+     "text": "never",
+     "startMs": 48830,
+     "endMs": 49030
+    },
+    {
+     "text": "swim",
+     "startMs": 49030,
+     "endMs": 49330
+    },
+    {
+     "text": "with?",
+     "startMs": 49330,
+     "endMs": 49880
+    }
+   ]
+  },
+  {
+   "startMs": 50600,
+   "endMs": 51530,
+   "words": [
+    {
+     "text": "Tell",
+     "startMs": 50600,
+     "endMs": 50800
+    },
+    {
+     "text": "me",
+     "startMs": 50800,
+     "endMs": 51000
+    },
+    {
+     "text": "below.",
+     "startMs": 51000,
+     "endMs": 51530
+    }
+   ]
+  }
+ ],
+ "narrationSrc": "audio/narration.wav",
+ "musicSrc": "music/fossil_mysteries.mp3",
+ "musicVolume": 0.1,
+ "grain": [
+  "brand/grain_0.png",
+  "brand/grain_1.png",
+  "brand/grain_2.png",
+  "brand/grain_3.png"
+ ],
+ "hookText": "SEA MONSTERS BY SIZE",
+ "dropAt": 42.543
+}
