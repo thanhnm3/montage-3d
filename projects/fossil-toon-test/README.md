@@ -41,3 +41,26 @@ Nhận xét:
 - `youToon.ts`: "you", an everyday person drawn with toon.ts (all its expressions) plus a heavy near-black silhouette
   outline to sit with the beast animals.
 - Used in Fossil Short 013 (`projects/fossil-mysteries-short-013-3d`).
+
+## r5 (2026-11-04): 12 more beast animals (`beastMore.ts`)
+User: "làm bản hầm hố, làm list các con vật, bản hầm hố nhất". Same beast look (3-tone cel, scales, scutes, scars, deep
+glowing eyes, uneven teeth). Each has `walk`/`phase` and a `roar` = its attack move. Sheet: comp `BeastMoreSheet`
+(walk | attack), `preview_beast_more.jpg`. `BeastSolo` draws one animal alone (used to measure x0/x1).
+
+| key | animal | real size | `roar` does |
+|---|---|---|---|
+| steg | Stegosaurus (Jurassic) | 9 m | tail swing up with the 4 spikes |
+| ankylo | Ankylosaurus (Hell Creek) | 7 m | tail club swing |
+| sauro | sauropod, Brachiosaurus-like (Jurassic) | 22 m | head up, bellow |
+| edmonto | Edmontosaurus (Hell Creek), healed T. rex bite on the tail | 12 m | head up, bellow |
+| pachy | Pachycephalosaurus (Hell Creek) | 4.5 m | head-down ram |
+| spino | Spinosaurus (mid Cretaceous) | 14 m | bite |
+| quetz | Quetzalcoatlus (Hell Creek age), standing | ~5 m tall | beak gape, head thrust |
+| mosa | Mosasaurus (Late Cretaceous sea) | 13 m | bite, palate teeth show |
+| dunkle | Dunkleosteus (Devonian) | 3.5 m | bone-blade bite |
+| smilo | Smilodon populator (Ice Age) | ~2 m + tail | ~80° sabre gape |
+| rhino | woolly rhino (Ice Age) | 3.6 m | head-down charge |
+| bear | cave bear (Ice Age) | 3 m | roar |
+
+`BEAST_ALL` = the 6 of `beastAnimals.ts` + these 12 (same `{ draw, len, x0, x1 }` entries, so `BeastCard` in
+Short013_3D.tsx can take any of them). Not from Hell Creek: steg, sauro, spino, mosa (sea), dunkle, smilo, rhino, bear.

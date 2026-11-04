@@ -8,14 +8,14 @@
 import { Pen, mul, thickAngle } from "./toon";
 import { AnimalPose, GROUND, P2, blob, curve, rad, rotAll, tube, walkOf } from "./toonAnimals";
 
-const INKB = "#0E080C";
-const OW = 15;
+export const INKB = "#0E080C";
+export const OW = 15;
 type C3 = [number, number, number];
-const rng = (seed: number) => () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+export const rng = (seed: number) => () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
 
 /** 3-tone cel: deep shadow everywhere, mid tone where the shape shifted toward the light still covers it, lit tone on a
  *  second shift, a thin rim light on the lit edge; `tex` paints texture inside the shape; then the ink ring. */
-function cel(p: Pen, pts: P2[], col: string, light: number, o: { d?: number; ow?: number; tex?: () => void; rim?: boolean; shadow?: C3 } = {}) {
+export function cel(p: Pen, pts: P2[], col: string, light: number, o: { d?: number; ow?: number; tex?: () => void; rim?: boolean; shadow?: C3 } = {}) {
   const d = o.d ?? 26, ow = o.ow ?? OW, dx = Math.cos(light), dy = Math.sin(light);
   const sh = (k: number) => pts.map(([x, y]) => [x + dx * d * k, y + dy * d * k] as P2);
   p.path(pts, true); p.g.fillStyle = mul(col, o.shadow ?? [0.42, 0.44, 0.56]); p.g.fill();
@@ -28,30 +28,30 @@ function cel(p: Pen, pts: P2[], col: string, light: number, o: { d?: number; ow?
   p.inkRing(pts, ow, thickAngle(light), 0.8, INKB);
 }
 /** pebbly scales: jittered small blobs, darker, inside the current clip */
-function scales(p: Pen, x0: number, y0: number, x1: number, y1: number, size: number, col: string, seed: number, alpha = 0.45) {
+export function scales(p: Pen, x0: number, y0: number, x1: number, y1: number, size: number, col: string, seed: number, alpha = 0.45) {
   const r = rng(seed); p.g.globalAlpha = alpha;
   for (let y = y0; y < y1; y += size * 1.1) for (let x = x0 + ((y / size) % 2) * size * 0.5; x < x1; x += size * 1.2)
     p.ell(x + (r() - 0.5) * size * 0.4, y + (r() - 0.5) * size * 0.4, size * (0.32 + r() * 0.18), size * (0.26 + r() * 0.14), col, 0);
   p.g.globalAlpha = 1;
 }
 /** skin folds: short dark arcs */
-const folds = (p: Pen, pts: [P2, P2, P2][], w = 5, col = INKB) => { p.g.globalAlpha = 0.55; for (const [a, k, b] of pts) p.stroke(curve(a, k, b, 8), w, col); p.g.globalAlpha = 1; };
+export const folds = (p: Pen, pts: [P2, P2, P2][], w = 5, col = INKB) => { p.g.globalAlpha = 0.55; for (const [a, k, b] of pts) p.stroke(curve(a, k, b, 8), w, col); p.g.globalAlpha = 1; };
 /** pointed horn / claw / tooth outline: a tube ending in a sharp tip, round base */
-function horn(path: P2[], r0: number): P2[] {
+export function horn(path: P2[], r0: number): P2[] {
   const t = tube(path, r0, 0.5, false), s = path[0], d = Math.atan2(path[1][1] - s[1], path[1][0] - s[0]), cap: P2[] = [];
   for (let i = 1; i < 8; i++) { const a = d - Math.PI / 2 - (Math.PI * i) / 8; cap.push([s[0] + Math.cos(a) * r0, s[1] + Math.sin(a) * r0]); }
   return [...t, ...cap];
 }
-const claw = (p: Pen, a: P2, len: number, ang: number, w = 10) => {
+export const claw = (p: Pen, a: P2, len: number, ang: number, w = 10) => {
   const pts = curve(a, [a[0] + Math.cos(ang) * len * 0.6, a[1] + Math.sin(ang) * len * 0.6 - len * 0.1], [a[0] + Math.cos(ang + 0.5) * len, a[1] + Math.sin(ang + 0.5) * len], 6);
   p.poly(horn(pts, w), "#1A1210", 3);
 };
-const tooth = (p: Pen, x: number, y: number, len: number, down: boolean, a = 0, w = 0.3) => {
+export const tooth = (p: Pen, x: number, y: number, len: number, down: boolean, a = 0, w = 0.3) => {
   const s = down ? 1 : -1;
   p.poly(rotAll([[x - len * w, y], [x + len * w, y], [x + len * 0.12, y + s * len * 0.75], [x + len * 0.05, y + s * len]], a, [x, y]), "#EDE2C4", 3);
 };
 /** bony scutes along a back line: irregular sharp plates, bigger in the middle */
-function scutes(p: Pen, line: P2[], h: number, col: string, light: number, seed: number) {
+export function scutes(p: Pen, line: P2[], h: number, col: string, light: number, seed: number) {
   const r = rng(seed), n = line.length;
   for (let i = 1; i < n - 1; i++) {
     const [x, y] = line[i], a = Math.atan2(line[i + 1][1] - line[i - 1][1], line[i + 1][0] - line[i - 1][0]) - Math.PI / 2;
@@ -61,7 +61,7 @@ function scutes(p: Pen, line: P2[], h: number, col: string, light: number, seed:
   }
 }
 /** deep socket + hot slit iris; expr swaps the shapes (the toon part the user liked) */
-function beastEye(p: Pen, x: number, y: number, s: number, expr: AnimalPose["expr"], blink: number, skin: string, iris = "#FF6A1F") {
+export function beastEye(p: Pen, x: number, y: number, s: number, expr: AnimalPose["expr"], blink: number, skin: string, iris = "#FF6A1F") {
   p.ell(x, y, 30 * s, 20 * s, mul(skin, [0.25, 0.22, 0.28]), 0, 0, 360, -8); // socket shadow
   if (blink > 0.6 || expr === "sleepy") { p.stroke([[x - 18 * s, y + 2 * s], [x + 18 * s, y - 3 * s]], 5 * s, INKB); return; }
   const wide = expr === "shock" ? 1.7 : expr === "happy" ? 0.75 : 1, h = 10 * s * wide;
@@ -72,7 +72,7 @@ function beastEye(p: Pen, x: number, y: number, s: number, expr: AnimalPose["exp
   else p.stroke([[x - 22 * s, y - 26 * s], [x + 20 * s, y - 30 * s]], 6 * s, INKB);
 }
 /** digitigrade leg: hip -> knee (forward) -> ankle (back) -> toes, swung about the hip, foot lifted on the swing half */
-function digiLeg(hip: P2, scale: number, swing: number, lift: number) {
+export function digiLeg(hip: P2, scale: number, swing: number, lift: number) {
   // T. rex proportions: thigh ~ shin ~ metatarsus; the toes are always planted on the ground line (minus the lift)
   const K: P2 = [hip[0] + 75 * scale, hip[1] + 150 * scale], A: P2 = [hip[0] - 35 * scale, hip[1] + 285 * scale];
   let pts = [hip, K, A].map((q) => rot(q, swing, hip));
@@ -80,7 +80,7 @@ function digiLeg(hip: P2, scale: number, swing: number, lift: number) {
   pts = [...pts, foot];
   return pts;
 }
-const chaikin = (pts: P2[], n = 3): P2[] => {
+export const chaikin = (pts: P2[], n = 3): P2[] => {
   for (let k = 0; k < n; k++) pts = pts.flatMap((a, i) => { const b = pts[(i + 1) % pts.length]; return [[a[0] * 0.75 + b[0] * 0.25, a[1] * 0.75 + b[1] * 0.25], [a[0] * 0.25 + b[0] * 0.75, a[1] * 0.25 + b[1] * 0.75]] as P2[]; });
   return pts;
 };
