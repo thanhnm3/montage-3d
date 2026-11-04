@@ -17,8 +17,15 @@ Thử với 3 con: T. rex, Triceratops, voi ma mút.
   - Đổ bóng cắt khối gắt thay cho chuyển màu mềm; viền gần như đen, dày hơn, chênh dày–mỏng mạnh hơn.
   - Mắt hẹp tròng vàng con ngươi dọc dưới gờ lông mày, răng dài lởm chởm, móng vuốt, sẹo, màu tối và trầm hơn.
   - Cùng tư thế, biểu cảm, kích thước thật và cách đặt vào 3D như bản tròn.
-- Tấm kiểm tra 2D: comp `AnimalSheet` (mỗi con: bản tròn, rồi bản hầm hố khi đứng, đi và gầm/hoảng).
-- Ảnh xem trước: `preview_animals.jpg` (bản tròn và bản hầm hố cạnh nhau), `preview_scene.jpg` (bản tròn), `preview_scene_fierce.jpg` (bản hầm hố).
+- Biến thể "beast" v3 (`beastAnimals.ts`, comp `FossilToonSceneBeast`), giữ biểu cảm toon nhưng gần thật hơn và đáng sợ hơn:
+  - Giải phẫu: T. rex thân ngang, sọ sâu có gờ mày, chân đi bằng ngón 3 khúc với 3 móng; Triceratops thân nặng,
+    sừng mày dài, diềm cổ viền gai dài, móng guốc; voi ma mút bướu vai, lưng dốc, lông dài rủ thành sợi, ngà xoắn.
+  - Bề mặt: đổ bóng 3 tông (tối / trung gian / sáng) cộng viền sáng, vảy sần, nếp da, hàng vảy xương dọc lưng,
+    sẹo, sừng nứt.
+  - Mặt: hốc mắt tối sâu, tròng đỏ cam phát sáng, con ngươi dọc; răng dài lởm chởm, nước dãi khi gầm.
+  - Cảnh: hoàng hôn u ám (khói đỏ, mặt trời thấp, trời có sao, viền đỏ khi gầm).
+- Tấm kiểm tra 2D: comp `AnimalSheet` (hiện đang để bản beast: đứng và gầm/hoảng) (mỗi con: bản tròn, rồi bản hầm hố khi đứng, đi và gầm/hoảng).
+- Ảnh xem trước: `preview_animals.jpg` (bản tròn và bản hầm hố cạnh nhau), `preview_scene.jpg` (bản tròn), `preview_scene_fierce.jpg` (bản hầm hố), `preview_animals_beast.jpg` và `preview_scene_beast.jpg` (bản v3).
 - Xem ảnh tĩnh trên cloud: `bash tools/www_pipeline/cloud_stills.sh fossil-toon-test FossilToonScene <out> 0.3 2.5 ...`
 
 Nhận xét:
