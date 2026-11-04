@@ -144,17 +144,21 @@ export function drawAnkyB(p: Pen, o: AnimalPose) {
 
 // ------------------------------------------------------------------ sauropod (Brachiosaurus-like, Late Jurassic; ~22 m)
 // shoulders high, long front legs, neck up; roar = head up + bellow (jaw open)
-export const SAUB = { skin: "#5C6150", back: "#30342A", belly: "#A9A68A", stripe: "#3A3F32", scar: "#C9C0A0", mouth: "#30080E" };
-export function drawSauroB(p: Pen, o: AnimalPose) {
+export const SAUB0 = { skin: "#5C6150", back: "#30342A", belly: "#A9A68A", stripe: "#3A3F32", scar: "#C9C0A0", mouth: "#30080E" };
+// Diplodocus (Late Jurassic, ~26 m): neck low and long, whip tail, banded
+export const DIPB = { skin: "#6A6450", back: "#34302A", belly: "#B8AE8E", stripe: "#3E3828", scar: "#D8CCB0", mouth: "#30080E" };
+export const drawDiploB = (p: Pen, o: AnimalPose) => drawSauroB(p, o, true);
+export function drawSauroB(p: Pen, o: AnimalPose, diplo = false) {
+  const SAUB = diplo ? DIPB : SAUB0;
   const light = o.light ?? rad(-120), bob = bobOf(o, 5), roar = o.roar ?? 0, expr = o.expr ?? "angry";
   colLeg(p, o, 540, 640 + bob, 0.5, mul(SAUB.skin, FAR), light, { r0: 96, r1: 70, toes: 3, tex: SAUB.back, bend: 10 });
   colLeg(p, o, 920, 600 + bob, 0, mul(SAUB.skin, FAR), light, { r0: 84, r1: 66, toes: 1, tex: SAUB.back, bend: 6 });
   const tb: P2 = [400, 570 + bob], sway = 0.05 * Math.sin(2 * Math.PI * ph0(o)) * (o.walk ?? 0);
-  const tailL = rotAll(curve(tb, [220, 620 + bob], [70, 715 + bob], 18), sway, tb);
+  const tailL = rotAll(diplo ? curve(tb, [200, 640 + bob], [20, 600 + bob], 18) : curve(tb, [220, 620 + bob], [70, 715 + bob], 18), sway, tb); // Diplodocus: a long whip tail
   cel(p, tube(tailL, 110, 8), SAUB.skin, light, { tex: () => scales(p, 0, 450, 460, 800, 24, SAUB.back, 4) });
   scutes(p, tailL.slice(0, 15).map(([x, y], i) => [x, y - (108 - i * 7)] as P2), 22, SAUB.back, light, 5);
   // neck: rises from the shoulders, raised a bit more on the bellow
-  const nb: P2 = [930, 450 + bob], neckL = rotAll(curve(nb, [1090, 390 + bob], [1170, 210 + bob], 16), -rad(8) * roar, nb);
+  const nb: P2 = [930, 450 + bob], neckL = rotAll(diplo ? curve(nb, [1120, 360 + bob], [1300, 330 + bob], 16) : curve(nb, [1090, 390 + bob], [1170, 210 + bob], 16), -rad(8) * roar, nb); // Diplodocus: neck held low and long
   cel(p, tube(neckL, 132, 50), SAUB.skin, light, { tex: () => {
     scales(p, 850, 120, 1300, 600, 20, SAUB.back, 13);
     for (let i = 3; i < neckL.length - 2; i += 2) { const [x, y] = neckL[i]; p.stroke(curve([x - 30, y + 30], [x + 5, y + 50], [x + 40, y + 40], 6), 5, INKB); }
@@ -187,8 +191,11 @@ export const EDMB0 = { skin: "#5D6346", back: "#2F3424", belly: "#B0A57E", strip
 // Parasaurolophus (Late Cretaceous, ~9.5 m): same body, tube crest, banded rust colours
 export const PARAB = { skin: "#6E5236", back: "#3A2A1C", belly: "#B8A27A", stripe: "#2A1C12", comb: "#A8501E", bill: "#2A2018", scar: "#D8C49A", mouth: "#30080E" };
 export const drawParaB = (p: Pen, o: AnimalPose) => drawEdmoB(p, o, true);
-export function drawEdmoB(p: Pen, o: AnimalPose, para = false) {
-  const EDMB = para ? PARAB : EDMB0;
+// Iguanodon (Early Cretaceous, ~10 m): no crest, thumb spikes
+export const IGUB = { skin: "#5E5A3E", back: "#2E2C1E", belly: "#B4A880", stripe: "#3A3622", comb: "#5E5A3E", bill: "#2A2018", scar: "#D8C49A", mouth: "#30080E" };
+export const drawIguB = (p: Pen, o: AnimalPose) => drawEdmoB(p, o, false, true);
+export function drawEdmoB(p: Pen, o: AnimalPose, para = false, igu = false) {
+  const EDMB = para ? PARAB : igu ? IGUB : EDMB0;
   const light = o.light ?? rad(-120), bob = bobOf(o, 6), roar = o.roar ?? 0, expr = o.expr ?? "angry";
   const far = walkOf(o, 0.5), near = walkOf(o, 0);
   const leg = (hip: P2, w: { swing: number; lift: number }, col: string, s: number) => {
@@ -218,7 +225,8 @@ export function drawEdmoB(p: Pen, o: AnimalPose, para = false) {
   } });
   scutes(p, curve([500, 390 + bob], [700, 340 + bob], [930, 380 + bob], 12), 24, EDMB.back, light, 11);
   leg([660, 530 + bob], near, EDMB.skin, 1.0);
-  colLeg(p, o, 870, 610 + bob, 0.5, EDMB.skin, light, { r0: 48, r1: 30, toes: 3, toe: 16, bend: 26, reach: 110 });
+  const hand = colLeg(p, o, 870, 610 + bob, 0.5, EDMB.skin, light, { r0: 48, r1: 30, toes: 3, toe: 16, bend: 26, reach: 110 });
+  if (igu) cel(p, horn(curve([hand[0] + 6, hand[1] - 40], [hand[0] + 40, hand[1] - 70], [hand[0] + 50, hand[1] - 110], 6), 14), "#E2D2AA", light, { d: 3, ow: 8 }); // Iguanodon thumb spike
   // neck + head (raised on the bellow)
   const nb: P2 = [930, 470 + bob], hr = -rad(14) * roar, R = (q: P2[]) => rotAll(q, hr, nb);
   cel(p, tube(R(curve(nb, [1000, 420 + bob], [1060, 400 + bob], 8)), 86, 62), EDMB.skin, light, { tex: () => { scales(p, 880, 330, 1120, 540, 18, EDMB.back, 13); folds(p, [[[980, 470 + bob], [1010, 490 + bob], [1040, 470 + bob]]]); } });
@@ -228,7 +236,7 @@ export function drawEdmoB(p: Pen, o: AnimalPose, para = false) {
   if (para) { // Parasaurolophus: the long hollow tube crest sweeping back from the snout
     const cl = R(curve([1150, 350 + bob], [1050, 260 + bob], [860, 236 + bob], 12));
     cel(p, tube(cl, 34, 22), EDMB.comb, light, { d: 8, ow: OW * 0.85, tex: () => { for (let i = 2; i < cl.length - 1; i += 2) p.stroke([[cl[i][0] - 6, cl[i][1] - 30], [cl[i][0] + 6, cl[i][1] + 30]], 5, EDMB.back); } });
-  } else cel(p, R([[1090, 352 + bob], [1110, 318 + bob], [1150, 306 + bob], [1190, 320 + bob], [1170, 352 + bob]]), EDMB.comb, light, { d: 8, ow: OW * 0.8 });
+  } else if (!igu) cel(p, R([[1090, 352 + bob], [1110, 318 + bob], [1150, 306 + bob], [1190, 320 + bob], [1170, 352 + bob]]), EDMB.comb, light, { d: 8, ow: OW * 0.8 });
   const head = R(chaikin(offs([[1040, 380], [1100, 345], [1190, 350], [1300, 380], [1345, 408], [1330, 428], [1220, 432], [1090, 436], [1040, 418]], 0, bob), 2));
   cel(p, head, EDMB.skin, light, { d: 12, tex: () => {
     scales(p, 1030, 320, 1350, 450, 14, EDMB.back, 21);

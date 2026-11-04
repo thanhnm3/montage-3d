@@ -138,3 +138,22 @@ User: "làm tiếp badlands với bãi khai quật đi, xem còn những con v�
 - Fix for all sets: `toonWP` materials shared one compiled program (three keys programs by `onBeforeCompile.toString()`,
   identical for every toonWP material), so later materials drew with the first one's shader (e.g. the volcano cone had
   the ground's cracks). Each now has its own `customProgramCacheKey`. `preview_sets.jpg` / `preview_sets2.jpg` re-rendered.
+
+## r10 (2026-11-04): every remaining famous ancient animal + fantasy beasts
+User: "làm nốt các con còn lại đi, kể cả các con thú trong tưởng tượng, các con thú cổ đại nổi tiếng, làm hết".
+Shared bodies in `beastAncient.ts`: `drawQuadB` + `quadHead` (any four-legged mammal / synapsid; cat / dog / horse /
+bovine / big / reptile skulls, fangs, sabres, antlers, bull horns, a unicorn horn, goat horns, manes, several heads,
+pre / post / tail hooks for wings and extra parts), `drawSwimB`, `drawGroundBirdB`, `drawSoarB`, `drawApeB`, `tinted`
+(colour variant through a canvas filter).
+
+- Real (`beastAncient.ts` + variants in `beasts.ts`, sheet `BeastAncientSheet`, `preview_ancient.jpg`): cave lion,
+  aurochs, Megaloceros, thylacine, Paraceratherium, Andrewsarchus, gorgonopsid (Inostrancevia), Glyptodon, ichthyosaur,
+  Basilosaurus, Livyatan, Archelon, trilobite, Eurypterid (Jaekelopterus), moa, dodo, Argentavis, Pelagornis,
+  Gigantopithecus; Diplodocus + Iguanodon (variants of the sauropod / Edmontosaurus bodies), Baryonyx + Oviraptor
+  (theropod specs), Velociraptor + Sarcosuchus (tinted Acheroraptor / Deinosuchus).
+- Fantasy (`beastMyth.ts`, sheet `BeastMythSheet`, `preview_myth.jpg`): griffin, manticore, chimera, Cerberus, a dark
+  unicorn, Pegasus, yeti, bigfoot, phoenix, thunderbird, wyvern, basilisk, Nessie, hydra (5 heads, poison fire),
+  Leviathan, Kraken. `MythDemo` puts the Kraken + Leviathan in the sea, yeti vs griffin on the ice, the hydra on the
+  volcano (`preview_myth_3d.jpg`).
+- `BEASTS` now holds 89 animals. Big sheets are slow to render in the cloud (~3 min, software WebGL): pass
+  `--timeout=400000` to `remotion still`.

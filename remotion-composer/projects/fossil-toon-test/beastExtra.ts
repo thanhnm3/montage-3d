@@ -14,10 +14,10 @@ const offs = (pts: P2[], dx: number, dy: number): P2[] => pts.map(([x, y]) => [x
 const bobOf = (o: AnimalPose, a: number) => a * Math.cos(4 * Math.PI * (o.phase ?? 0)) * (o.walk ?? 0);
 
 // ------------------------------------------------------------------ parametric big theropod (the T. rex body of beastAnimals.ts)
-type TheroSpec = {
+export type TheroSpec = {
   skin: string; back: string; belly: string; stripe: string; scute: string; mouth: string; scar: string; iris: string; horn?: string;
   hipY: number; legS: number; A: number; B: number; tailR: number; hs: number; sx: number; sy: number; arm: number; claws: number; teeth: number;
-  extra: "allo" | "carno" | "giga" | "dilo"; stripes: number; neckUp: number;
+  extra: "allo" | "carno" | "giga" | "dilo" | "bary" | "ovi"; stripes: number; neckUp: number; feathers?: string; beak?: string;
 };
 // head outline relative to the jaw hinge (taken from the T. rex skull), scaled per species by (hs * sx, hs * sy)
 const SKULL: P2[] = [[-15, -80], [15, -140], [80, -158], [102, -184], [132, -166], [150, -144], [270, -128], [330, -102], [352, -62], [340, -22], [190, -14], [10, -4]];
@@ -50,6 +50,7 @@ export function drawTheroB(p: Pen, o: AnimalPose, S: TheroSpec) {
   const nUp = S.neckUp, neckL = curve([830, Y(440)], [900, Y(370 - nUp * 0.5)], [960, Y(350 - nUp)], 10);
   cel(p, tube(neckL, 120 * k, 98 * k), S.skin, light, { tex: () => { scales(p, 760, Y(200 - nUp), 1060, Y(560), 20, S.back, 13); folds(p, [[[880, Y(450)], [905, Y(470)], [935, Y(450)]]]); } });
   scutes(p, neckL.map(([x, y]) => [x - 20, y - 110 * k] as P2), 26 * k, S.scute, light, 17);
+  if (S.feathers) { furFlicks(p, 420, Y(260), 980, Y(660), 120, 3, [S.feathers, S.back], 34, 6); plumes0(p, tailL.slice(9, 16), 60, rad(-150), S.feathers, 3); plumes0(p, tailL.slice(9, 16), 55, rad(150), S.feathers, 4); }
   const H: P2 = [960, Y(380 - nUp)], ha = -rad(16) * roar, ja = rad(32) * roar;
   const at = (q: P2): P2 => [H[0] + q[0] * S.hs * S.sx, H[1] + q[1] * S.hs * S.sy];
   const R = (q: P2[]) => rotAll(q.map(at), ha, H), J = (q: P2[]) => rotAll(q.map(at), ja, H);
@@ -77,14 +78,21 @@ export function drawTheroB(p: Pen, o: AnimalPose, S: TheroSpec) {
     cel(p, horn(hp, 34), d ? mul(hornCol, FAR) : hornCol, light, { d: 6, ow: OW * 0.85 });
   }
   if (S.extra === "giga") for (let i = 0; i < 6; i++) cel(p, R([[70 + i * 22, -152], [80 + i * 22, -176 + (i % 2) * 6], [92 + i * 22, -150]]), hornCol, light, { d: 2, ow: 6, rim: false }); // rough brow
+  if (S.extra === "bary") cel(p, R([[200, -120], [250, -150], [300, -116]]), hornCol, light, { d: 2, ow: 6, rim: false }); // small nasal crest
+  if (S.extra === "ovi") { // tall cassowary crest + toothless parrot beak
+    cel(p, R([[40, -150], [90, -330], [200, -260], [250, -140]]), hornCol, light, { d: 6, ow: OW * 0.8, tex: () => { p.g.globalAlpha = 0.4; p.stroke(R([[80, -160], [110, -290]]), 5, INKB); p.g.globalAlpha = 1; } });
+    cel(p, R([[240, -120], [352, -70], [356, -10], [300, -16], [230, -40]]), S.beak ?? "#C9B88A", light, { d: 4, ow: OW * 0.8 });
+  }
   const [nx, ny] = R([[322, -90]])[0]; p.poly([[nx - 10, ny - 3], [nx + 10, ny - 7], [nx + 6, ny + 5]], INKB, 0);
   const [ex, ey] = R([[100, -118]])[0];
   beastEye(p, ex, ey, 1.45 * S.hs, expr, o.blink ?? 0, S.skin, S.iris);
   const arm = curve([900, Y(545)], [900 + 45 * S.arm, Y(575)], [900 + 62 * S.arm, Y(545 + 65 * S.arm) - 25 * roar], 6);
   cel(p, tube(arm, 19 * Math.max(0.8, S.arm * 0.8), 13), S.skin, light, { d: 8, ow: OW * 0.75 });
   const hd = arm[arm.length - 1];
-  for (let i = 0; i < S.claws; i++) claw(p, add(hd, -4 * i, 6 * i), 26 * S.arm, 0.9 + i * 0.2, 7);
+  for (let i = 0; i < S.claws; i++) claw(p, add(hd, -4 * i, 6 * i), 26 * S.arm * (S.extra === "bary" && i === 0 ? 1.8 : 1), 0.9 + i * 0.2, 7 * (S.extra === "bary" && i === 0 ? 1.6 : 1));
+  if (S.feathers) plumes0(p, arm.slice(1), 60, rad(120), S.feathers, 15);
 }
+function plumes0(p: Pen, pts: P2[], len: number, ang: number, col: string, seed: number) { const r = rng(seed); for (const [x, y] of pts) { const l = len * (0.7 + r() * 0.5), a = ang + (r() - 0.5) * 0.4; p.poly(horn([[x, y], [x + Math.cos(a) * l * 0.5, y + Math.sin(a) * l * 0.5], [x + Math.cos(a) * l, y + Math.sin(a) * l]], 12), col, 4); } }
 const ALLO: TheroSpec = { skin: "#7A5A3A", back: "#3A2618", belly: "#C9B08A", stripe: "#3A2214", scute: "#4A3020", horn: "#A8381E", mouth: "#30080E", scar: "#E0C8A0", iris: "#FF8A1F",
   hipY: 520, legS: 0.95, A: 230, B: 140, tailR: 100, hs: 0.95, sx: 1.05, sy: 0.78, arm: 1.6, claws: 3, teeth: 10, extra: "allo", stripes: 8, neckUp: 10 };
 const CARN: TheroSpec = { skin: "#7A2A1C", back: "#3A120C", belly: "#C99D74", stripe: "#2A0E08", scute: "#4A1A10", horn: "#5A1C12", mouth: "#30080E", scar: "#E8C8A0", iris: "#FFB21F",
@@ -97,6 +105,13 @@ export const drawAlloB = (p: Pen, o: AnimalPose) => drawTheroB(p, o, ALLO);
 export const drawCarnoB = (p: Pen, o: AnimalPose) => drawTheroB(p, o, CARN);
 export const drawGigaB = (p: Pen, o: AnimalPose) => drawTheroB(p, o, GIGA);
 export const drawDiloB = (p: Pen, o: AnimalPose) => drawTheroB(p, o, DILO);
+// Baryonyx (Early Cretaceous, ~9 m): long low crocodile snout, big thumb claw; Oviraptor (~1.8 m): feathered, crest, beak
+const BARY: TheroSpec = { skin: "#5A6A4A", back: "#2A3424", belly: "#C9C49A", stripe: "#22301E", scute: "#3A4A30", horn: "#8A3A22", mouth: "#30080E", scar: "#E0D8B0", iris: "#F2D23A",
+  hipY: 530, legS: 0.9, A: 230, B: 125, tailR: 92, hs: 0.95, sx: 1.4, sy: 0.55, arm: 1.6, claws: 3, teeth: 14, extra: "bary", stripes: 8, neckUp: 0 };
+const OVI: TheroSpec = { skin: "#5A4A5A", back: "#2A2030", belly: "#C9B8C0", stripe: "#2A1E2A", scute: "#3A2E3A", horn: "#D04A2A", mouth: "#30080E", scar: "#E0D0D8", iris: "#F2D23A",
+  hipY: 560, legS: 0.8, A: 170, B: 110, tailR: 70, hs: 0.7, sx: 0.55, sy: 1.0, arm: 1.4, claws: 3, teeth: 0, extra: "ovi", stripes: 0, neckUp: 70, feathers: "#3A2A3E", beak: "#E2C27A" };
+export const drawBaryB = (p: Pen, o: AnimalPose) => drawTheroB(p, o, BARY);
+export const drawOviB = (p: Pen, o: AnimalPose) => drawTheroB(p, o, OVI);
 
 // ------------------------------------------------------------------ Therizinosaurus (Late Cretaceous Mongolia; ~9 m, ~1 m hand claws)
 const THZ = { skin: "#5A5040", feather: "#4A3A2A", lit: "#8A7656", belly: "#B8A880", beak: "#C9B88A", mouth: "#30080E" };
@@ -161,7 +176,7 @@ export function drawDeinoB(p: Pen, o: AnimalPose) {
 
 // ------------------------------------------------------------------ swimmers: Elasmosaurus, Liopleurodon (cy 520)
 const ELA = { top: "#3A4A4E", side: "#5E7074", belly: "#D2D2C4", fin: "#2A363A", mouth: "#22090E", scar: "#C9CED0" };
-function flipper(p: Pen, at: P2, a: number, L: number, col: string, light: number) { cel(p, rotAll([at, add(at, -L * 0.35, L * 0.9), add(at, -L * 0.75, L * 1.0), add(at, -L * 0.4, L * 0.25)], a, at), col, light, { d: 8 }); }
+export function flipper(p: Pen, at: P2, a: number, L: number, col: string, light: number) { cel(p, rotAll([at, add(at, -L * 0.35, L * 0.9), add(at, -L * 0.75, L * 1.0), add(at, -L * 0.4, L * 0.25)], a, at), col, light, { d: 8 }); }
 export function drawElasmoB(p: Pen, o: AnimalPose) {
   const light = o.light ?? rad(-120), ph = 2 * Math.PI * (o.phase ?? 0), sw = Math.sin(ph) * 0.35 * (o.walk ?? 0.6), roar = o.roar ?? 0, expr = o.expr ?? "angry", cy = 600;
   flipper(p, [720, cy + 40], -0.3 + sw, 200, mul(ELA.fin, FAR), light); flipper(p, [430, cy + 40], -0.3 - sw, 160, mul(ELA.fin, FAR), light);

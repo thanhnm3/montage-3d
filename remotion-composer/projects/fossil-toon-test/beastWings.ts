@@ -14,7 +14,7 @@ const add = (a: P2, dx: number, dy: number): P2 => [a[0] + dx, a[1] + dy];
 const flapOf = (o: AnimalPose, glide = 0.3) => { const w = o.walk ?? 0; return glide + (0.5 - 0.5 * Math.cos(2 * Math.PI * (o.phase ?? 0)) - glide) * w; };
 
 /** wing geometry seen from the side: the span shows as height (up-stroke above, down-stroke below the shoulder) */
-function wingFrame(sh: P2, span: number, flapK: number, back = 0.35) {
+export function wingFrame(sh: P2, span: number, flapK: number, back = 0.35) {
   const psi = Math.PI * flapK, c = Math.cos(psi), s = Math.abs(Math.sin(psi));
   const tip: P2 = [sh[0] - span * (back + 0.2 * s), sh[1] - span * c * 0.95];
   const elbow = add(lerp2(sh, tip, 0.3), span * 0.1, 0), wrist = add(lerp2(sh, tip, 0.52), span * 0.14, 0);
@@ -22,7 +22,7 @@ function wingFrame(sh: P2, span: number, flapK: number, back = 0.35) {
 }
 /** membrane wing (pterosaur / dragon / bat): arm bones on the leading edge, fingers fanning to a scalloped trailing edge */
 type MemO = { sh: P2; rear: P2; span: number; flapK: number; col: string; mem: string; light: number; fingers: number; scallop: number; arm: number; back?: number; seed?: number; holes?: boolean };
-function memWing(p: Pen, m: MemO) {
+export function memWing(p: Pen, m: MemO) {
   const f = wingFrame(m.sh, m.span, m.flapK, m.back), n = Math.max(1, m.fingers);
   const ends: P2[] = []; // finger ends along the trailing edge, from the tip toward the body
   for (let j = 1; j <= n; j++) { const k = j / (n + 1), q = lerp2(f.tip, m.rear, k); ends.push(add(q, -m.span * 0.18 * Math.sin(Math.PI * k), m.span * 0.08 * (f.c > 0 ? 1 : -1) * Math.sin(Math.PI * k))); }
@@ -47,7 +47,7 @@ function memWing(p: Pen, m: MemO) {
   return f;
 }
 /** feathered wing (birds, Microraptor): a dark base, primaries fanning back with jagged tips, feather lines */
-function featherWing(p: Pen, sh: P2, rear: P2, span: number, flapK: number, col: string, lit: string, light: number, seed: number, n = 10, back = 0.35) {
+export function featherWing(p: Pen, sh: P2, rear: P2, span: number, flapK: number, col: string, lit: string, light: number, seed: number, n = 10, back = 0.35) {
   const f = wingFrame(sh, span, flapK, back), r = rng(seed);
   const lead = [sh, f.elbow, f.wrist, ...curve(f.wrist, add(lerp2(f.wrist, f.tip, 0.5), span * 0.05, 0), f.tip, 6).slice(1)];
   const tips: P2[] = [], bases: P2[] = [];
@@ -65,7 +65,7 @@ function featherWing(p: Pen, sh: P2, rear: P2, span: number, flapK: number, col:
   return f;
 }
 /** small pointed feathers along a line (crests, ruffs, tails) */
-function plumes(p: Pen, pts: P2[], len: number, ang: number, col: string, seed: number, w = 12) {
+export function plumes(p: Pen, pts: P2[], len: number, ang: number, col: string, seed: number, w = 12) {
   const r = rng(seed);
   for (const [x, y] of pts) { const l = len * (0.7 + r() * 0.5), a = ang + (r() - 0.5) * 0.4; p.poly(horn([[x, y], [x + Math.cos(a) * l * 0.5, y + Math.sin(a) * l * 0.5], [x + Math.cos(a) * l, y + Math.sin(a) * l]], w), col, 4); }
 }
@@ -250,8 +250,8 @@ export function drawMeganeuraB(p: Pen, o: AnimalPose) {
 }
 
 // ------------------------------------------------------------------ dragons (fantasy): standing (fire on the roar) and flying
-const DRG = { skin: "#3E2A2E", back: "#1E1216", belly: "#9C7A52", scale: "#5A3A3E", mem: "#6E1E1A", memLit: "#B0402A", horn: "#D9C9A6", hornTip: "#1E1612", mouth: "#2A0608", gum: "#8A2030", scar: "#C9A07A" };
-function fire(p: Pen, m: P2, ang: number, len: number, k: number, ph: number) {
+export const DRG = { skin: "#3E2A2E", back: "#1E1216", belly: "#9C7A52", scale: "#5A3A3E", mem: "#6E1E1A", memLit: "#B0402A", horn: "#D9C9A6", hornTip: "#1E1612", mouth: "#2A0608", gum: "#8A2030", scar: "#C9A07A" };
+export function fire(p: Pen, m: P2, ang: number, len: number, k: number, ph: number) {
   if (k <= 0.02) return;
   const r = rng(Math.floor(ph * 30) + 1), L = len * k;
   const layer = (w: number, l: number, c0: string, c1: string) => {
@@ -266,7 +266,7 @@ function fire(p: Pen, m: P2, ang: number, len: number, k: number, ph: number) {
   layer(45, L * 0.6, "rgba(255,245,200,1)", "rgba(255,190,60,0.4)");
   for (let i = 0; i < 18; i++) { const u = r(), s = (r() - 0.5) * 2; p.ell(m[0] + Math.cos(ang) * L * u - Math.sin(ang) * s * 140 * u, m[1] + Math.sin(ang) * L * u + Math.cos(ang) * s * 140 * u, 5, 5, "#FFE08A", 0); }
 }
-function dragonHead(p: Pen, o: AnimalPose, H: P2, rotA: number, light: number) {
+export function dragonHead(p: Pen, o: AnimalPose, H: P2, rotA: number, light: number) {
   const roar = o.roar ?? 0, expr = o.expr ?? "angry", R = (q: P2[]) => rotAll(q.map(([x, y]) => [x + H[0], y + H[1]] as P2), rotA, H);
   const ja = rad(34) * roar, J = (q: P2[]) => rotAll(R(q), ja, R([[0, 20]])[0]);
   // horns behind the skull: two long back-swept, ridged

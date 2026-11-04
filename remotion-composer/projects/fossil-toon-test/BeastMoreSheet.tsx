@@ -7,6 +7,8 @@ import type { AnimalPose } from "./toonAnimals";
 import { BEAST_MORE } from "./beastMore";
 import { BEAST_WINGS } from "./beastWings";
 import { BEAST_EXTRA } from "./beastExtra";
+import { BEAST_ANCIENT } from "./beastAncient";
+import { BEAST_MYTH } from "./beastMyth";
 import { BEASTS, BeastName } from "./beasts";
 const K = 0.45;
 const Cell: React.FC<{ a: BeastName; o: AnimalPose; label: string }> = ({ a, o, label }) => {
@@ -19,9 +21,9 @@ const MOVE: Record<string, string> = { steg: "tail swing", ankylo: "club swing",
   pteranodon: "screech", quetzfly: "gape", micro: "claws out", haast: "talon strike", terror: "axe-beak strike", meganeura: "grab", dragon: "fire", dragonfly: "fire",
   allo: "roar", carno: "roar", giga: "roar", dilo: "roar", theri: "claws up", deino: "lunge bite", elasmo: "neck strike", liopleuro: "bite", dimetro: "bite",
   megather: "rears up", direwolf: "snarl", hellpig: "gape", arthro: "rears up", anomalo: "grab", helico: "whorl bite", para: "bellow" };
-export const BeastMoreSheet: React.FC<{ only?: string[]; wings?: boolean; extra?: boolean }> = ({ only, wings, extra }) => (
+export const BeastMoreSheet: React.FC<{ only?: string[]; wings?: boolean; extra?: boolean; group?: "ancient" | "myth" }> = ({ only, wings, extra, group }) => (
   <AbsoluteFill style={{ background: "#CFE0EE", display: "flex", flexDirection: "row", flexWrap: "wrap", alignContent: "flex-start", gap: 6, padding: 8 }}>
-    {(only ?? (extra ? [...Object.keys(BEAST_EXTRA), "para"] : Object.keys(wings ? BEAST_WINGS : BEAST_MORE))).flatMap((a) => [
+    {(only ?? (group === "ancient" ? [...Object.keys(BEAST_ANCIENT), "diplo", "igu", "bary", "ovi", "velo", "sarco"] : group === "myth" ? Object.keys(BEAST_MYTH) : extra ? [...Object.keys(BEAST_EXTRA), "para"] : Object.keys(wings ? BEAST_WINGS : BEAST_MORE))).flatMap((a) => [
       <Cell key={a + "w"} a={a as BeastName} o={{ walk: 0.6, phase: 0.1 }} label={`${a}: ${a in BEAST_WINGS ? "flap / walk" : "walk"}`} />,
       <Cell key={a + "x"} a={a as BeastName} o={{ roar: 1 }} label={`${a}: ${MOVE[a] ?? "roar"}`} />,
     ])}
