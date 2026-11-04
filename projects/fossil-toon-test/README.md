@@ -155,5 +155,5 @@ pre / post / tail hooks for wings and extra parts), `drawSwimB`, `drawGroundBird
   unicorn, Pegasus, yeti, bigfoot, phoenix, thunderbird, wyvern, basilisk, Nessie, hydra (5 heads, poison fire),
   Leviathan, Kraken. `MythDemo` puts the Kraken + Leviathan in the sea, yeti vs griffin on the ice, the hydra on the
   volcano (`preview_myth_3d.jpg`).
-- `BEASTS` now holds 89 animals. Big sheets are slow to render in the cloud (~3 min, software WebGL): pass
+- `BEASTS` now holds 83 animals. Big sheets are slow to render in the cloud (~3 min, software WebGL): pass
   `--timeout=400000` to `remotion still`.
