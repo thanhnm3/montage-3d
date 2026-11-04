@@ -76,3 +76,16 @@ User: "làm địa hình còn thiếu đi, biển với kỷ băng hà". Same to
 - `BeastCard3D`: card for any `BEAST_ALL` animal; `anchor` 520 = swimmers (body centre on pos.y), default GROUND.
 - Comp `ToonSetsDemo` (10 s): Mosasaurus bite, Megalodon, Dunkleosteus; mammoth herd at the glacier, woolly rhino
   charge, Smilodon vs cave bear. Stills: `preview_sets.jpg` (t = 0.5, 2.8, 4.2, 5.5, 7.8, 9.6 s).
+
+## r7 (2026-11-04): cave + volcano sets (`ToonSets2.tsx`)
+User: "làm tiếp hang đá với núi lửa đi".
+- `CaveSet`: noise-bent limestone chamber seen from inside (strata, damp streaks), the mouth cut open to a bright day,
+  campfire as the key light (flicker, flames, embers, smoke; a shadow-casting spot light from the fire throws the
+  animals onto the walls), stalactites/stalagmites, a cave bear den of bones, cave paintings (ochre + charcoal
+  mammoths, a horse, hand stencils; our own drawings) painted inside the back-wall shader at x -4.5..4.5, y 1.6..6.1.
+  Floor `caveFloorY(x, z)`, fire at `CAVE.fire`, mouth at z > 6.
+- `VolcanoSet`: basalt plain with glowing crack seams, a lava river with drifting crust (`VOL.riverZ`, the ground dips
+  along it), a volcano with lava streaks + crater glow, an eruption plume (no fog on it, lowest puffs lit orange),
+  lava bombs on arcs, falling ash, embers over the river, charred trees, red-brown sky. Height `basaltY(x, z)`.
+- Comp `ToonSetsDemo2` (10 s): cave bear by the fire, the paintings, Smilodon in the mouth seen past the fire;
+  eruption wide with T. rex + Triceratops, low T. rex roar, Triceratops at the lava river. `preview_sets2.jpg`.

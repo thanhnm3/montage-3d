@@ -21,27 +21,28 @@ import { M, Models, useModels } from "./FreeWorld";
 import { Sky, V3, clamp01, ease, lerp, lerpV, toon } from "./World";
 
 const W = 1080, H = 1920, ASPECT = W / H;
-const rng = (seed: number) => () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
-const canvasTex = (w: number, h: number, f: (g: CanvasRenderingContext2D) => void) => {
+export const rng = (seed: number) => () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+export const canvasTex = (w: number, h: number, f: (g: CanvasRenderingContext2D) => void) => {
   const c = document.createElement("canvas"); c.width = w; c.height = h; f(c.getContext("2d")!);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
 };
 /** height-field ground: a plane bent by h(x, z) */
-function heightPlane(size: number, seg: number, h: (x: number, z: number) => number) {
+export function heightPlane(size: number, seg: number, h: (x: number, z: number) => number) {
   const g = new THREE.PlaneGeometry(size, size, seg, seg); g.rotateX(-Math.PI / 2);
   const p = g.attributes.position as THREE.BufferAttribute;
   for (let i = 0; i < p.count; i++) p.setY(i, h(p.getX(i), p.getZ(i)));
   g.computeVertexNormals(); return g;
 }
 /** toon material with a world-position hook: `frag` runs after the colour is set (vWP = world position, uT = time) */
-function toonWP(color: string, uT: { value: number }, frag: string, extra: THREE.MeshToonMaterialParameters = {}) {
+export function toonWP(color: string, uT: { value: number }, frag: string, extra: THREE.MeshToonMaterialParameters = {}, uni: Record<string, { value: unknown }> = {}, decl = "", emissive = "") {
   const m = toon({ color: new THREE.Color(color), ...extra });
   m.onBeforeCompile = (s) => {
-    s.uniforms.uT = uT;
+    s.uniforms.uT = uT; Object.assign(s.uniforms, uni);
     s.vertexShader = s.vertexShader.replace("#include <common>", "#include <common>\nvarying vec3 vWP;")
       .replace("#include <worldpos_vertex>", "#include <worldpos_vertex>\nvWP = (modelMatrix * vec4(transformed, 1.0)).xyz;");
-    s.fragmentShader = s.fragmentShader.replace("#include <common>", "#include <common>\nvarying vec3 vWP; uniform float uT;")
-      .replace("#include <color_fragment>", "#include <color_fragment>\n" + frag);
+    s.fragmentShader = s.fragmentShader.replace("#include <common>", "#include <common>\nvarying vec3 vWP; uniform float uT;\n" + decl)
+      .replace("#include <color_fragment>", "#include <color_fragment>\n" + frag)
+      .replace("#include <emissivemap_fragment>", "#include <emissivemap_fragment>\n" + emissive);
   };
   return m;
 }
@@ -105,7 +106,7 @@ const fishTex = () => canvasTex(128, 64, (g) => {
   g.fillStyle = "#3E5A66"; g.beginPath(); g.moveTo(108, 30); g.quadraticCurveTo(80, 10, 36, 28); g.lineTo(60, 30); g.closePath(); g.fill();
   g.fillStyle = INKC; g.beginPath(); g.arc(94, 28, 4, 0, Math.PI * 2); g.fill();
 });
-const glowTex = () => canvasTex(128, 128, (g) => { const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.35, "rgba(255,255,255,0.5)"); gr.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); });
+export const glowTex = () => canvasTex(128, 128, (g) => { const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.35, "rgba(255,255,255,0.5)"); gr.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); });
 const shaftTex = () => canvasTex(64, 256, (g) => { const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, "rgba(255,255,255,0.9)"); gr.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, 64, 256);
   const gx = g.createLinearGradient(0, 0, 64, 0); gx.addColorStop(0, "rgba(0,0,0,1)"); gx.addColorStop(0.5, "rgba(0,0,0,0)"); gx.addColorStop(1, "rgba(0,0,0,1)"); g.globalCompositeOperation = "destination-out"; g.fillStyle = gx; g.fillRect(0, 0, 64, 256); });
 
@@ -113,7 +114,7 @@ const shaftTex = () => canvasTex(64, 256, (g) => { const gr = g.createLinearGrad
 export const SEA = { surf: 26, fog: "#2D7488", top: "#9FE6EE", hor: "#2D7488", deep: "#0C2A3E", sand: "#C9B88A", rock: "#4E5E66", sun: [8, 40, 18] as V3 };
 export const seaFloorY = (x: number, z: number) =>
   0.7 * Math.sin(x * 0.11 + z * 0.05) + 0.45 * Math.sin(z * 0.17 - x * 0.06) + 0.08 * Math.sin(x * 1.3 + z * 0.5) + (z < -30 ? (-30 - z) * 0.14 : 0);
-const domeMat = (top: string, hor: string, deep: string) => new THREE.ShaderMaterial({
+export const domeMat = (top: string, hor: string, deep: string) => new THREE.ShaderMaterial({
   side: THREE.BackSide, depthWrite: false, fog: false, uniforms: { top: { value: new THREE.Color(top) }, hor: { value: new THREE.Color(hor) }, deep: { value: new THREE.Color(deep) } },
   vertexShader: "varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
   fragmentShader: `varying vec3 vD; uniform vec3 top; uniform vec3 hor; uniform vec3 deep;
@@ -259,7 +260,7 @@ const CamSet: React.FC<{ c: ReturnType<typeof camAt> }> = ({ c }) => {
   return null;
 };
 const GLB = ["tree_pineTallA", "tree_pineRoundC", "tree_cone_dark", "grass", "grass_large", "rock_largeA", "rock_largeC", "rock_tallA", "rock_smallA"];
-const win = (t: number, a: number, b: number) => t >= a && t < b;
+export const win = (t: number, a: number, b: number) => t >= a && t < b;
 
 export const ToonSetsDemo: React.FC<{ set?: "sea" | "ice" }> = () => {
   const f = useCurrentFrame(), t = f / 30;
