@@ -44,6 +44,8 @@ export function toonWP(color: string, uT: { value: number }, frag: string, extra
       .replace("#include <color_fragment>", "#include <color_fragment>\n" + frag)
       .replace("#include <emissivemap_fragment>", "#include <emissivemap_fragment>\n" + emissive);
   };
+  // three caches compiled programs by onBeforeCompile.toString(), the same text for every toonWP material: give each its own key
+  m.customProgramCacheKey = () => "toonWP|" + frag + "|" + decl + "|" + emissive + "|" + (extra.side ?? "");
   return m;
 }
 

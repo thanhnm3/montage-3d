@@ -110,3 +110,31 @@ Helpers: `memWing` (membrane wing: arm bones, fingers, scalloped trailing edge, 
 for all 26 beast animals (`BeastCard3D` and the sheets use it). Comps `BeastWingSheet` (`preview_wings.jpg`) and
 `WingsDemo` (dragon fire on the volcano plain, a dragon flying over, Pteranodons over the sea: `preview_wings_3d.jpg`).
 Not done yet: an above-water ocean set (SeaSet is built to be seen from under the surface).
+
+## r9 (2026-11-04): the rest of the prehistoric list + badlands + dig site
+User: "làm tiếp badlands với bãi khai quật đi, xem còn những con vật nào thời tiền sử thì làm nốt đi".
+- `beastExtra.ts` (15) + Parasaurolophus (`para`, `beastMore.ts`, the Edmontosaurus body with a tube crest), sheet comp
+  `BeastExtraSheet` (`preview_beast_extra.jpg`):
+
+| key | animal | size | `roar` |
+|---|---|---|---|
+| allo / carno / giga / dilo | Allosaurus / Carnotaurus / Giganotosaurus / Dilophosaurus (one parametric theropod, `drawTheroB`) | 9.5 / 8 / 12.5 / 7 m | roar |
+| theri | Therizinosaurus | 9 m | arms up, ~1 m claws |
+| para | Parasaurolophus | 9.5 m | bellow |
+| deino | Deinosuchus | 10.5 m | head up, gape |
+| elasmo / liopleuro | Elasmosaurus / Liopleurodon (swim, anchor 520) | 10.5 / 6.5 m | neck strike / bite |
+| dimetro | Dimetrodon (Permian synapsid) | 3.5 m | bite |
+| megather | Megatherium | 6 m | rears up, claws out |
+| direwolf / hellpig | dire wolf / Daeodon | 1.8 / 3.3 m | snarl / gape |
+| arthro | Arthropleura | 2.6 m | front rears up |
+| anomalo / helico | Anomalocaris / Helicoprion (swim) | 0.9 / 6 m | grab / tooth-whorl bite |
+
+- `ToonSets3.tsx`: `BadlandsSet` (strata from one world-height shader on mounds, mesas with caprock, hoodoos;
+  cracked dry-mud flats, a dry wash, sagebrush) and the dig (`BadlandsSet dig` + `Skeleton` + `DigProps`): a stepped
+  pit whose walls show the strata, a T. rex skeleton on its side (skull with openings, jaw, teeth, spine, ribs, hips,
+  legs), string grid on stakes, flags, plaster jackets, buckets, pickaxe, shovel, wheelbarrow, sieve, shade umbrella,
+  tent. `PersonCard` = toon.ts person; `youToon.drawYou` now takes an outfit (`DIGGER`, `DIGGER2`).
+  Comp `ToonSetsDemo3` (`preview_sets3.jpg`).
+- Fix for all sets: `toonWP` materials shared one compiled program (three keys programs by `onBeforeCompile.toString()`,
+  identical for every toonWP material), so later materials drew with the first one's shader (e.g. the volcano cone had
+  the ground's cracks). Each now has its own `customProgramCacheKey`. `preview_sets.jpg` / `preview_sets2.jpg` re-rendered.

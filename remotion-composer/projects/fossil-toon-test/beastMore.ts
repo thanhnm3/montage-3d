@@ -183,8 +183,12 @@ export function drawSauroB(p: Pen, o: AnimalPose) {
 
 // ------------------------------------------------------------------ Edmontosaurus (Hell Creek, 66 Ma; ~12 m)
 // duck-billed, fleshy red comb, stiff tail with a healed T. rex bite (real: DMNH 1493); roar = head up + bellow
-export const EDMB = { skin: "#5D6346", back: "#2F3424", belly: "#B0A57E", stripe: "#3A4030", comb: "#9E2A1C", bill: "#2A2018", scar: "#D8C49A", mouth: "#30080E" };
-export function drawEdmoB(p: Pen, o: AnimalPose) {
+export const EDMB0 = { skin: "#5D6346", back: "#2F3424", belly: "#B0A57E", stripe: "#3A4030", comb: "#9E2A1C", bill: "#2A2018", scar: "#D8C49A", mouth: "#30080E" };
+// Parasaurolophus (Late Cretaceous, ~9.5 m): same body, tube crest, banded rust colours
+export const PARAB = { skin: "#6E5236", back: "#3A2A1C", belly: "#B8A27A", stripe: "#2A1C12", comb: "#A8501E", bill: "#2A2018", scar: "#D8C49A", mouth: "#30080E" };
+export const drawParaB = (p: Pen, o: AnimalPose) => drawEdmoB(p, o, true);
+export function drawEdmoB(p: Pen, o: AnimalPose, para = false) {
+  const EDMB = para ? PARAB : EDMB0;
   const light = o.light ?? rad(-120), bob = bobOf(o, 6), roar = o.roar ?? 0, expr = o.expr ?? "angry";
   const far = walkOf(o, 0.5), near = walkOf(o, 0);
   const leg = (hip: P2, w: { swing: number; lift: number }, col: string, s: number) => {
@@ -221,7 +225,10 @@ export function drawEdmoB(p: Pen, o: AnimalPose) {
   const hinge = R([[1090, 432 + bob]])[0], ja = rad(26) * roar, J = (q: P2[]) => rotAll(R(q), ja, hinge);
   p.poly([...R([[1090, 425 + bob], [1330, 418 + bob]]), ...J([[1320, 432 + bob], [1090, 440 + bob]])], EDMB.mouth, 0);
   cel(p, J([[1080, 432 + bob], [1320, 432 + bob], [1300, 456 + bob], [1110, 470 + bob]]), mul(EDMB.skin, [0.9, 0.9, 0.92]), light, { d: 8, ow: OW * 0.8, tex: () => p.poly(J([[1250, 430 + bob], [1320, 432 + bob], [1300, 456 + bob], [1250, 458 + bob]]), EDMB.bill, 0) });
-  cel(p, R([[1090, 352 + bob], [1110, 318 + bob], [1150, 306 + bob], [1190, 320 + bob], [1170, 352 + bob]]), EDMB.comb, light, { d: 8, ow: OW * 0.8 });
+  if (para) { // Parasaurolophus: the long hollow tube crest sweeping back from the snout
+    const cl = R(curve([1150, 350 + bob], [1050, 260 + bob], [860, 236 + bob], 12));
+    cel(p, tube(cl, 34, 22), EDMB.comb, light, { d: 8, ow: OW * 0.85, tex: () => { for (let i = 2; i < cl.length - 1; i += 2) p.stroke([[cl[i][0] - 6, cl[i][1] - 30], [cl[i][0] + 6, cl[i][1] + 30]], 5, EDMB.back); } });
+  } else cel(p, R([[1090, 352 + bob], [1110, 318 + bob], [1150, 306 + bob], [1190, 320 + bob], [1170, 352 + bob]]), EDMB.comb, light, { d: 8, ow: OW * 0.8 });
   const head = R(chaikin(offs([[1040, 380], [1100, 345], [1190, 350], [1300, 380], [1345, 408], [1330, 428], [1220, 432], [1090, 436], [1040, 418]], 0, bob), 2));
   cel(p, head, EDMB.skin, light, { d: 12, tex: () => {
     scales(p, 1030, 320, 1350, 450, 14, EDMB.back, 21);
