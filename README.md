@@ -8,6 +8,7 @@ Why Why Why (ink-3D) và Caveman. Đây là bản chép riêng từ bản clone
 - `remotion-composer/projects/fossil-3d-city-test/` — Short008–012 3D, Long006 3D, SeaAnimals, BlockAnimals...
 - `remotion-composer/projects/www-ink3d-00{1,2,3,4}/` — Why Why Why ink-3D (004: myth "chỉ dùng 10% não", chưa có giọng)
 - `remotion-composer/projects/caveman-{3d-rent,moneypile-3d,movieticket-3d}/`
+- `remotion-composer/projects/caveman-richhouse-3d/` — Caveman Economics "5 Things Missing From A Rich Man's House": 2 diorama 3D + host người tiền sử THE GUIDE vẽ bằng toon.ts (chưa có giọng)
 - `projects/fossil-3d-assets/` — model CC0 (Quaternius...), `projects/*-3d/` — props.json, script, model nhỏ
 - `tools/fossil_pipeline/FOSSIL_3D_SHORTS.md` — công thức
 - `.claude/skills/whywhywhy-ink3d-short/SKILL.md` — công thức làm tập Why Why Why mới (theo tập 004, host 2D toon trong 3D); `tools/www_pipeline/cloud_stills.sh` — xem ảnh tĩnh trên cloud
