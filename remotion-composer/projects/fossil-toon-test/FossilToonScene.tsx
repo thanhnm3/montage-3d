@@ -11,6 +11,7 @@ import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { Pen } from "./toon";
 import { ANIMALS, AnimalName, AnimalPose, GROUND } from "./toonAnimals";
+import { FIERCE } from "./fierceAnimals";
 import { InkPass } from "./Ink";
 import { M, Models, useModels } from "./FreeWorld";
 import { Sky, V3, clamp01, ease, lerp, lerpV } from "./World";
@@ -26,8 +27,8 @@ const lightAngle = (sun: THREE.Vector3, cam: THREE.Camera) => {
   const right = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 1);
   return Math.round(Math.atan2(-sun.dot(up), sun.dot(right)) / (Math.PI / 4)) * (Math.PI / 4);
 };
-export const AnimalCard: React.FC<{ name: AnimalName; pose: AnimalPose; pos: V3; heading: number; cam: { pos: V3; look: V3 }; t: number }> = ({ name, pose, pos, heading, cam, t }) => {
-  const A = ANIMALS[name], mpu = A.len / (A.x1 - A.x0);
+export const AnimalCard: React.FC<{ name: AnimalName; pose: AnimalPose; pos: V3; heading: number; cam: { pos: V3; look: V3 }; t: number; fierce?: boolean }> = ({ name, pose, pos, heading, cam, t, fierce = false }) => {
+  const A = (fierce ? FIERCE : ANIMALS)[name], mpu = A.len / (A.x1 - A.x0);
   const r = useMemo(() => {
     const cv = document.createElement("canvas"); cv.width = 1600 * K; cv.height = 1000 * K;
     const g = cv.getContext("2d")!;
@@ -97,7 +98,7 @@ const Plain: React.FC<{ models: Models }> = ({ models }) => {
   );
 };
 
-export const FossilToonScene: React.FC = () => {
+export const FossilToonScene: React.FC<{ fierce?: boolean }> = ({ fierce = false }) => {
   const f = useCurrentFrame(), t = f / 30;
   const models = useModels([], GLB);
   const c = camAt(t);
@@ -118,9 +119,9 @@ export const FossilToonScene: React.FC = () => {
           <directionalLight position={SUN} intensity={2.3} color="#FFE2B8" castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0004} shadow-normalBias={0.03}
             shadow-camera-left={-25} shadow-camera-right={25} shadow-camera-top={25} shadow-camera-bottom={-25} shadow-camera-far={150} />
           <Plain models={models} />
-          <AnimalCard name="rex" t={t} pos={[rexX, 0, 0]} heading={0} cam={camLite} pose={{ walk: rexWalk, phase: t * 0.9, roar, expr: roar > 0 ? "angry" : "neutral" }} />
-          <AnimalCard name="trike" t={t} pos={[6.5, 0, -1]} heading={Math.PI} cam={camLite} pose={{ expr: t > 3.0 ? "shock" : "neutral" }} />
-          {t > 6.3 ? <AnimalCard name="mammoth" t={t} pos={[mamX, 0, 5]} heading={Math.PI} cam={camLite} pose={{ walk: 1, phase: t * 0.8, expr: "sleepy" }} /> : null}
+          <AnimalCard fierce={fierce} name="rex" t={t} pos={[rexX, 0, 0]} heading={0} cam={camLite} pose={{ walk: rexWalk, phase: t * 0.9, roar, expr: roar > 0 || fierce ? "angry" : "neutral" }} />
+          <AnimalCard fierce={fierce} name="trike" t={t} pos={[6.5, 0, -1]} heading={Math.PI} cam={camLite} pose={{ expr: t > 3.0 ? "shock" : fierce ? "angry" : "neutral" }} />
+          {t > 6.3 ? <AnimalCard fierce={fierce} name="mammoth" t={t} pos={[mamX, 0, 5]} heading={Math.PI} cam={camLite} pose={{ walk: 1, phase: t * 0.8, expr: fierce ? "angry" : "sleepy" }} /> : null}
           <InkPass p={{ focus, blur: c.i === 1 || c.i === 2 ? 9 : 4, night: 0, cow: 0, flash: 0, redPulse: 0, ink: 1, cold: 0, warm: 0.2 }} />
         </ThreeCanvas>
       ) : null}

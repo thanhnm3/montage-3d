@@ -5,7 +5,7 @@
 // Design space 1600 x 1000 units, ground at y = 960. Our own drawings (no reference animal is copied).
 import { INK, Pen, blobPts, mul, shade, thickAngle } from "./toon";
 
-type P2 = [number, number];
+export type P2 = [number, number];
 type C3 = [number, number, number];
 const SH: C3 = [0.66, 0.68, 0.78]; // lit -> far side ratio (cloth value of toon.ts, cool shadow)
 const SH_FAR: C3 = [0.78, 0.8, 0.88]; // far legs read a step darker
@@ -13,12 +13,12 @@ export const GROUND = 960;
 export type AnimalExpr = "neutral" | "angry" | "shock" | "happy" | "sleepy";
 export type AnimalPose = { phase?: number; walk?: number; roar?: number; expr?: AnimalExpr; blink?: number; light?: number; look?: number };
 
-const rad = (d: number) => (d * Math.PI) / 180;
+export const rad = (d: number) => (d * Math.PI) / 180;
 const rot = (q: P2, a: number, c: P2): P2 => {
   const s = Math.sin(a), k = Math.cos(a), x = q[0] - c[0], y = q[1] - c[1];
   return [c[0] + x * k - y * s, c[1] + x * s + y * k];
 };
-const rotAll = (pts: P2[], a: number, c: P2) => (a ? pts.map((q) => rot(q, a, c)) : pts);
+export const rotAll = (pts: P2[], a: number, c: P2) => (a ? pts.map((q) => rot(q, a, c)) : pts);
 const bbR = (pts: P2[]) => {
   let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
   for (const [x, y] of pts) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
@@ -30,10 +30,10 @@ function part(p: Pen, pts: P2[], col: string, light: number, ow: number, sh: C3 
   else p.shadedFill(pts, col, mul(col, sh), light, bbR(pts), 0.4);
   p.inkRing(pts, ow, thickAngle(light), 0.5);
 }
-const blob = (cx: number, cy: number, a: number, b: number, r = 0, seed = 1, egg = 0, nTop = 2.1, nBot = 2.3): P2[] =>
+export const blob = (cx: number, cy: number, a: number, b: number, r = 0, seed = 1, egg = 0, nTop = 2.1, nBot = 2.3): P2[] =>
   blobPts(cx, cy, { a, b, nTop, nBot, egg, asym: 0, rot: r, noise: 0.006, seed });
 /** tapered sausage through a polyline (tails, necks, legs, trunks): radius r0 at the first point to r1 at the last */
-function tube(path: P2[], r0: number, r1: number, cap = true): P2[] {
+export function tube(path: P2[], r0: number, r1: number, cap = true): P2[] {
   const n = path.length, L: P2[] = [], R: P2[] = [];
   for (let i = 0; i < n; i++) {
     const a = path[Math.max(0, i - 1)], b = path[Math.min(n - 1, i + 1)];
@@ -53,17 +53,17 @@ function tube(path: P2[], r0: number, r1: number, cap = true): P2[] {
   }
   return [...L, ...end, ...R.reverse(), ...start];
 }
-const curve = (a: P2, k: P2, b: P2, n = 12): P2[] => Array.from({ length: n + 1 }, (_, i) => {
+export const curve = (a: P2, k: P2, b: P2, n = 12): P2[] => Array.from({ length: n + 1 }, (_, i) => {
   const t = i / n, u = 1 - t;
   return [u * u * a[0] + 2 * u * t * k[0] + t * t * b[0], u * u * a[1] + 2 * u * t * k[1] + t * t * b[1]] as P2;
 });
 /** two-bone leg from hip to the ground, knee bending `kneeDir` (+1 forward), foot lifted on the swing half */
-function legPath(hip: P2, len: number, swing: number, lift: number, kneeDir: number): P2[] {
+export function legPath(hip: P2, len: number, swing: number, lift: number, kneeDir: number): P2[] {
   const foot: P2 = [hip[0] + Math.sin(swing) * len * 0.9, Math.min(GROUND - 12, hip[1] + len) - lift];
   const mid: P2 = [(hip[0] + foot[0]) / 2 + kneeDir * len * 0.12, (hip[1] + foot[1]) / 2];
   return curve(hip, mid, foot, 10);
 }
-const walkOf = (o: AnimalPose, off: number) => {
+export const walkOf = (o: AnimalPose, off: number) => {
   const ph = 2 * Math.PI * ((o.phase ?? 0) + off), w = o.walk ?? 0;
   return { swing: Math.sin(ph) * rad(20) * w, lift: Math.max(0, Math.cos(ph)) * 34 * w };
 };

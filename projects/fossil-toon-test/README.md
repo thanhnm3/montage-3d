@@ -12,8 +12,13 @@ Thử với 3 con: T. rex, Triceratops, voi ma mút.
   - Đổ bóng thật xuống nền, không bị nét mực của thế giới vẽ đè (`noInk`).
   - Tự lật mặt khi hướng đi chỉ sang trái màn hình, mặt sáng tối đổi theo hướng mặt trời.
   - Cây và đá dùng Kenney CC0; nét mực, màu và độ nhòe hậu cảnh lấy từ tập Why Why Why 004.
-- Tấm kiểm tra 2D: comp `AnimalSheet`.
-- Ảnh xem trước: `preview_animals.jpg`, `preview_scene.jpg`.
+- Biến thể "hầm hố" (`fierceAnimals.ts`, comp `FossilToonSceneFierce`):
+  - Dáng góc cạnh: sọ hình khối, mỏ quặp, gai và vảy sừng dọc lưng, lông voi ma mút dạng răng cưa.
+  - Đổ bóng cắt khối gắt thay cho chuyển màu mềm; viền gần như đen, dày hơn, chênh dày–mỏng mạnh hơn.
+  - Mắt hẹp tròng vàng con ngươi dọc dưới gờ lông mày, răng dài lởm chởm, móng vuốt, sẹo, màu tối và trầm hơn.
+  - Cùng tư thế, biểu cảm, kích thước thật và cách đặt vào 3D như bản tròn.
+- Tấm kiểm tra 2D: comp `AnimalSheet` (mỗi con: bản tròn, rồi bản hầm hố khi đứng, đi và gầm/hoảng).
+- Ảnh xem trước: `preview_animals.jpg` (bản tròn và bản hầm hố cạnh nhau), `preview_scene.jpg` (bản tròn), `preview_scene_fierce.jpg` (bản hầm hố).
 - Xem ảnh tĩnh trên cloud: `bash tools/www_pipeline/cloud_stills.sh fossil-toon-test FossilToonScene <out> 0.3 2.5 ...`
 
 Nhận xét:
