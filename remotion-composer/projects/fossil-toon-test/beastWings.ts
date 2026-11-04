@@ -251,7 +251,7 @@ export function drawMeganeuraB(p: Pen, o: AnimalPose) {
 
 // ------------------------------------------------------------------ dragons (fantasy): standing (fire on the roar) and flying
 export const DRG = { skin: "#3E2A2E", back: "#1E1216", belly: "#9C7A52", scale: "#5A3A3E", mem: "#6E1E1A", memLit: "#B0402A", horn: "#D9C9A6", hornTip: "#1E1612", mouth: "#2A0608", gum: "#8A2030", scar: "#C9A07A" };
-export function fire(p: Pen, m: P2, ang: number, len: number, k: number, ph: number) {
+export function fire(p: Pen, m: P2, ang: number, len: number, k: number, ph: number, venom = false) {
   if (k <= 0.02) return;
   const r = rng(Math.floor(ph * 30) + 1), L = len * k;
   const layer = (w: number, l: number, c0: string, c1: string) => {
@@ -261,37 +261,38 @@ export function fire(p: Pen, m: P2, ang: number, len: number, k: number, ph: num
     const g = p.g.createLinearGradient(m[0], m[1], m[0] + Math.cos(ang) * l, m[1] + Math.sin(ang) * l);
     g.addColorStop(0, c0); g.addColorStop(1, c1); p.path(chaikin(pts, 2), true); p.g.fillStyle = g; p.g.fill();
   };
-  layer(150, L, "rgba(230,80,20,0.95)", "rgba(120,20,10,0.0)");
+  if (venom) { layer(130, L, "rgba(60,160,40,0.9)", "rgba(20,60,10,0.0)"); layer(80, L * 0.85, "rgba(150,230,60,0.9)", "rgba(60,160,30,0.2)"); layer(36, L * 0.6, "rgba(230,255,170,1)", "rgba(150,230,80,0.4)"); }
+  else { layer(150, L, "rgba(230,80,20,0.95)", "rgba(120,20,10,0.0)");
   layer(95, L * 0.85, "rgba(255,150,40,0.95)", "rgba(230,70,20,0.2)");
-  layer(45, L * 0.6, "rgba(255,245,200,1)", "rgba(255,190,60,0.4)");
-  for (let i = 0; i < 18; i++) { const u = r(), s = (r() - 0.5) * 2; p.ell(m[0] + Math.cos(ang) * L * u - Math.sin(ang) * s * 140 * u, m[1] + Math.sin(ang) * L * u + Math.cos(ang) * s * 140 * u, 5, 5, "#FFE08A", 0); }
+  layer(45, L * 0.6, "rgba(255,245,200,1)", "rgba(255,190,60,0.4)"); }
+  for (let i = 0; i < 18; i++) { const u = r(), s = (r() - 0.5) * 2; p.ell(m[0] + Math.cos(ang) * L * u - Math.sin(ang) * s * 140 * u, m[1] + Math.sin(ang) * L * u + Math.cos(ang) * s * 140 * u, 5, 5, venom ? "#D8FF8A" : "#FFE08A", 0); }
 }
-export function dragonHead(p: Pen, o: AnimalPose, H: P2, rotA: number, light: number) {
+export function dragonHead(p: Pen, o: AnimalPose, H: P2, rotA: number, light: number, C: typeof DRG = DRG) {
   const roar = o.roar ?? 0, expr = o.expr ?? "angry", R = (q: P2[]) => rotAll(q.map(([x, y]) => [x + H[0], y + H[1]] as P2), rotA, H);
   const ja = rad(34) * roar, J = (q: P2[]) => rotAll(R(q), ja, R([[0, 20]])[0]);
   // horns behind the skull: two long back-swept, ridged
   for (const [b, c, t, w] of [[[20, -40], [-80, -110], [-200, -110], 26], [[0, -20], [-110, -60], [-210, -20], 20]] as [P2, P2, P2, number][]) {
     const hp = R(curve(b, c, t, 12));
-    cel(p, horn(hp, w), DRG.horn, light, { d: 6, ow: OW * 0.8, tex: () => { const tp = hp[hp.length - 1]; p.ell(tp[0], tp[1], w * 3, w * 3, DRG.hornTip, 0); for (let i = 2; i < hp.length - 3; i += 2) p.stroke([add(hp[i], -8, -10), add(hp[i], 8, 10)], 3, INKB); } });
+    cel(p, horn(hp, w), C.horn, light, { d: 6, ow: OW * 0.8, tex: () => { const tp = hp[hp.length - 1]; p.ell(tp[0], tp[1], w * 3, w * 3, C.hornTip, 0); for (let i = 2; i < hp.length - 3; i += 2) p.stroke([add(hp[i], -8, -10), add(hp[i], 8, 10)], 3, INKB); } });
   }
-  p.poly([...R([[30, 14], [250, 24]]), ...J([[240, 36], [30, 30]])], DRG.mouth, 0);
-  if (roar > 0.05) { p.poly([...R([[40, 16], [240, 26]]), ...J([[230, 34], [40, 30]])].map((q, i, a) => i < 2 ? q : q), DRG.gum, 0); }
+  p.poly([...R([[30, 14], [250, 24]]), ...J([[240, 36], [30, 30]])], C.mouth, 0);
+  if (roar > 0.05) { p.poly([...R([[40, 16], [240, 26]]), ...J([[230, 34], [40, 30]])].map((q, i, a) => i < 2 ? q : q), C.gum, 0); }
   for (let i = 0; i < 8; i++) { const [x, y] = J([[60 + i * 24, 30]])[0]; tooth(p, x, y, 18 + (i % 3) * 8, false, rotA + ja, 0.3); }
-  cel(p, J([[20, 26], [240, 32], [220, 62], [120, 74], [40, 64]]), mul(DRG.skin, [0.9, 0.9, 0.92]), light, { d: 8, ow: OW * 0.85, tex: () => scales(p, H[0] - 60, H[1] - 60, H[0] + 300, H[1] + 160, 12, DRG.back, 21, 0.4) });
+  cel(p, J([[20, 26], [240, 32], [220, 62], [120, 74], [40, 64]]), mul(C.skin, [0.9, 0.9, 0.92]), light, { d: 8, ow: OW * 0.85, tex: () => scales(p, H[0] - 60, H[1] - 60, H[0] + 300, H[1] + 160, 12, C.back, 21, 0.4) });
   for (let i = 0; i < 9; i++) { const [x, y] = R([[50 + i * 22, 20]])[0]; tooth(p, x, y, 22 + ((i * 5) % 3) * 10, true, rotA, 0.26); }
   const skull = R(chaikin([[-40, 0], [-10, -50], [70, -64], [150, -50], [230, -20], [262, 6], [250, 26], [120, 24], [10, 30], [-30, 24]], 2));
-  cel(p, skull, DRG.skin, light, { d: 12, tex: () => {
-    scales(p, H[0] - 80, H[1] - 120, H[0] + 300, H[1] + 60, 12, DRG.back, 23, 0.5);
-    p.poly(R([[60, -60], [150, -46], [120, -30], [60, -36]]), DRG.back, 0);
-    p.stroke(R([[120, -40], [190, 10]]), 6, DRG.scar); p.stroke(R([[140, -42], [205, 4]]), 5, DRG.scar);
+  cel(p, skull, C.skin, light, { d: 12, tex: () => {
+    scales(p, H[0] - 80, H[1] - 120, H[0] + 300, H[1] + 60, 12, C.back, 23, 0.5);
+    p.poly(R([[60, -60], [150, -46], [120, -30], [60, -36]]), C.back, 0);
+    p.stroke(R([[120, -40], [190, 10]]), 6, C.scar); p.stroke(R([[140, -42], [205, 4]]), 5, C.scar);
   } });
   for (const [b, a, l] of [[[200, -28], rad(-120), 40], [[150, -48], rad(-110), 34], [[-20, 20], rad(140), 46], [[10, 34], rad(120), 40]] as [P2, number, number][]) { // brow + cheek spikes
-    const q = R([b])[0], a2 = a + rotA; cel(p, horn([q, add(q, Math.cos(a2) * l * 0.5, Math.sin(a2) * l * 0.5), add(q, Math.cos(a2) * l, Math.sin(a2) * l)], 12), DRG.horn, light, { d: 3, ow: 7, rim: false });
+    const q = R([b])[0], a2 = a + rotA; cel(p, horn([q, add(q, Math.cos(a2) * l * 0.5, Math.sin(a2) * l * 0.5), add(q, Math.cos(a2) * l, Math.sin(a2) * l)], 12), C.horn, light, { d: 3, ow: 7, rim: false });
   }
   const nq = R([[240, -8]])[0]; p.poly([add(nq, -12, -4), add(nq, 10, -8), add(nq, 4, 6)], INKB, 0);
   if (roar > 0.05) { p.g.globalAlpha = 0.6; p.ell(nq[0] + 20, nq[1] - 10, 30, 14, "#6A5A52", 0); p.g.globalAlpha = 1; } // smoke from the nostril
   const e = R([[90, -26]])[0];
-  beastEye(p, e[0], e[1], 1.15, expr, o.blink ?? 0, DRG.skin, "#FFD23A");
+  beastEye(p, e[0], e[1], 1.15, expr, o.blink ?? 0, C.skin, "#FFD23A");
   return R([[250, 30]])[0]; // mouth point
 }
 export function drawDragonB(p: Pen, o: AnimalPose) {

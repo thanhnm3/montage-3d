@@ -18,12 +18,12 @@ const Cell: React.FC<{ a: BeastName; o: AnimalPose; label: string }> = ({ a, o, 
 };
 const MOVE: Record<string, string> = { steg: "tail swing", ankylo: "club swing", sauro: "bellow", edmonto: "bellow", pachy: "ram", spino: "bite", quetz: "gape",
   mosa: "bite", dunkle: "bite", smilo: "sabre gape", rhino: "charge", bear: "roar",
-  pteranodon: "screech", quetzfly: "gape", micro: "claws out", haast: "talon strike", terror: "axe-beak strike", meganeura: "grab", dragon: "fire", dragonfly: "fire",
+  pteranodon: "screech", quetzfly: "gape", micro: "claws out", haast: "talon strike", terror: "axe-beak strike", meganeura: "grab", dragon: "fire", dragonfly: "fire", velo: "sickle claws", sarco: "bite", puru: "bite", krono: "bite", megalania: "bite", deinother: "charge", xipho: "bite", halluci: "rears up", wyvern: "venom", basilisk: "strike", nessie: "lunge", hydra: "venom",
   allo: "roar", carno: "roar", giga: "roar", dilo: "roar", theri: "claws up", deino: "lunge bite", elasmo: "neck strike", liopleuro: "bite", dimetro: "bite",
   megather: "rears up", direwolf: "snarl", hellpig: "gape", arthro: "rears up", anomalo: "grab", helico: "whorl bite", para: "bellow" };
-export const BeastMoreSheet: React.FC<{ only?: string[]; wings?: boolean; extra?: boolean; group?: "ancient" | "myth" }> = ({ only, wings, extra, group }) => (
+export const BeastMoreSheet: React.FC<{ only?: string[]; wings?: boolean; extra?: boolean; group?: "ancient" | "myth" | "redo" | "all" }> = ({ only, wings, extra, group }) => (
   <AbsoluteFill style={{ background: "#CFE0EE", display: "flex", flexDirection: "row", flexWrap: "wrap", alignContent: "flex-start", gap: 6, padding: 8 }}>
-    {(only ?? (group === "ancient" ? [...Object.keys(BEAST_ANCIENT), "diplo", "igu", "bary", "ovi", "velo", "sarco"] : group === "myth" ? Object.keys(BEAST_MYTH) : extra ? [...Object.keys(BEAST_EXTRA), "para"] : Object.keys(wings ? BEAST_WINGS : BEAST_MORE))).flatMap((a) => [
+    {(only ?? (group === "redo" ? ["velo", "sarco", "wyvern", "basilisk", "nessie", "hydra", "puru", "krono", "megalania", "deinother", "xipho", "halluci"] : group === "ancient" ? [...Object.keys(BEAST_ANCIENT), "diplo", "igu", "bary", "ovi", "velo", "sarco"] : group === "myth" ? Object.keys(BEAST_MYTH) : extra ? [...Object.keys(BEAST_EXTRA), "para"] : Object.keys(wings ? BEAST_WINGS : BEAST_MORE))).flatMap((a) => [
       <Cell key={a + "w"} a={a as BeastName} o={{ walk: 0.6, phase: 0.1 }} label={`${a}: ${a in BEAST_WINGS ? "flap / walk" : "walk"}`} />,
       <Cell key={a + "x"} a={a as BeastName} o={{ roar: 1 }} label={`${a}: ${MOVE[a] ?? "roar"}`} />,
     ])}
@@ -34,3 +34,15 @@ export const BeastSolo: React.FC<{ name: string }> = ({ name }) => {
   useEffect(() => { const g = ref.current!.getContext("2d")!; BEASTS[name as BeastName].draw(new Pen(g), {}); }, [name]);
   return <AbsoluteFill><canvas ref={ref} width={1600} height={1000} /></AbsoluteFill>;
 };
+// the whole library on one page: every BEASTS entry standing (or swimming / flying), with its key
+const CK = 0.15;
+const Mini: React.FC<{ a: BeastName }> = ({ a }) => {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => { const g = ref.current!.getContext("2d")!; g.setTransform(CK, 0, 0, CK, 0, 0); BEASTS[a].draw(new Pen(g), {}); }, [a]);
+  return <div style={{ width: 1600 * CK, fontFamily: "sans-serif", fontSize: 15, textAlign: "center" }}><canvas ref={ref} width={1600 * CK} height={1000 * CK} /><div>{a}</div></div>;
+};
+export const BeastCatalog: React.FC = () => (
+  <AbsoluteFill style={{ background: "#CFE0EE", display: "flex", flexDirection: "row", flexWrap: "wrap", alignContent: "flex-start", gap: 4, padding: 6 }}>
+    {(Object.keys(BEASTS) as BeastName[]).map((a) => <Mini key={a} a={a} />)}
+  </AbsoluteFill>
+);

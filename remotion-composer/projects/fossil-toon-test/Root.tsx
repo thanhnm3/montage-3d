@@ -1,7 +1,7 @@
 import React from "react";
 import { Composition } from "remotion";
 import { AnimalSheet } from "./AnimalSheet";
-import { BeastMoreSheet, BeastSolo } from "./BeastMoreSheet";
+import { BeastCatalog, BeastMoreSheet, BeastSolo } from "./BeastMoreSheet";
 import { ToonSetsDemo } from "./ToonSets";
 import { ToonSetsDemo2 } from "./ToonSets2";
 import { WingsDemo } from "./WingsDemo";
@@ -17,6 +17,8 @@ export const Root: React.FC = () => (
     <Composition id="BeastExtraSheet" component={BeastMoreSheet} fps={30} width={1480} height={7750} durationInFrames={1} defaultProps={{ extra: true }} />
     <Composition id="BeastAncientSheet" component={BeastMoreSheet} fps={30} width={1480} height={12100} durationInFrames={1} defaultProps={{ group: "ancient" }} />
     <Composition id="BeastMythSheet" component={BeastMoreSheet} fps={30} width={1480} height={7750} durationInFrames={1} defaultProps={{ group: "myth" }} />
+    <Composition id="BeastRedoSheet" component={BeastMoreSheet} fps={30} width={1480} height={5800} durationInFrames={1} defaultProps={{ group: "redo" }} />
+    <Composition id="BeastCatalog" component={BeastCatalog} fps={30} width={1480} height={2950} durationInFrames={1} />
     <Composition id="BeastSolo" component={BeastSolo} fps={30} width={1600} height={1000} durationInFrames={1} defaultProps={{ name: "steg" }} />
     <Composition id="ToonSetsDemo" component={ToonSetsDemo} fps={30} width={1080} height={1920} durationInFrames={300} />
     <Composition id="ToonSetsDemo2" component={ToonSetsDemo2} fps={30} width={1080} height={1920} durationInFrames={300} />

@@ -149,8 +149,10 @@ export function drawTheriB(p: Pen, o: AnimalPose) {
 }
 
 // ------------------------------------------------------------------ Deinosuchus (Late Cretaceous; ~10 m, ate dinosaurs)
-const DEI = { skin: "#3E4430", back: "#22261A", belly: "#A89C78", scute: "#2E3222", mouth: "#30080E", gum: "#8A3040", scar: "#D8C8A0" };
-export function drawDeinoB(p: Pen, o: AnimalPose) {
+const DEI0 = { skin: "#3E4430", back: "#22261A", belly: "#A89C78", scute: "#2E3222", mouth: "#30080E", gum: "#8A3040", scar: "#D8C8A0" };
+export function drawDeinoB(p: Pen, o: AnimalPose, kind: "deino" | "sarco" | "puru" = "deino") {
+  const DEI = kind === "sarco" ? SARC : kind === "puru" ? PURU : DEI0, sn = kind === "sarco" ? 1.02 : kind === "puru" ? 0.7 : 1, th = kind === "sarco" ? 0.7 : kind === "puru" ? 1.5 : 1;
+  const SX = (x: number) => 1110 + (x - 1110) * sn, SY = (y: number) => 830 + (y - 830) * th; // snout length / depth per species
   const light = o.light ?? rad(-120), bob = bobOf(o, 3), roar = o.roar ?? 0, expr = o.expr ?? "angry", G = 940;
   const leg = (x: number, off: number, col: string) => { const w = walkOf(o, off), hip: P2 = [x, 820 + bob], kn = add(hip, 30 + Math.sin(w.swing) * 80, 60), ft: P2 = [x + 60 + Math.sin(w.swing) * 140, GROUND - 14 - w.lift * 0.5];
     cel(p, tube([hip, kn, ft], 46, 26), col, light, { d: 8, tex: () => scales(p, x - 60, 780, x + 220, GROUND, 14, DEI.back, x | 0, 0.4) }); for (let i = 0; i < 4; i++) claw(p, add(ft, -10 + i * 14, 10), 22, 0.2, 7); };
@@ -164,15 +166,24 @@ export function drawDeinoB(p: Pen, o: AnimalPose) {
   leg(600, 0, DEI.skin); leg(980, 0.5, DEI.skin);
   // long heavy snout; on the attack the head lifts and the jaws gape
   const hinge: P2 = [1110, 830 + bob], hr = -rad(10) * roar, ja = rad(36) * roar, R = (q: P2[]) => rotAll(offs(q, 0, bob), hr, hinge), J = (q: P2[]) => rotAll(R(q), ja, hinge);
-  p.poly([...R([[1110, 820], [1540, 830]]), ...J([[1530, 846], [1110, 846]])], DEI.mouth, 0);
-  if (roar > 0.05) p.poly(J([[1130, 846], [1520, 848], [1500, 860], [1140, 862]]), DEI.gum, 0);
-  for (let i = 0; i < 13; i++) { const [tx, ty] = J([[1140 + i * 29, 846]])[0]; tooth(p, tx, ty, 18 + (i % 3) * 8, false, hr + ja, 0.3); }
-  cel(p, J([[1100, 840], [1530, 846], [1510, 872], [1200, 890], [1110, 880]]), mul(DEI.skin, [0.9, 0.9, 0.92]), light, { d: 8, ow: OW * 0.85, tex: () => scales(p, 1080, 820, 1560, 900, 12, DEI.back, 17, 0.4) });
-  for (let i = 0; i < 14; i++) { const [tx, ty] = R([[1130 + i * 28, 826]])[0]; tooth(p, tx, ty, 20 + ((i * 5) % 3) * 9, true, hr, 0.28); }
-  cel(p, R(chaikin([[1080, 790], [1150, 760], [1230, 770], [1300, 790], [1500, 800], [1550, 818], [1540, 830], [1110, 834]], 2)), DEI.skin, light, { d: 12, tex: () => { scales(p, 1070, 740, 1560, 840, 12, DEI.back, 19, 0.5); p.ell(1520, 806, 22, 14, DEI.back, 0); } });
+  p.poly([...R([[SX(1110), SY(820)], [SX(1540), SY(830)]]), ...J([[SX(1530), SY(846)], [SX(1110), SY(846)]])], DEI.mouth, 0);
+  if (roar > 0.05) p.poly(J([[SX(1130), SY(846)], [SX(1520), SY(848)], [SX(1500), SY(860)], [SX(1140), SY(862)]]), DEI.gum, 0);
+  for (let i = 0; i < 13; i++) { const [tx, ty] = J([[SX(1140 + i * 29), SY(846)]])[0]; tooth(p, tx, ty, 18 + (i % 3) * 8, false, hr + ja, 0.3); }
+  cel(p, J([[SX(1100), SY(840)], [SX(1530), SY(846)], [SX(1510), SY(872)], [SX(1200), SY(890)], [SX(1110), SY(880)]]), mul(DEI.skin, [0.9, 0.9, 0.92]), light, { d: 8, ow: OW * 0.85, tex: () => scales(p, 1080, 820, 1560, 900, 12, DEI.back, 17, 0.4) });
+  for (let i = 0; i < 14; i++) { const [tx, ty] = R([[SX(1130 + i * 28), SY(826)]])[0]; tooth(p, tx, ty, 20 + ((i * 5) % 3) * 9, true, hr, 0.28); }
+  cel(p, R(chaikin([[SX(1080), SY(790)], [SX(1150), SY(760)], [SX(1230), SY(770)], [SX(1300), SY(790)], [SX(1500), SY(800)], [SX(1550), SY(818)], [SX(1540), SY(830)], [SX(1110), SY(834)]], 2)), DEI.skin, light, { d: 12, tex: () => { scales(p, 1070, 740, 1560, 840, 12, DEI.back, 19, 0.5); p.ell(...R([[SX(1520), SY(806)]])[0], 22, 14, DEI.back, 0); } });
+  if (kind === "sarco") { const b = R([[SX(1530), SY(800)]])[0]; cel(p, blob(b[0], b[1], 46, 30, 0.1, 21), DEI.skin, light, { d: 6, ow: OW * 0.8, tex: () => p.ell(b[0] + 8, b[1] - 4, 14, 9, DEI.back, 0) }); for (let i = 0; i < 10; i++) { const [tx, ty] = R([[SX(1160 + i * 34), SY(834)]])[0]; tooth(p, tx, ty, 26, true, hr - 0.25, 0.22); } } // the bulla + interlocking teeth
+  if (kind === "puru") for (let i = 0; i < 5; i++) cel(p, R([[SX(1180 + i * 40), SY(770)], [SX(1190 + i * 40), SY(742)], [SX(1200 + i * 40), SY(772)]]), DEI.scute, light, { d: 2, ow: 6, rim: false });
   for (let i = 0; i < 5; i++) cel(p, R([[1130 + i * 20, 770], [1140 + i * 20, 750], [1150 + i * 20, 772]]), DEI.scute, light, { d: 2, ow: 6, rim: false });
-  const e = R([[1200, 772]])[0]; beastEye(p, e[0], e[1], 0.8, expr, o.blink ?? 0, DEI.skin, "#F2D23A");
+  const e = R([[SX(1200), SY(772)]])[0]; beastEye(p, e[0], e[1], 0.8, expr, o.blink ?? 0, DEI.skin, "#F2D23A");
 }
+
+// Sarcosuchus ("SuperCroc", Early Cretaceous; ~9.5 m): long slim snout ending in a bulla, teeth overlapping outside;
+// Purussaurus (Miocene Amazon caiman; ~10 m): short, broad, deep snout
+const SARC = { skin: "#5A4E36", back: "#2E2618", belly: "#B8A47C", scute: "#3A3022", mouth: "#30080E", gum: "#8A3040", scar: "#E0CCA0" };
+const PURU = { skin: "#2E3428", back: "#161A12", belly: "#9C9478", scute: "#22281C", mouth: "#30080E", gum: "#8A3040", scar: "#D0C8A8" };
+export const drawSarcoB = (p: Pen, o: AnimalPose) => drawDeinoB(p, o, "sarco");
+export const drawPuruB = (p: Pen, o: AnimalPose) => drawDeinoB(p, o, "puru");
 
 // ------------------------------------------------------------------ swimmers: Elasmosaurus, Liopleurodon (cy 520)
 const ELA = { top: "#3A4A4E", side: "#5E7074", belly: "#D2D2C4", fin: "#2A363A", mouth: "#22090E", scar: "#C9CED0" };
@@ -195,23 +206,29 @@ export function drawElasmoB(p: Pen, o: AnimalPose) {
   beastEye(p, H[0] + 50, H[1] - 12, 0.65, expr, o.blink ?? 0, ELA.side, "#F2D23A");
 }
 const LIO = { top: "#2E2A30", side: "#5A5260", belly: "#D4CCC4", fin: "#221E24", mouth: "#22090E", gum: "#8A2C38", scar: "#D0C6CA" };
-export function drawLiopleuroB(p: Pen, o: AnimalPose) {
+export function drawLiopleuroB(p: Pen, o: AnimalPose, C: typeof LIO = LIO, headS = 1) {
   const light = o.light ?? rad(-120), ph = 2 * Math.PI * (o.phase ?? 0), sw = Math.sin(ph) * 0.35 * (o.walk ?? 0.6), roar = o.roar ?? 0, expr = o.expr ?? "angry", cy = 520;
-  flipper(p, [880, cy + 60], -0.3 + sw, 230, mul(LIO.fin, FAR), light); flipper(p, [500, cy + 50], -0.3 - sw, 200, mul(LIO.fin, FAR), light);
-  cel(p, tube(curve([360, cy], [230, cy + 10], [120, cy - 10], 8), 70, 8), LIO.side, light, { d: 10 });
+  flipper(p, [880, cy + 60], -0.3 + sw, 230, mul(C.fin, FAR), light); flipper(p, [500, cy + 50], -0.3 - sw, 200, mul(C.fin, FAR), light);
+  cel(p, tube(curve([360, cy], [230, cy + 10], [120, cy - 10], 8), 70, 8), C.side, light, { d: 10 });
   const body = chaikin([[340, cy], [460, cy - 110], [750, cy - 170], [1000, cy - 150], [1100, cy - 110], [1120, cy + 90], [900, cy + 150], [600, cy + 140], [400, cy + 70]], 3);
-  cel(p, body, LIO.side, light, { d: 26, tex: () => { p.poly(blob(760, cy + 100, 330, 60, 0, 5), LIO.belly, 0); p.poly(blob(740, cy - 110, 330, 60, 0, 6), LIO.top, 0); scales(p, 330, cy - 180, 1130, cy + 160, 12, LIO.top, 7, 0.3); scars(p, 760, cy - 110, LIO.scar, 4, 70); } });
-  flipper(p, [860, cy + 80], -0.1 - sw, 250, LIO.fin, light); flipper(p, [480, cy + 70], -0.1 + sw, 210, LIO.fin, light);
-  // the huge head: long jaws, fangs, gape
+  cel(p, body, C.side, light, { d: 26, tex: () => { p.poly(blob(760, cy + 100, 330, 60, 0, 5), C.belly, 0); p.poly(blob(740, cy - 110, 330, 60, 0, 6), C.top, 0); scales(p, 330, cy - 180, 1130, cy + 160, 12, C.top, 7, 0.3); scars(p, 760, cy - 110, C.scar, 4, 70); } });
+  flipper(p, [860, cy + 80], -0.1 - sw, 250, C.fin, light); flipper(p, [480, cy + 70], -0.1 + sw, 210, C.fin, light);
+  // the huge head: long jaws, fangs, gape (Kronosaurus: scaled up about the hinge)
+  p.g.save(); p.g.translate(1090, cy); p.g.scale(headS, headS); p.g.translate(-1090, -cy);
   const hinge: P2 = [1090, cy - 10], ja = rad(40) * roar, J = (q: P2[]) => rotAll(q, ja, hinge);
-  p.poly([[1090, cy - 20], [1520, cy - 4], ...J([[1500, cy + 16], [1090, cy + 10]])], LIO.mouth, 0);
-  if (roar > 0.05) p.poly(J([[1110, cy + 10], [1490, cy + 14], [1470, cy + 30], [1120, cy + 28]]), LIO.gum, 0);
+  p.poly([[1090, cy - 20], [1520, cy - 4], ...J([[1500, cy + 16], [1090, cy + 10]])], C.mouth, 0);
+  if (roar > 0.05) p.poly(J([[1110, cy + 10], [1490, cy + 14], [1470, cy + 30], [1120, cy + 28]]), C.gum, 0);
   for (let i = 0; i < 10; i++) { const [tx, ty] = J([[1130 + i * 36, cy + 12]])[0]; tooth(p, tx, ty, 30 + (i % 3) * 12, false, ja, 0.3); }
-  cel(p, J([[1080, cy], [1500, cy + 10], [1460, cy + 60], [1200, cy + 90], [1090, cy + 80]]), LIO.belly, light, { d: 10, ow: OW * 0.9 });
+  cel(p, J([[1080, cy], [1500, cy + 10], [1460, cy + 60], [1200, cy + 90], [1090, cy + 80]]), C.belly, light, { d: 10, ow: OW * 0.9 });
   for (let i = 0; i < 11; i++) tooth(p, 1120 + i * 34, cy - 14 + i * 0.8, 34 + ((i * 5) % 3) * 12, true, 0, 0.28);
-  cel(p, chaikin([[1060, cy - 120], [1150, cy - 150], [1300, cy - 100], [1480, cy - 40], [1530, cy - 10], [1500, cy], [1090, cy - 6]], 2), LIO.side, light, { d: 14, tex: () => { p.poly([[1060, cy - 120], [1250, cy - 120], [1250, cy - 90], [1070, cy - 80]], LIO.top, 0); scales(p, 1050, cy - 160, 1540, cy, 11, LIO.top, 13, 0.4); p.stroke([[1300, cy - 80], [1380, cy - 40]], 6, LIO.scar); } });
-  beastEye(p, 1220, cy - 90, 1.0, expr, o.blink ?? 0, LIO.side, "#F2D23A");
+  cel(p, chaikin([[1060, cy - 120], [1150, cy - 150], [1300, cy - 100], [1480, cy - 40], [1530, cy - 10], [1500, cy], [1090, cy - 6]], 2), C.side, light, { d: 14, tex: () => { p.poly([[1060, cy - 120], [1250, cy - 120], [1250, cy - 90], [1070, cy - 80]], C.top, 0); scales(p, 1050, cy - 160, 1540, cy, 11, C.top, 13, 0.4); p.stroke([[1300, cy - 80], [1380, cy - 40]], 6, C.scar); } });
+  beastEye(p, 1220, cy - 90, 1.0, expr, o.blink ?? 0, C.side, "#F2D23A");
+  p.g.restore();
 }
+
+// Kronosaurus (Early Cretaceous Australia; ~9-10 m): the same pliosaur plan with a longer, heavier skull, sandier colours
+const KRO = { top: "#3A3226", side: "#6E624E", belly: "#D6CCB4", fin: "#2A2418", mouth: "#22090E", gum: "#8A2C38", scar: "#E0D4BA" };
+export const drawKronoB = (p: Pen, o: AnimalPose) => drawLiopleuroB(p, o, KRO, 1.12);
 
 // ------------------------------------------------------------------ Dimetrodon (Early Permian, ~290 Ma; ~3.5 m, a synapsid, not a dinosaur)
 const DIM = { skin: "#5A4A3A", back: "#2E2418", belly: "#B8A07A", sail: "#9A3A22", sailDark: "#3A140C", sailLit: "#D9822E", mouth: "#30080E" };

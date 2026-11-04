@@ -10,6 +10,7 @@ import { drawBoaB } from "./beastAnimals";
 import { DRG, dragonHead, drawDragonFlyB, featherWing, fire, memWing, plumes } from "./beastWings";
 import { drawElasmoB } from "./beastExtra";
 import { QuadSpec, drawApeB, drawQuadB, drawSoarB, quadHead, tinted } from "./beastAncient";
+import { drawBasiliskB, drawHydraB, drawNessieB, drawWyvernB } from "./beastRedo";
 
 const add = (a: P2, dx: number, dy: number): P2 => [a[0] + dx, a[1] + dy];
 const lerp2 = (a: P2, b: P2, k: number): P2 => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
@@ -95,31 +96,7 @@ export const drawBigfootB: Draw = (p, o) => drawApeB(p, o, { fur: "#4A3426", dar
 // ------------------------------------------------------------------ phoenix + thunderbird
 export const drawPhoenixB: Draw = (p, o) => drawSoarB(p, o, { body: "#C8301A", lit: "#FFB020", head: "#E85A1A", beak: "#F2D26A", tip: "#5A2A10", span: 560, kind: "phoenix", iris: "#FFF6A0" });
 export const drawThunderbirdB: Draw = (p, o) => drawSoarB(p, o, { body: "#1E2430", lit: "#4A6A9A", head: "#2A3448", beak: "#D8C88A", tip: "#2A2014", span: 600, kind: "thunder", iris: "#FFF6A0" });
-// ------------------------------------------------------------------ wyvern (green, two legs), basilisk (king of serpents), Nessie
-export const drawWyvernB: Draw = tinted(drawDragonFlyB, "hue-rotate(95deg) saturate(1.25)");
-export const drawNessieB: Draw = tinted(drawElasmoB, "hue-rotate(-75deg) saturate(1.5) brightness(0.88)");
-export const drawBasiliskB: Draw = (p, o) => {
-  tinted(drawBoaB, "hue-rotate(-35deg) saturate(1.6) brightness(0.9)")(p, o);
-  const hx = 1240, hy = 390, S = 1.55; // the boa's head (see drawBoaB)
-  for (let i = 0; i < 5; i++) { const b: P2 = [hx + (-40 + i * 20) * S, hy - (52 + Math.abs(i - 2) * -4) * S], a = rad(-120 + i * 12); cel(p, horn([b, add(b, Math.cos(a) * 30 * S, Math.sin(a) * 30 * S), add(b, Math.cos(a) * (60 + (2 - Math.abs(i - 2)) * 20) * S, Math.sin(a) * (60 + (2 - Math.abs(i - 2)) * 20) * S)], 10 * S), "#D8A82A", o.light ?? rad(-120), { d: 3, ow: 8 }); } // the crown
-  p.g.globalAlpha = 0.55; p.ell(hx + 60 * S, hy - 22 * S, 50, 34, "#FFF070", 0); p.g.globalAlpha = 1; // the deadly glare
-};
-// ------------------------------------------------------------------ hydra: a reptile body with five dragon necks
-export const drawHydraB: Draw = tinted((p, o) => {
-  const roar = o.roar ?? 0;
-  drawQuadB(p, o, { fur: DRG.skin, dark: DRG.back, lit: "#6A4A50", belly: DRG.belly, skin: "#0A0808", iris: "#FFD23A",
-    x0: 380, x1: 900, ys: 560, yh: 560, yb: 760, hump: 40, hind: [80, 44], front: [76, 42], bendH: 40, bendF: -16, toes: 4, toe: 40,
-    head: { L: 1, h: 1, type: "reptile" }, neck: [0, 0, 0], tail: "stiff", scaly: true, heads: 0, bob: 5,
-    postFn: (p2, o2, light, bob) => {
-      for (let k = 0; k < 5; k++) {
-        const b: P2 = [860, 600 + bob], a = rad(-100 + k * 30), sw = 0.15 * Math.sin(2 * Math.PI * (o.phase ?? 0) + k);
-        const H: P2 = [b[0] + Math.cos(a + sw) * 380 + 120, b[1] + Math.sin(a + sw) * 380 - 60], neck = curve(b, lerp2(b, H, 0.5), H, 10);
-        cel(p2, tube(neck, 52, 34), k % 2 ? mul(DRG.skin, FAR) : DRG.skin, light, { d: 6, tex: () => scales(p2, b[0] - 60, H[1] - 80, H[0] + 80, b[1] + 60, 12, DRG.back, k, 0.5) });
-        scutes(p2, neck.map(([x, y]) => [x - 10, y - 40] as P2), 18, DRG.back, light, k + 3);
-        scaled(p2, H, 0.5, () => { const m = dragonHead(p2, { ...o2, roar: k === 2 ? roar : roar * 0.6 }, H, rad(-10 + k * 8), light); if (k === 2) fire(p2, m, rad(20), 520, roar, o.phase ?? 0); });
-      }
-    } });
-}, "hue-rotate(95deg) saturate(1.2)");
+// wyvern, basilisk, Nessie, hydra: own shapes in beastRedo.ts (they were colour variants before)
 // ------------------------------------------------------------------ Leviathan: an ocean serpent (swims, cy 520)
 export const drawLeviathanB: Draw = tinted((p, o) => {
   const light = o.light ?? rad(-120), ph = 2 * Math.PI * (o.phase ?? 0), roar = o.roar ?? 0, cy = 520;
@@ -169,10 +146,10 @@ export const BEAST_MYTH = {
   bigfoot: { draw: drawBigfootB, len: 1.35, x0: 520, x1: 1041 },
   phoenix: { draw: drawPhoenixB, len: 2.5, x0: 112, x1: 1156, fly: true },
   thunderbird: { draw: drawThunderbirdB, len: 5, x0: 338, x1: 1156, fly: true },
-  wyvern: { draw: drawWyvernB, len: 14, x0: 16, x1: 1152, fly: true },
-  basilisk: { draw: drawBasiliskB, len: 18, x0: 52, x1: 1487 },
-  nessie: { draw: drawNessieB, len: 12, x0: 49, x1: 1536, fly: true },
-  hydra: { draw: drawHydraB, len: 14, x0: 93, x1: 1485 },
+  wyvern: { draw: drawWyvernB, len: 12, x0: 49, x1: 1218, fly: true },
+  basilisk: { draw: drawBasiliskB, len: 15, x0: 52, x1: 1354 },
+  nessie: { draw: drawNessieB, len: 10, x0: 74, x1: 1341, fly: true },
+  hydra: { draw: drawHydraB, len: 12, x0: 73, x1: 1421 },
   leviathan: { draw: drawLeviathanB, len: 40, x0: 46, x1: 1517, fly: true },
   kraken: { draw: drawKrakenB, len: 20, x0: 117, x1: 1504, fly: true },
 } as const;

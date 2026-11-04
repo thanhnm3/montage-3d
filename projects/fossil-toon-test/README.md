@@ -155,5 +155,18 @@ pre / post / tail hooks for wings and extra parts), `drawSwimB`, `drawGroundBird
   unicorn, Pegasus, yeti, bigfoot, phoenix, thunderbird, wyvern, basilisk, Nessie, hydra (5 heads, poison fire),
   Leviathan, Kraken. `MythDemo` puts the Kraken + Leviathan in the sea, yeti vs griffin on the ice, the hydra on the
   volcano (`preview_myth_3d.jpg`).
-- `BEASTS` now holds 83 animals. Big sheets are slow to render in the cloud (~3 min, software WebGL): pass
+- `BEASTS` held 83 animals at r10 (89 after r11). Big sheets are slow to render in the cloud (~3 min, software WebGL): pass
   `--timeout=400000` to `remotion still`.
+
+## r11 (2026-11-04): own shapes for the colour variants + the last missing animals + one catalog page
+User: "vẽ lại riêng 6 con đổi màu cho có dáng riêng", then "render hết các con còn thiếu".
+- Redrawn with their own bodies (`beastRedo.ts`, sheet `BeastRedoSheet`, `preview_redo.jpg`): Velociraptor (slim,
+  barred feathers, upturned snout, sickle claw), Sarcosuchus (`drawDeinoB` "sarco": slim snout, bulla, interlocking
+  teeth), wyvern (two legs, walks on its wing wrists, barbed tail, venom), basilisk (rearing, spined hood, crown, glare,
+  dripping fangs), Nessie (humped bulky body, thick maned neck, small knobbed head), hydra (heavy swamp body, five
+  serpent heads with frilled crests, venom). No more canvas-filter variants in `BEASTS`.
+- New: Purussaurus (`drawDeinoB` "puru": short broad snout), Kronosaurus (`drawLiopleuroB` with its own colours and a
+  bigger head), Megalania, Deinotherium (down-curved lower tusks), Xiphactinus, Hallucigenia (a 3.5 cm Cambrian worm,
+  for close-ups).
+- `dragonHead` takes a palette, `fire` a `venom` flag (green).
+- `BeastCatalog` comp: all 89 animals on one page with their keys (`preview_catalog.jpg`).
