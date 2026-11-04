@@ -15,7 +15,7 @@ import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { Pen } from "./toon";
 import { AnimalPose, GROUND } from "./toonAnimals";
-import { BEAST_ALL, BeastName } from "./beastMore";
+import { BEASTS, BeastName } from "./beasts";
 import { InkPass } from "./Ink";
 import { M, Models, useModels } from "./FreeWorld";
 import { Sky, V3, clamp01, ease, lerp, lerpV, toon } from "./World";
@@ -57,7 +57,7 @@ const blinkAt = (t: number, seed: number) => { const n = Math.floor((t + seed) /
 /** `anchor` = design y that sits on pos.y: GROUND for walkers (feet on the ground), 520 for swimmers (body centre) */
 export const BeastCard3D: React.FC<{ name: BeastName; pose: AnimalPose; pos: V3; heading: number; cam: { pos: V3; look: V3 }; t: number; sun: V3; anchor?: number; size?: number }> =
   ({ name, pose, pos, heading, cam, t, sun, anchor = GROUND, size = 1 }) => {
-  const A = BEAST_ALL[name], mpu = (A.len / (A.x1 - A.x0)) * size;
+  const A = BEASTS[name], mpu = (A.len / (A.x1 - A.x0)) * size;
   const r = useMemo(() => {
     const cv = document.createElement("canvas"); cv.width = 1600 * K; cv.height = 1000 * K;
     const g = cv.getContext("2d")!;

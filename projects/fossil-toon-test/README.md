@@ -89,3 +89,24 @@ User: "làm tiếp hang đá với núi lửa đi".
   lava bombs on arcs, falling ash, embers over the river, charred trees, red-brown sky. Height `basaltY(x, z)`.
 - Comp `ToonSetsDemo2` (10 s): cave bear by the fire, the paintings, Smilodon in the mouth seen past the fire;
   eruption wide with T. rex + Triceratops, low T. rex roar, Triceratops at the lava river. `preview_sets2.jpg`.
+
+## r8 (2026-11-04): winged beasts + dragons (`beastWings.ts`)
+User: "còn thiếu những con thú có cánh, và làm cả rồng nữa, phải thật đáng sợ". Flyers are drawn around design y ~520
+(cards with `anchor` 520); `walk` = flap strength (0 = glide), `phase` = wingbeat, `roar` = the attack.
+
+| key | animal | `roar` |
+|---|---|---|
+| pteranodon | Pteranodon in flight (wingspan ~6 m) | screech, wings up |
+| quetzfly | Quetzalcoatlus in flight (wingspan ~10 m) | gape |
+| micro | Microraptor, 4 feathered wings, black with a blue sheen (0.8 m) | claws thrown forward, screech |
+| haast | Haast's eagle (span ~3 m, hunted moa) | talons forward, beak open |
+| terror | terror bird Phorusrhacos (~2.5 m tall), walks | head-down axe-beak strike |
+| meganeura | Meganeura giant dragonfly (span ~70 cm) | mandibles + legs out |
+| dragon | dragon (fantasy, 18 m), standing, torn bat wings raised | fire breath |
+| dragonfly | dragon in flight | fire breath, down-forward |
+
+Helpers: `memWing` (membrane wing: arm bones, fingers, scalloped trailing edge, veins, torn holes), `featherWing`,
+`fire`. Dragons are drawn at 0.8 so the fire stays inside the 1600-wide canvas. `beasts.ts` = one registry `BEASTS`
+for all 26 beast animals (`BeastCard3D` and the sheets use it). Comps `BeastWingSheet` (`preview_wings.jpg`) and
+`WingsDemo` (dragon fire on the volcano plain, a dragon flying over, Pteranodons over the sea: `preview_wings_3d.jpg`).
+Not done yet: an above-water ocean set (SeaSet is built to be seen from under the surface).

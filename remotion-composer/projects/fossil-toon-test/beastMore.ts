@@ -9,14 +9,14 @@ import { AnimalPose, GROUND, P2, blob, curve, rad, rotAll, tube, walkOf } from "
 import { BEAST, INKB, OW, beastEye, cel, chaikin, claw, digiLeg, folds, horn, rng, scales, scutes, tooth } from "./beastAnimals";
 
 type C3 = [number, number, number];
-const FAR: C3 = [0.7, 0.72, 0.82];
+export const FAR: C3 = [0.7, 0.72, 0.82];
 const ph0 = (o: AnimalPose) => o.phase ?? 0;
 const bobOf = (o: AnimalPose, a: number) => a * Math.cos(4 * Math.PI * ph0(o)) * (o.walk ?? 0);
 const offs = (pts: P2[], dx: number, dy: number): P2[] => pts.map(([x, y]) => [x + dx, y + dy] as P2);
 
 /** column leg (quadrupeds): hip/shoulder (x, y) to the ground, knee bent `bend`, claws/hoof nails at the foot */
 type LegO = { r0: number; r1: number; bend?: number; toes?: number; toe?: number; tex?: string; seed?: number; nail?: string; reach?: number };
-function colLeg(p: Pen, o: AnimalPose, x: number, y: number, off: number, col: string, light: number, L: LegO) {
+export function colLeg(p: Pen, o: AnimalPose, x: number, y: number, off: number, col: string, light: number, L: LegO) {
   const w = walkOf(o, off), bend = L.bend ?? 18, reach = L.reach ?? 150;
   const fy = GROUND - L.r1 * 0.75 - w.lift;
   const pts = curve([x, y], [x + bend + Math.sin(w.swing) * reach * 0.5, (y + fy) / 2], [x + Math.sin(w.swing) * reach, fy], 10);
@@ -30,16 +30,16 @@ function colLeg(p: Pen, o: AnimalPose, x: number, y: number, off: number, col: s
   return f;
 }
 /** long hanging hair strands from a line (mammoth style), dark pass then mid pass */
-function hairStrands(p: Pen, line: P2[], len: number, seed: number, cols: string[]) {
+export function hairStrands(p: Pen, line: P2[], len: number, seed: number, cols: string[]) {
   const r = rng(seed);
   cols.forEach((c, k) => { for (const [x, y] of line) { const l = len * (0.7 + r() * 0.5), sw = (r() - 0.5) * 30; p.stroke(curve([x, y], [x + sw * 0.4 - 6, y + l * 0.55], [x + sw - 10, y + l], 6), 13 - k * 5, c); } });
 }
 /** short fur flicks inside the current clip */
-function furFlicks(p: Pen, x0: number, y0: number, x1: number, y1: number, n: number, seed: number, cols: string[], len = 40, w = 5) {
+export function furFlicks(p: Pen, x0: number, y0: number, x1: number, y1: number, n: number, seed: number, cols: string[], len = 40, w = 5) {
   const r = rng(seed);
   for (let i = 0; i < n; i++) { const x = x0 + r() * (x1 - x0), y = y0 + r() * (y1 - y0); p.stroke(curve([x, y], [x - 6, y + len * 0.5], [x - 14, y + len], 4), w, cols[i % cols.length]); }
 }
-const scars = (p: Pen, x: number, y: number, col: string, n = 3, len = 70, gap = 18) => { for (let i = 0; i < n; i++) p.stroke([[x + i * gap, y], [x + i * gap + len * 0.8, y + len]], 6, col); };
+export const scars = (p: Pen, x: number, y: number, col: string, n = 3, len = 70, gap = 18) => { for (let i = 0; i < n; i++) p.stroke([[x + i * gap, y], [x + i * gap + len * 0.8, y + len]], 6, col); };
 
 // ------------------------------------------------------------------ Stegosaurus (Late Jurassic, ~9 m)
 // two staggered rows of tall plates, 4 tail spikes (thagomizer); roar = tail swing up with the spikes, mouth open hiss
