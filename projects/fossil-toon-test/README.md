@@ -64,3 +64,15 @@ glowing eyes, uneven teeth). Each has `walk`/`phase` and a `roar` = its attack m
 
 `BEAST_ALL` = the 6 of `beastAnimals.ts` + these 12 (same `{ draw, len, x0, x1 }` entries, so `BeastCard` in
 Short013_3D.tsx can take any of them). Not from Hell Creek: steg, sauro, spino, mosa (sea), dunkle, smilo, rhino, bear.
+
+## r6 (2026-11-04): sea + Ice Age sets (`ToonSets.tsx`)
+User: "làm địa hình còn thiếu đi, biển với kỷ băng hà". Same toon ramp + ink pass as Short 013's Hell Creek.
+- `SeaSet`: rippled sand with moving caustics, light shafts, the surface seen from below, water dome (bright window
+  above, deep blue below, fog matched), rocks, sea lilies (crinoids) swaying, sponges, drifting ammonites + a fish
+  school (2D toon cards), marine snow. Ground height `seaFloorY(x, z)`; surface at `SEA.surf` (26 m).
+- `IceSet`: wind-ridged snow with bare steppe patches and dry grass tussocks, a glacier wall (crevasses, layers, snow
+  cap), snowy mountains, dark frosted pines, snow-capped boulders, falling snow, low cold sun. Height `snowY(x, z)`.
+- Both keep a clear action zone (x -18..16, z > -14 on ice; x -20..16, z > -9 at sea) so props never block the camera.
+- `BeastCard3D`: card for any `BEAST_ALL` animal; `anchor` 520 = swimmers (body centre on pos.y), default GROUND.
+- Comp `ToonSetsDemo` (10 s): Mosasaurus bite, Megalodon, Dunkleosteus; mammoth herd at the glacier, woolly rhino
+  charge, Smilodon vs cave bear. Stills: `preview_sets.jpg` (t = 0.5, 2.8, 4.2, 5.5, 7.8, 9.6 s).
