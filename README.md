@@ -10,6 +10,7 @@ Why Why Why (ink-3D) và Caveman. Đây là bản chép riêng từ bản clone
 - `remotion-composer/projects/caveman-{3d-rent,moneypile-3d,movieticket-3d}/`
 - `projects/fossil-3d-assets/` — model CC0 (Quaternius...), `projects/*-3d/` — props.json, script, model nhỏ
 - `tools/fossil_pipeline/FOSSIL_3D_SHORTS.md` — công thức
+- `.claude/skills/whywhywhy-ink3d-short/SKILL.md` — công thức làm tập Why Why Why mới (theo tập 004, host 2D toon trong 3D); `tools/www_pipeline/cloud_stills.sh` — xem ảnh tĩnh trên cloud
 - `remotion-composer/package.json` — đã thêm `three`, `@react-three/fiber`, `@remotion/three`, `@remotion/sfx`
 
 ## Không có
