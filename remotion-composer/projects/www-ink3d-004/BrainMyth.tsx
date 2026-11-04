@@ -1,5 +1,6 @@
 // Why Why Why — ink-3D 004 "Do we only use 10% of our brain?" (2026-11-03). Myth explainer in the 003 r02 look:
-// free CC0 world + the Quaternius person with the drawn live face (Person.tsx), ink pass + mood grade (Ink.tsx).
+// free CC0 world, ink pass + mood grade (Ink.tsx). r03: the host is a flat 2D card drawn with the cartoon-3d-short
+// skill's toon.ts (ToonHost.tsx), standing in both sets, like the reference Shorts' 2D characters in a 3D world.
 // Two sets cut against each other:
 //   - "stage": a giant procedural brain (no free model fits: sulci are grooves carved along the zero lines of a 3D noise,
 //     so the ink pass draws them as folds) split into 12 regions that light up / switch off with the narration;
@@ -13,14 +14,15 @@ import { ThreeCanvas } from "@remotion/three";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { loadFont as loadAnton } from "@remotion/google-fonts/Anton";
-import { Person, PersonKey, personAt, Cue } from "./Person";
+import { ToonHost, HostKey, HOST_HEAD_Y } from "./ToonHost";
+type Cue = { start: number; end: number; value: string };
 import { InkPass } from "./Ink";
 import { M, Models, useModels } from "./FreeWorld";
 import { Sky, Tex, V3, clamp01, ease, lerp, lerpV, toon } from "./World";
 
 const anton = loadAnton().fontFamily;
 const W = 1080, H = 1920, ASPECT = W / H;
-const GLB_LIST = ["man", "tree_oak", "tree_default", "tree_detailed", "tree_fat", "tree_tall", "grass", "grass_large", "flower_redA", "flower_yellowA",
+const GLB_LIST = ["tree_oak", "tree_default", "tree_detailed", "tree_fat", "tree_tall", "grass", "grass_large", "flower_redA", "flower_yellowA",
   "flower_purpleA", "rock_largeA", "rock_smallA", "plant_bush", "stump_round"];
 
 // ------------------------------------------------------------------ timing
@@ -66,23 +68,24 @@ const smooth = (a: number, b: number, x: number) => { const k = clamp01((x - a) 
 // ------------------------------------------------------------------ shot list
 type SetName = "stage" | "meadow";
 type Cam = { pos: V3; look: V3; fov: number; roll?: number };
-type Shot = { t: number; set: SetName; a: Cam; b: Cam; k?: (x: number) => number; note: string };
+type Shot = { t: number; set: SetName; a: Cam; b: Cam; k?: (x: number) => number; note: string; host?: V3 }; // host: where the host stands on the stage in this shot
 const snap = (x: number) => ease(clamp01((x - 0.12) / 0.14));
 const B: V3 = [0, 1.75, 0]; // brain centre on the stage
+const FACE: V3 = [0, HOST_HEAD_Y, 0]; // host face on the meadow
 function buildShots(): Shot[] {
   return [
-    { t: 0, set: "stage", note: "hook: a giant brain, only one small patch glowing",
-      a: { pos: [0.6, 2.3, 7.0], look: B, fov: 40, roll: -3 }, b: { pos: [0.3, 2.0, 5.6], look: B, fov: 38, roll: -1 } },
+    { t: 0, set: "stage", host: [-0.42, 0, 3.0], note: "hook: the host presents a giant brain from the foreground, only one small patch glowing",
+      a: { pos: [0.3, 1.9, 8.4], look: [0, 1.5, 0], fov: 40, roll: -3 }, b: { pos: [0.15, 1.8, 7.3], look: [0, 1.5, 0], fov: 39, roll: -1 } },
     { t: T.movies - 0.04, set: "meadow", note: "movies love that idea: the host, excited, points up",
       a: { pos: [1.2, 1.3, 5.2], look: [0, 1.1, 0], fov: 42 }, b: { pos: [0.9, 1.3, 4.6], look: [0, 1.15, 0], fov: 42 } },
     { t: T.your - 0.04, set: "meadow", note: "your brain doesn't: snap zoom on his deadpan face", k: snap,
-      a: { pos: [-0.3, 1.6, 2.4], look: [0, 1.5, 0], fov: 34, roll: 1 }, b: { pos: [-0.3, 1.6, 2.4], look: [0, 1.6, 0], fov: 16, roll: 4 } },
+      a: { pos: [-0.3, 1.45, 2.4], look: [0, 1.25, 0], fov: 34, roll: 1 }, b: { pos: [-0.3, 1.45, 2.4], look: FACE, fov: 21, roll: 4 } },
     { t: T.brain2 - 0.04, set: "meadow", note: "2% of your body weight: a tiny brain floats over his head",
-      a: { pos: [-1.6, 1.2, 4.6], look: [0, 1.95, 0], fov: 44, roll: 2 }, b: { pos: [-1.1, 1.3, 3.9], look: [0, 2.0, 0], fov: 44, roll: 1 } },
+      a: { pos: [-1.6, 1.1, 4.4], look: [0, 1.7, 0], fov: 44, roll: 2 }, b: { pos: [-1.1, 1.2, 3.7], look: [0, 1.75, 0], fov: 44, roll: 1 } },
     { t: T.burns - 0.04, set: "stage", note: "burns 20% of your energy: low angle, the whole brain glows, embers rise",
       a: { pos: [-2.2, 1.0, 4.6], look: B, fov: 42, roll: 3 }, b: { pos: [-1.6, 1.15, 3.9], look: B, fov: 42, roll: 2 } },
-    { t: T.body - 0.04, set: "stage", note: "keep 90% switched off: high angle, region after region goes dark",
-      a: { pos: [0.0, 3.8, 5.8], look: [0, 1.6, 0], fov: 40 }, b: { pos: [0.4, 3.3, 5.0], look: [0, 1.6, 0], fov: 40 } },
+    { t: T.body - 0.04, set: "stage", host: [-0.4, 0, 2.7], note: "keep 90% switched off: high angle, region after region goes dark",
+      a: { pos: [0.0, 4.3, 7.4], look: [0, 1.25, 0.6], fov: 40 }, b: { pos: [0.3, 3.9, 6.6], look: [0, 1.25, 0.6], fov: 40 } },
     { t: T.evolution - 0.04, set: "stage", note: "evolution would have cut it: scissors snip, the brain shrinks",
       a: { pos: [2.4, 1.0, 5.4], look: [0, 1.5, 0], fov: 44, roll: -4 }, b: { pos: [2.0, 1.1, 4.8], look: [0, 1.5, 0], fov: 44, roll: -3 } },
     { t: T.scans - 0.04, set: "stage", note: "brain scans agree: flash, scanner frame, a scan line sweeps",
@@ -356,20 +359,25 @@ const Meadow: React.FC<{ models: Models; t: number }> = ({ models, t }) => {
         </mesh>;
       })}
       {/* "2% of your body weight": a tiny brain floats over his head */}
-      {t > T.brain2 - 0.1 && t < T.burns ? <Brain t={t} pos={[0, 2.2, 0]} scale={0.2 * up(t, T.brain2 - 0.05, 0.35)} yaw={BRAIN_YAW + t * 0.8} mini /> : null}
+      {t > T.brain2 - 0.1 && t < T.burns ? <Brain t={t} pos={[0, 2.08, 0]} scale={0.2 * up(t, T.brain2 - 0.05, 0.35)} yaw={BRAIN_YAW + t * 0.8} mini /> : null}
     </group>
   );
 };
 
 // ------------------------------------------------------------------ host
-const PERSON_KEYS = (): PersonKey[] => [
-  { t: 0, clip: "Idle_Neutral", pose: "armsDown", face: "neutral" },
-  { t: T.movies - 0.05, pose: "pointUp", face: "happy" }, // "movies love that idea"
-  { t: T.your - 0.08, pose: "armsDown", face: "deadpan" }, // "your brain doesn't"
-  { t: T.brain2 - 0.08, pose: "pointUp", face: "curious" }, // looks up at the tiny brain
-  { t: T.so - 0.1, pose: "shrug", face: "shrug" },
-  { t: T.dont + 0.3, pose: "facepalm", face: "laugh" },
-  { t: T.follow - 0.05, clip: "Wave", pose: "clip", face: "happy" },
+// gesture + face from the toon.ts library; every reaction lands 0-3 frames before its word (skill rule)
+const HOST_KEYS = (): HostKey[] => [
+  { t: 0, gesture: "present", expr: "smile" }, // "you only use 10% of your brain"
+  { t: T.movies - 0.08, gesture: "arms_up", expr: "relief_open" }, // "movies love that idea"
+  { t: T.your - 0.08, gesture: "idle", expr: "neutral" }, // deadpan: "your brain doesn't"
+  { t: T.brain2 - 0.08, gesture: "point_up", expr: "whistle" }, // the tiny brain over his head
+  { t: T.body - 0.08, gesture: "hips", expr: "stern" }, // "your body would never pay that much"
+  { t: T.switched - 0.08, gesture: "shrug", expr: "nervous" },
+  { t: T.over - 0.08, gesture: "present", expr: "smile" },
+  { t: T.turn - 0.08, gesture: "arms_up", expr: "grin" },
+  { t: T.so - 0.08, gesture: "shrug", expr: "smile" },
+  { t: T.dont + 0.3, gesture: "facepalm", expr: "laugh" },
+  { t: T.follow - 0.08, gesture: "wave", expr: "grin" },
 ];
 
 // ------------------------------------------------------------------ props from build.py
@@ -400,7 +408,7 @@ const CamSet: React.FC<{ pos: V3; look: V3; fov: number; roll: number }> = ({ po
   return null;
 };
 
-const Scene: React.FC<{ t: number; tex: Tex; models: Models; cam: ReturnType<typeof shotAt>; keys: PersonKey[]; cues: Cue[] }> = ({ t, tex, models, cam, keys, cues }) => {
+const Scene: React.FC<{ t: number; tex: Tex; models: Models; cam: ReturnType<typeof shotAt>; keys: HostKey[] }> = ({ t, tex, models, cam, keys }) => {
   const g = gradeAt(t, cam.set);
   const focus = new THREE.Vector3(...cam.pos).distanceTo(new THREE.Vector3(...cam.look));
   if (cam.set === "stage") {
@@ -414,6 +422,7 @@ const Scene: React.FC<{ t: number; tex: Tex; models: Models; cam: ReturnType<typ
           shadow-camera-left={-6} shadow-camera-right={6} shadow-camera-top={6} shadow-camera-bottom={-6} shadow-camera-far={40} />
         <pointLight position={[2.5, 3.2, -3]} color="#9C7BFF" intensity={14} distance={12} decay={1.6} />
         <Stage t={t} tex={tex} />
+        {SHOTS[cam.i].host ? <ToonHost keys={keys} t={t} pos={SHOTS[cam.i].host!} camPos={cam.pos} camLook={cam.look} sun={[-4, 8, 6]} tint="#E4DEFF" flip /> : null}
         <InkPass p={{ focus, blur: 6, night: g.night, cow: 0, flash: g.flash, redPulse: 0, ink: 1, cold: g.cold, warm: g.warm }} />
       </>
     );
@@ -430,7 +439,7 @@ const Scene: React.FC<{ t: number; tex: Tex; models: Models; cam: ReturnType<typ
         shadow-mapSize={[2048, 2048]} shadow-bias={-0.0004} shadow-normalBias={0.03}
         shadow-camera-left={-14} shadow-camera-right={14} shadow-camera-top={14} shadow-camera-bottom={-14} shadow-camera-far={120} />
       <Meadow models={models} t={t} />
-      <Person models={models} pos={[0, 0, 0]} rot={0} t={t} st={personAt(keys, t)} cues={cues} />
+      <ToonHost keys={keys} t={t} pos={[0, 0, 0]} camPos={cam.pos} camLook={cam.look} sun={sun} tint={sunUp > 0 ? "#FFF1DC" : "#FFFFFF"} />
       <InkPass p={{ focus, blur: 7, night: g.night, cow: 0, flash: g.flash, redPulse: 0, ink: 1, cold: g.cold, warm: g.warm }} />
     </>
   );
@@ -611,7 +620,7 @@ const Clock: React.FC<{ t: number }> = ({ t }) => {
 export const BrainMyth: React.FC<BrainProps> = (P) => {
   const f = useCurrentFrame();
   const t = f / 30;
-  const keys = useMemo(() => { T = timesFrom(P.words); SHOTS = buildShots(); return PERSON_KEYS(); }, [P.words]);
+  const keys = useMemo(() => { T = timesFrom(P.words); SHOTS = buildShots(); return HOST_KEYS(); }, [P.words]);
   const tex = useTextures();
   const models = useModels([], GLB_LIST);
   const cam = shotAt(t);
@@ -619,7 +628,7 @@ export const BrainMyth: React.FC<BrainProps> = (P) => {
     <AbsoluteFill style={{ backgroundColor: "#1B1530" }}>
       {tex && models ? (
         <ThreeCanvas width={W} height={H} shadows camera={{ fov: 42, near: 0.05, far: 4000 }} gl={{ antialias: false }}>
-          <Scene t={t} tex={tex} models={models} cam={cam} keys={keys} cues={P.cues ?? []} />
+          <Scene t={t} tex={tex} models={models} cam={cam} keys={keys} />
         </ThreeCanvas>
       ) : null}
       <Tag x={540} y={430} t={t} t0={0.12} t1={T.movies - 0.08} rot={-4}><Big size={130}>ONLY <span style={{ color: "#FFD23F" }}>10%?</span></Big></Tag>

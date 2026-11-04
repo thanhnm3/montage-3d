@@ -1,7 +1,7 @@
 | File | Source | Author | License |
 |---|---|---|---|
-| glb/man.glb (host) | https://poly.pizza/m/kZ3DmIoGip "Casual Character" | Quaternius | CC0 |
-| glb/* (rest) | Kenney Nature Kit 2.1 | Kenney | CC0 |
+| glb/* | Kenney Nature Kit 2.1 | Kenney | CC0 |
 
-The brain is built in code (BrainMyth.tsx), no model.
-Description line: "3D models: Quaternius & Kenney (CC0)."
+Code: the host is drawn with `toon.ts` from github.com/mromidev/claude-animated-shorts (MIT, (c) 2026 Mr omi), copied
+into remotion-composer/projects/www-ink3d-004 with host gestures added. The brain is built in code (BrainMyth.tsx).
+Description line: "3D models: Kenney (CC0)."

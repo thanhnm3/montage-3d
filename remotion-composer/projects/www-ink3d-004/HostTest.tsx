@@ -1,27 +1,30 @@
-// stills harness for StickHost: frame 0 = every pose, frame 1 = every expression (2D only, no 3D)
+// stills harness for the toon.ts host (2D only): frame 0 = every gesture, frame 1 = every expression
 import React, { useEffect, useRef } from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { HOST_EXPR, HOST_POSES, drawHost, hostState } from "./StickHost";
+import { Expr, Gesture, Pen, bodyFront } from "./toon";
+import { HOST } from "./ToonHost";
 
-const Cell: React.FC<{ pose: string; expr: string; label: string }> = ({ pose, expr, label }) => {
+const GESTURES: (Gesture | "idle" | "wave")[] = ["idle", "point_up", "present", "shrug", "arms_up", "think", "facepalm", "hips", "wave"];
+const EXPRS: Expr[] = ["neutral", "stern", "grin", "laugh", "whistle", "nervous", "shock", "relief", "relief_open", "dazed", "pained", "smile", "smile_closed", "lick"];
+const Cell: React.FC<{ g: (typeof GESTURES)[number]; e: Expr }> = ({ g, e }) => {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const ctx = ref.current!.getContext("2d")!;
-    drawHost(ctx, hostState([{ t: -5, pose, expr }], 1.0), 1.0, 0);
-  }, [pose, expr]);
+    ctx.setTransform(0.5, 0, 0, 0.5, 0, 0);
+    bodyFront(new Pen(ctx), HOST, { mode: "stand", expr: e, seed: 4, light: -2.1, gesture: g === "idle" || g === "wave" ? undefined : g, wave: g === "wave" ? 0.5 : undefined });
+  }, [g, e]);
   return (
-    <div style={{ width: 256, textAlign: "center", fontFamily: "sans-serif", fontSize: 22 }}>
-      <canvas ref={ref} width={512} height={768} style={{ width: 256, height: 384 }} />
-      <div>{label}</div>
+    <div style={{ width: 300, textAlign: "center", fontFamily: "sans-serif", fontSize: 24 }}>
+      <canvas ref={ref} width={300} height={500} />
+      <div>{g === "idle" ? e : g}</div>
     </div>
   );
 };
 export const HostTest: React.FC = () => {
   const f = useCurrentFrame();
-  const items = f === 0 ? Object.keys(HOST_POSES).map((p) => [p, "neutral", p]) : Object.keys(HOST_EXPR).map((e) => ["idle", e, e]);
   return (
-    <AbsoluteFill style={{ background: "#C9D6EA", display: "flex", flexDirection: "row", flexWrap: "wrap", alignContent: "flex-start", gap: 8, padding: 10 }}>
-      {items.map(([p, e, l]) => <Cell key={l} pose={p} expr={e} label={l} />)}
+    <AbsoluteFill style={{ background: "#C9D6EA", display: "flex", flexDirection: "row", flexWrap: "wrap", alignContent: "flex-start", gap: 6, padding: 10 }}>
+      {f === 0 ? GESTURES.map((g) => <Cell key={g} g={g} e="smile" />) : EXPRS.map((e) => <Cell key={e} g="idle" e={e} />)}
     </AbsoluteFill>
   );
 };

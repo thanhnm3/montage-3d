@@ -74,7 +74,9 @@ void main(){
   vec3 n = nAt(vUv);
   float dn = max(max(1.0 - dot(n, nAt(vUv - o1)), 1.0 - dot(n, nAt(vUv + o1))), max(1.0 - dot(n, nAt(vUv - o2)), 1.0 - dot(n, nAt(vUv + o2))));
   float eN = smoothstep(0.14, 0.3, dn);
-  float e = max(eD, eN) * (1.0 - smoothstep(60.0, 260.0, z)) * inkK;
+  float card = 1.0 - min(min(texture2D(tNormal, vUv).a, min(texture2D(tNormal, vUv - o1).a, texture2D(tNormal, vUv + o1).a)),
+    min(texture2D(tNormal, vUv - o2).a, texture2D(tNormal, vUv + o2).a));       // 1 on / beside a noInk card (004)
+  float e = max(eD, eN) * (1.0 - smoothstep(60.0, 260.0, z)) * inkK * (1.0 - card);
   vec3 inkCol = mix(vec3(0.13, 0.10, 0.19), vec3(0.07, 0.07, 0.16), night);
   c = mix(c, inkCol, clamp(e, 0.0, 0.92));
   // --- cow vision (dichromat: red and green collapse to olive)
@@ -103,6 +105,10 @@ export const InkPass: React.FC<{ p: InkParams }> = ({ p }) => {
     const normal = new THREE.WebGLRenderTarget(W, H, { samples: 4 });
     const normalMat = new THREE.MeshNormalMaterial();
     const flatMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(0.5, 0.5, 1.0), alphaTest: 0.5, side: THREE.DoubleSide, toneMapped: false });
+    // character cards (userData.noInk): flat normal + alpha 0 = "no world ink here", they carry their own plum ink
+    const noInkMat = new THREE.ShaderMaterial({ side: THREE.DoubleSide, uniforms: { map: { value: null as THREE.Texture | null } },
+      vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+      fragmentShader: "uniform sampler2D map; varying vec2 vUv; void main(){ if (texture2D(map, vUv).a < 0.5) discard; gl_FragColor = vec4(0.5, 0.5, 1.0, 0.0); }" });
     const mat = new THREE.ShaderMaterial({
       vertexShader: vert, fragmentShader: frag, depthTest: false, depthWrite: false,
       uniforms: {
@@ -116,7 +122,7 @@ export const InkPass: React.FC<{ p: InkParams }> = ({ p }) => {
     const qScene = new THREE.Scene();
     qScene.add(quad);
     const qCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    return { color, normal, normalMat, flatMat, mat, qScene, qCam };
+    return { color, normal, normalMat, flatMat, noInkMat, mat, qScene, qCam };
   }, [W, H]);
   useEffect(() => () => { res.color.dispose(); res.normal.dispose(); }, [res]);
 
@@ -148,8 +154,10 @@ export const InkPass: React.FC<{ p: InkParams }> = ({ p }) => {
     for (const o of hidden) {
       const m = o as THREE.Mesh;
       if (!m.isMesh || !o.userData.flatNormal) continue;
-      res.flatMat.map = o.userData.flatNormal; res.flatMat.needsUpdate = true;
-      const keep = m.material; m.material = res.flatMat; o.visible = true;
+      let use: THREE.Material = res.flatMat;
+      if (o.userData.noInk) { res.noInkMat.uniforms.map.value = o.userData.flatNormal; use = res.noInkMat; }
+      else { res.flatMat.map = o.userData.flatNormal; res.flatMat.needsUpdate = true; }
+      const keep = m.material; m.material = use; o.visible = true;
       gl.render(o, camera);
       m.material = keep; o.visible = false;
     }

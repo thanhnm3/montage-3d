@@ -1,11 +1,18 @@
 # Why Why Why — ink-3D 004 ("Do we only use 10% of our brain?") — myth explainer
 
-Same look as 003 r02 (free CC0 world + the Quaternius 3D person with the canvas face, ink outline, mood grade).
+Same world look as 003 (free CC0 world, ink outline, mood grade). Host since r03 (2026-11-04): a flat 2D card drawn with
+`toon.ts` from the cartoon-3d-short skill (github.com/mromidev/claude-animated-shorts, MIT), standing in the 3D sets
+like the reference Short youtube.com/shorts/7xS87iActkU (analysed frame by frame: 2D billboard characters, swappable
+eye/brow/mouth parts on a static head, no lip sync, pose snaps, real ground shadows).
 Format: myth -> the cost (2% weight, 20% energy) -> why evolution would not allow it -> the scans -> punchline.
 - Script/voice: artifacts/r03_plan.json -> `r03.py voice <proj> <ep> --chirp`, then scenes/voice_post.py (x1.1 + align)
 - Props: scenes/build.py -> artifacts/props.json (adds `words`, the comp times every shot from them)
 - Episode: tts/episodes/why-why-why/ink3d/004
 - Remotion: remotion-composer/projects/www-ink3d-004 (comp `BrainMyth`)
+- Host: ToonHost.tsx (card, contact blob, blinks, squash on pose snaps, light side follows the sun) + toon.ts
+  (gestures added: point_up, present, shrug, arms_up, think, facepalm, hips). Keys: HOST_KEYS in BrainMyth.tsx,
+  faces from the skill's 14-expression library. Stills: comp `HostTest` (frame 0 gestures, frame 1 faces).
+  Ink.tsx: cards marked `userData.noInk` get no world ink (the skill's NOINK layer).
 - Models: public/free/CREDITS.md. The brain is procedural (no free model fits): sulci are grooves along the zero lines
   of a 3D noise, 12 regions light up / switch off with the narration.
 
