@@ -17,13 +17,15 @@ export type InkParams = {
   ink: number; // line strength
   cold?: number; // 0..1 cold blue grade (003)
   warm?: number; // 0..1 warm amber grade (003)
+  dream?: number; // 0..1 dreamy over-saturated pink-violet grade (004 r04: the superpower fantasy)
+  freeze?: number; // 0..1 time stopped: everything grey-blue except the host card (004 r04)
 };
 
 const frag = /* glsl */ `
 #include <packing>
 uniform sampler2D tColor; uniform sampler2D tDepth; uniform sampler2D tNormal;
 uniform vec2 res; uniform float cNear; uniform float cFar;
-uniform float focus; uniform float blur; uniform float night; uniform float cow; uniform float flash; uniform float redPulse; uniform float inkK; uniform float cold; uniform float warm;
+uniform float focus; uniform float blur; uniform float night; uniform float cow; uniform float flash; uniform float redPulse; uniform float inkK; uniform float cold; uniform float warm; uniform float dream; uniform float freeze;
 varying vec2 vUv;
 float zAt(vec2 uv){ float d = texture2D(tDepth, uv).x; return -perspectiveDepthToViewZ(d, cNear, cFar); }
 float cocAt(float z){ return clamp(abs(1.0 - focus / z) * 1.25, 0.0, 1.0); }
@@ -63,6 +65,11 @@ void main(){
   float lc = dot(c, vec3(0.2126, 0.7152, 0.0722));
   c = mix(c, mix(vec3(lc), c, 0.55) * vec3(0.84, 0.95, 1.16) + vec3(0.02, 0.04, 0.07), cold); // cold: desaturated, blue
   c = mix(c, c * vec3(1.13, 1.0, 0.8) + vec3(0.03, 0.012, 0.0), warm);                         // warm: amber
+  float hostPx = 1.0 - step(0.25, texture2D(tNormal, vUv).a);          // the host card itself (r04 time freeze keeps his colour)
+  float ld = dot(c, vec3(0.2126, 0.7152, 0.0722));
+  c = mix(c, clamp(mix(vec3(ld), c, 1.35) * vec3(1.05, 0.93, 1.1) + vec3(0.05, 0.0, 0.07), 0.0, 1.0), dream); // dream: pink-violet, hot colour
+  float lf = dot(c, vec3(0.2126, 0.7152, 0.0722));
+  c = mix(c, vec3(lf) * vec3(0.82, 0.92, 1.12) + vec3(0.02, 0.03, 0.06), freeze * (1.0 - hostPx)); // time stopped
   c = vec3(0.045, 0.035, 0.085) + c * 0.955;                           // lifted, violet blacks
   // --- ink: depth + normal edges, a little over 1 px, faded with distance (far hills keep few lines)
   float k = 1.9 * s;
@@ -74,8 +81,9 @@ void main(){
   vec3 n = nAt(vUv);
   float dn = max(max(1.0 - dot(n, nAt(vUv - o1)), 1.0 - dot(n, nAt(vUv + o1))), max(1.0 - dot(n, nAt(vUv - o2)), 1.0 - dot(n, nAt(vUv + o2))));
   float eN = smoothstep(0.14, 0.3, dn);
-  float card = 1.0 - min(min(texture2D(tNormal, vUv).a, min(texture2D(tNormal, vUv - o1).a, texture2D(tNormal, vUv + o1).a)),
-    min(texture2D(tNormal, vUv - o2).a, texture2D(tNormal, vUv + o2).a));       // 1 on / beside a noInk card (004)
+  float amin = min(min(texture2D(tNormal, vUv).a, min(texture2D(tNormal, vUv - o1).a, texture2D(tNormal, vUv + o1).a)),
+    min(texture2D(tNormal, vUv - o2).a, texture2D(tNormal, vUv + o2).a));
+  float card = 1.0 - step(0.75, amin);                                  // 1 on / beside a noInk card (004; prop cards a = 0.5, host a = 0)
   float e = max(eD, eN) * (1.0 - smoothstep(60.0, 260.0, z)) * inkK * (1.0 - card);
   vec3 inkCol = mix(vec3(0.13, 0.10, 0.19), vec3(0.07, 0.07, 0.16), night);
   c = mix(c, inkCol, clamp(e, 0.0, 0.92));
@@ -106,15 +114,15 @@ export const InkPass: React.FC<{ p: InkParams }> = ({ p }) => {
     const normalMat = new THREE.MeshNormalMaterial();
     const flatMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(0.5, 0.5, 1.0), alphaTest: 0.5, side: THREE.DoubleSide, toneMapped: false });
     // character cards (userData.noInk): flat normal + alpha 0 = "no world ink here", they carry their own plum ink
-    const noInkMat = new THREE.ShaderMaterial({ side: THREE.DoubleSide, uniforms: { map: { value: null as THREE.Texture | null } },
+    const noInkMat = new THREE.ShaderMaterial({ side: THREE.DoubleSide, uniforms: { map: { value: null as THREE.Texture | null }, aval: { value: 0 } },
       vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
-      fragmentShader: "uniform sampler2D map; varying vec2 vUv; void main(){ if (texture2D(map, vUv).a < 0.5) discard; gl_FragColor = vec4(0.5, 0.5, 1.0, 0.0); }" });
+      fragmentShader: "uniform sampler2D map; uniform float aval; varying vec2 vUv; void main(){ if (texture2D(map, vUv).a < 0.5) discard; gl_FragColor = vec4(0.5, 0.5, 1.0, aval); }" });
     const mat = new THREE.ShaderMaterial({
       vertexShader: vert, fragmentShader: frag, depthTest: false, depthWrite: false,
       uniforms: {
         tColor: { value: color.texture }, tDepth: { value: depth }, tNormal: { value: normal.texture },
         res: { value: new THREE.Vector2(W, H) }, cNear: { value: 0.1 }, cFar: { value: 4000 },
-        focus: { value: 10 }, blur: { value: 6 }, night: { value: 0 }, cow: { value: 0 }, flash: { value: 0 }, redPulse: { value: 0 }, inkK: { value: 1 }, cold: { value: 0 }, warm: { value: 0 },
+        focus: { value: 10 }, blur: { value: 6 }, night: { value: 0 }, cow: { value: 0 }, flash: { value: 0 }, redPulse: { value: 0 }, inkK: { value: 1 }, cold: { value: 0 }, warm: { value: 0 }, dream: { value: 0 }, freeze: { value: 0 },
       },
     });
     const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat);
@@ -131,7 +139,7 @@ export const InkPass: React.FC<{ p: InkParams }> = ({ p }) => {
     const cam = camera as THREE.PerspectiveCamera;
     u.cNear.value = cam.near; u.cFar.value = cam.far;
     u.focus.value = p.focus; u.blur.value = p.blur; u.night.value = p.night; u.cow.value = p.cow;
-    u.flash.value = p.flash; u.redPulse.value = p.redPulse; u.inkK.value = p.ink; u.cold.value = p.cold ?? 0; u.warm.value = p.warm ?? 0;
+    u.flash.value = p.flash; u.redPulse.value = p.redPulse; u.inkK.value = p.ink; u.cold.value = p.cold ?? 0; u.warm.value = p.warm ?? 0; u.dream.value = p.dream ?? 0; u.freeze.value = p.freeze ?? 0;
     // 1. colour (output in linear: the shader grades, then writes sRGB through the renderer's output conversion)
     gl.shadowMap.autoUpdate = false;
     gl.shadowMap.needsUpdate = true;
@@ -155,7 +163,7 @@ export const InkPass: React.FC<{ p: InkParams }> = ({ p }) => {
       const m = o as THREE.Mesh;
       if (!m.isMesh || !o.userData.flatNormal) continue;
       let use: THREE.Material = res.flatMat;
-      if (o.userData.noInk) { res.noInkMat.uniforms.map.value = o.userData.flatNormal; use = res.noInkMat; }
+      if (o.userData.noInk) { res.noInkMat.uniforms.map.value = o.userData.flatNormal; res.noInkMat.uniforms.aval.value = o.userData.hostCard ? 0 : 0.5; use = res.noInkMat; }
       else { res.flatMat.map = o.userData.flatNormal; res.flatMat.needsUpdate = true; }
       const keep = m.material; m.material = use; o.visible = true;
       gl.render(o, camera);

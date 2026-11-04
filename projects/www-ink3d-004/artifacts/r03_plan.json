@@ -1,16 +1,22 @@
 {
  "beats": [
-  "You only use 10% of your brain. Movies love that idea. Your brain doesn't.",
-  "Your brain is just 2% of your body weight, but it burns about 20% of your energy.",
+  "Unlock 100% of your brain, and you could fly. Move things with your mind. Even stop time.",
+  "There's just one problem. You're already using all of it.",
+  "Your brain is only 2% of your body weight, but it burns about 20% of your energy.",
   "Your body would never pay that much to keep 90% switched off. Evolution would have cut it long ago.",
   "Brain scans agree. Not every part lights up at once, but over a day, almost every region gets its turn.",
-  "So you don't use 10% of your brain. You use all of it, just not all at once. Follow Why Why Why for the why behind everything."
+  "So no flying. No mind powers. Just one brain, working all day. Follow Why Why Why for the why behind everything."
  ],
  "keywords": [
-  "10%",
+  "100%",
   "brain",
-  "movies",
-  "doesn't",
+  "fly",
+  "mind",
+  "stop",
+  "time",
+  "problem",
+  "already",
+  "all",
   "2%",
   "weight",
   "burns",
@@ -27,6 +33,8 @@
   "day",
   "region",
   "turn",
-  "all"
+  "flying",
+  "powers",
+  "working"
  ]
 }

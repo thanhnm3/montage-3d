@@ -53,7 +53,13 @@ Copy 004 to `projects/www-ink3d-00N/` and `remotion-composer/projects/www-ink3d-
   him from orbits (he balloons when the camera passes close).
 - Mood grade per set/beat via `InkPass` params (cold / warm / night / flash). One white flash on the twist.
 - Overlays in HTML: `Tag` + `Big` / `Stamp` (Anton font), diagram cards that draw on, karaoke at y 1660.
-- Hero objects with no free model are built in code (004: procedural brain = noise sulci + 12 regions lit per beat).
+- Hero objects with no free model are built in code. 004 r03: a procedural 3D brain; **004 r04 (current): every animated
+  prop is a 2D card drawn the toon.ts way** (`props2d.ts` drawers on `ToonCard.tsx`: cow, birds, rocks, leaf, stopwatch,
+  24 h clock, scissors, a 2D brain with 12 Voronoi regions, toon.ts fx). Recipe per prop: blob contour -> flat fill +
+  `shadedFill` crescent away from the light -> `inkRing` thick-thin outline; check them all on comp `PropsTest`.
+  Only the world (Kenney meadow, stage floor) stays 3D. `soft` cards (glows, dust) are blended and get no ink marker.
+- Story option (004 r04): open with the myth acted out for real (the fantasy, `dream` grade, `freeze` grade for
+  "stop time" that keeps the host in colour), slap it with a giant stamp, explain, then call back to the fantasy.
 
 ## 6. The host = 2D toon card (ToonHost.tsx + toon.ts)
 Look of the reference Short youtube.com/shorts/7xS87iActkU, built with `toon.ts` from

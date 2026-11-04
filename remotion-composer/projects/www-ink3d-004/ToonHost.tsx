@@ -13,7 +13,7 @@ import { Expr, Gesture, Outfit, Pen, bodyFront } from "./toon";
 import { V3 } from "./World";
 
 export const HOST: Outfit = { jacket: "#D9A033", pants: "#3F6FA8", boots: "#F4F1EA", hat: "hair", hair: "#2A2230", skin: "#ffe2c2", buttons: "none" };
-export type HostKey = { t: number; gesture?: Gesture | "idle" | "wave"; expr?: Expr; look?: number; facing?: -1 | 0 | 1 };
+export type HostKey = { t: number; gesture?: Gesture | "idle" | "wave"; expr?: Expr; look?: number; facing?: -1 | 0 | 1; mode?: "stand" | "fall" };
 
 // design space 600 x 1000 (soles at y = 975), drawn at K px per unit
 const K = 1.2, CW = 600 * K, CH = 1000 * K;
@@ -30,28 +30,34 @@ function blinkAt(t: number, seed: number) {
 }
 
 export function hostAt(keys: HostKey[], t: number) {
-  let g: HostKey["gesture"] = "idle", e: Expr = "neutral", look = 0, facing: -1 | 0 | 1 = 0, since = 99;
+  let g: HostKey["gesture"] = "idle", e: Expr = "neutral", look = 0, facing: -1 | 0 | 1 = 0, since = 99, mode: "stand" | "fall" = "stand";
   for (const k of keys) {
     if (k.t > t) break;
     if (k.gesture && k.gesture !== g) { g = k.gesture; since = t - k.t; } else if (k.gesture) since = Math.min(since, t - k.t);
     if (k.expr) e = k.expr;
     if (k.look !== undefined) look = k.look;
     if (k.facing !== undefined) facing = k.facing;
+    if (k.mode) mode = k.mode;
   }
   // squash 3 frames after the snap, then a short stretch that settles
   const f = since * 30;
   const squash = f < 3 ? -0.05 : f < 9 ? 0.035 * Math.sin(((f - 3) / 6) * Math.PI) : 0;
-  return { gesture: g, expr: e, look, facing, squash };
+  return { gesture: g, expr: e, look, facing, squash, mode };
 }
 
 /** canvas angle the light comes FROM on a camera-facing card, snapped to 45 degrees */
-function lightAngle(sunDir: THREE.Vector3, cam: THREE.Camera) {
+export function lightAngle(sunDir: THREE.Vector3, cam: THREE.Camera) {
   const right = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), upv = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 1);
   const a = Math.atan2(-sunDir.dot(upv), sunDir.dot(right));
   return Math.round(a / (Math.PI / 4)) * (Math.PI / 4);
 }
 
-export const ToonHost: React.FC<{ keys: HostKey[]; t: number; pos: V3; camPos: V3; camLook: V3; sun: V3; tint?: string; seed?: number; flip?: boolean }> = ({ keys, t, pos, camPos, camLook, sun, tint = "#FFFFFF", seed = 4, flip = false }) => {
+// r04: lift (m, flying / jumping), roll (rad, about the body centre: lying on the ground), glow (0..1 glowing eyes,
+// "100% unlocked"), hit (extra squash, the WRONG stamp), and the card is marked as the host for the time-freeze grade
+const PIVOT = (975 - 600) * SU; // body centre above the soles, m
+export const ToonHost: React.FC<{ keys: HostKey[]; t: number; pos: V3; camPos: V3; camLook: V3; sun: V3; tint?: string; seed?: number; flip?: boolean;
+  lift?: number; roll?: number; glow?: number; hit?: number; blobK?: number }> = ({ keys, t, pos, camPos, camLook, sun, tint = "#FFFFFF", seed = 4, flip = false,
+  lift = 0, roll = 0, glow = 0, hit = 0, blobK = 1 }) => {
   const r = useMemo(() => {
     const cv = document.createElement("canvas");
     cv.width = CW; cv.height = CH;
@@ -77,24 +83,34 @@ export const ToonHost: React.FC<{ keys: HostKey[]; t: number; pos: V3; camPos: V
   const light = lightAngle(new THREE.Vector3(...sun).normalize(), cam);
   r.g.setTransform(1, 0, 0, 1, 0, 0); r.g.clearRect(0, 0, CW, CH);
   // squash/stretch about the soles, breathing bob
-  const sy = 1 + s.squash + 0.006 * Math.sin(t * 2 * Math.PI * 0.45);
-  r.g.setTransform(K * (1 - s.squash * 0.5), 0, 0, K * sy, 300 * K * (s.squash * 0.5), 975 * K * (1 - sy));
+  const sq = s.squash - hit;
+  const sy = 1 + sq + 0.006 * Math.sin(t * 2 * Math.PI * 0.45);
+  r.g.setTransform(K * (1 - sq * 0.5), 0, 0, K * sy, 300 * K * (sq * 0.5), 975 * K * (1 - sy));
   bodyFront(new Pen(r.g), HOST, {
-    mode: "stand", expr: s.expr, look: s.look, facing: s.facing, light, seed,
+    mode: s.mode, expr: s.expr, look: s.look, facing: s.facing, light, seed,
     blink: blinkAt(t, seed), gesture: s.gesture === "idle" || s.gesture === "wave" ? undefined : s.gesture,
     wave: s.gesture === "wave" ? Math.sin(t * 14) : undefined,
   });
+  if (glow > 0.01) { // glowing eyes: soft gold halo + white-hot core over each eye
+    for (const ex of [300 - 30.7, 300 + 30.7]) {
+      const gr = r.g.createRadialGradient(ex, 309, 0, ex, 309, 46);
+      gr.addColorStop(0, `rgba(255,255,235,${glow.toFixed(3)})`); gr.addColorStop(0.35, `rgba(255,214,80,${(0.9 * glow).toFixed(3)})`); gr.addColorStop(1, "rgba(255,190,40,0)");
+      r.g.fillStyle = gr; r.g.beginPath(); r.g.arc(ex, 309, 46, 0, Math.PI * 2); r.g.fill();
+    }
+  }
   r.tex.needsUpdate = true;
   r.mat.color.set(tint);
   const yaw = Math.atan2(camPos[0] - pos[0], camPos[2] - pos[2]);
   return (
     <group position={pos}>
-      <mesh material={r.blob} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]} userData={{ noNormal: true }}>
+      {blobK > 0.02 ? <mesh material={r.blob} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]} scale={[blobK, blobK, 1]} userData={{ noNormal: true }}>
         <planeGeometry args={[0.75, 0.32]} />
-      </mesh>
+      </mesh> : null}
       <group rotation={[0, yaw, 0]}>
-        <mesh geometry={r.geo} material={r.mat} customDepthMaterial={r.depth} castShadow scale={[flip ? -1 : 1, 1, 1]}
-          userData={{ noNormal: true, noInk: true, flatNormal: r.tex }} />
+        <group position={[0, lift + PIVOT, 0]} rotation={[0, 0, roll]}>
+          <mesh geometry={r.geo} material={r.mat} customDepthMaterial={r.depth} castShadow scale={[flip ? -1 : 1, 1, 1]} position={[0, -PIVOT, 0]}
+            userData={{ noNormal: true, noInk: true, hostCard: true, flatNormal: r.tex }} />
+        </group>
       </group>
     </group>
   );

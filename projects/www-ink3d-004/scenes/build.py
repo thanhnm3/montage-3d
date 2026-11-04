@@ -1,9 +1,9 @@
-"""Props for the ink-3D 10%-brain myth Short (comp BrainMyth): Rhubarb cues, karaoke, whisper word times.
+"""Props for the ink-3D 10%-brain myth Short, r04 (comp BrainMyth): Rhubarb cues, karaoke, whisper word times.
 
   PYTHONUTF8=1 tts/.venv python build.py   -> ../artifacts/props.json
 Voice first: r03.py voice <proj> <ep> --chirp, then voice_post.py (x1.1 + whisper + Rhubarb) ->
 public/audio/narration.wav, artifacts/whisper_words_r03.json, public/cues/mouth.json.
-Unlike 003 there is no 2D pose library / face rig to stage: the host is the 3D person with the canvas face (Person.tsx).
+The host is the 2D toon.ts card (no lip sync), so the mouth cues are only kept in the props for completeness.
 The comp takes every shot time from props.words (anchor words, see ANCHORS in BrainMyth.tsx), so a new take
 only needs this script re-run, no hand-edited time table.
 """
@@ -23,9 +23,9 @@ import reel_build  # noqa: E402
 FPS = 30
 CAP_Y = 1660
 # same list, same order as ANCHORS in remotion-composer/projects/www-ink3d-004/BrainMyth.tsx
-ANCHORS = ["only", "brain", "movies", "idea", "your", "doesnt", "brain", "weight", "burns", "energy", "body", "pay", "keep", "switched",
-           "evolution", "cut", "ago", "scans", "agree", "not", "lights", "once", "over", "day", "almost", "region", "turn", "so", "dont",
-           "all", "just", "once", "follow", "why", "behind"]
+ANCHORS = ["unlock", "brain", "fly", "move", "mind", "even", "stop", "time", "theres", "problem", "youre", "already", "all", "brain",
+           "weight", "burns", "energy", "body", "pay", "keep", "switched", "evolution", "cut", "ago", "scans", "not", "lights", "over", "day",
+           "turn", "so", "flying", "mind", "powers", "just", "brain", "working", "follow", "behind"]
 
 
 def check_anchors(words):
