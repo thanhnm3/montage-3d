@@ -255,8 +255,159 @@ export function drawMammothB(p: Pen, o: AnimalPose) {
   beastEye(p, 1095, 395 + bob, 1.35, expr, o.blink ?? 0, MAMB.fur, "#FF4A1A");
 }
 
+
+// ------------------------------------------------------------------ Megalodon (Miocene-Pliocene, 23-3.6 Ma; ~15 m)
+// side view swimming right; `walk` = tail sweep, `roar` = gape. Drawn with its belly on design y ~ 700 (place the card
+// at the depth you want in water).
+export const MEG = { top: "#3E4A55", side: "#6E7C88", belly: "#D9DCD6", fin: "#2C353D", gum: "#8A2C38", mouth: "#22090E", scar: "#C9CED0" };
+export function drawMegB(p: Pen, o: AnimalPose) {
+  const light = o.light ?? rad(-120), ph = 2 * Math.PI * (o.phase ?? 0), sweep = Math.sin(ph) * 0.18 * (o.walk ?? 0.6);
+  const roar = o.roar ?? 0, expr = o.expr ?? "angry";
+  const cy = 520;
+  // tail: crescent caudal fin swinging about the tail stock
+  const stock: P2 = [270, cy - 10];
+  const caudal = rotAll([[300, cy - 20], [150, cy - 230], [205, cy - 40], [230, cy + 10], [130, cy + 190], [300, cy + 30]] as P2[], sweep, stock);
+  cel(p, caudal, MEG.fin, light, { d: 10 });
+  // far pectoral fin
+  cel(p, [[930, cy + 110], [720, cy + 250], [690, cy + 236], [860, cy + 100]], mul(MEG.fin, [0.75, 0.75, 0.82]), light, { d: 8, rim: false });
+  // body: torpedo, countershaded, gills, scars
+  const body: P2[] = chaikin(rotAll([[260, cy - 20], [420, cy - 120], [700, cy - 175], [1000, cy - 160], [1250, cy - 100], [1380, cy - 30], [1395, cy + 30],
+    [1300, cy + 90], [1050, cy + 140], [750, cy + 150], [480, cy + 90], [280, cy + 20]] as P2[], sweep * 0.25, [800, cy]), 3);
+  cel(p, body, MEG.side, light, { d: 30, tex: () => {
+    p.poly(chaikin([[260, cy + 10], [600, cy + 40], [1000, cy + 40], [1330, cy + 40], [1300, cy + 160], [700, cy + 200], [280, cy + 60]], 2), MEG.belly, 0);
+    p.poly(chaikin([[300, cy - 30], [700, cy - 220], [1250, cy - 140], [1300, cy - 70], [900, cy - 70], [500, cy - 40]], 2), MEG.top, 0);
+    for (let i = 0; i < 5; i++) p.stroke(curve([1090 - i * 28, cy - 70], [1075 - i * 28, cy], [1085 - i * 28, cy + 70], 6), 7, INKB);
+    for (let i = 0; i < 3; i++) p.stroke([[720 + i * 22, cy - 90], [800 + i * 22, cy - 10]], 6, MEG.scar);
+    scales(p, 280, cy - 200, 1400, cy + 200, 14, MEG.top, 31, 0.18);
+  } });
+  // dorsal + near pectoral fins
+  cel(p, [[700, cy - 165], [790, cy - 360], [830, cy - 352], [900, cy - 160]], MEG.fin, light, { d: 10 });
+  cel(p, [[400, cy - 90], [430, cy - 150], [470, cy - 85]], MEG.fin, light, { d: 6, ow: OW * 0.7 });
+  cel(p, [[990, cy + 100], [760, cy + 270], [715, cy + 252], [905, cy + 88]], MEG.fin, light, { d: 8 });
+  // jaw: the lower jaw drops, rows of serrated triangular teeth
+  const hinge: P2 = [1110, cy + 40], ja = rad(40) * roar;
+  const J = (q: P2[]) => rotAll(q, ja, hinge);
+  if (roar > 0.05) {
+    p.poly([[1110, cy + 20], [1385, cy + 6], ...J([[1370, cy + 40], [1110, cy + 50]])], MEG.mouth, 0);
+    p.poly(J([[1150, cy + 46], [1340, cy + 40], [1320, cy + 60], [1160, cy + 66]]), MEG.gum, 0);
+    p.poly([[1130, cy + 18], [1380, cy + 4], [1370, cy + 22], [1140, cy + 34]], MEG.gum, 0);
+    for (let i = 0; i < 9; i++) tooth(p, 1150 + i * 26, cy + 20 - i * 1.5, 34 - (i % 2) * 6, true, 0, 0.42);
+    for (let i = 0; i < 8; i++) { const [tx, ty] = J([[1160 + i * 25, cy + 46]])[0]; tooth(p, tx, ty, 28 - (i % 2) * 6, false, ja, 0.42); }
+    const lj = J([[1110, cy + 50], [1370, cy + 40], [1330, cy + 120], [1120, cy + 130]]);
+    cel(p, lj, MEG.belly, light, { d: 10 });
+  } else {
+    p.stroke(curve([1180, cy + 50], [1290, cy + 60], [1385, cy + 28], 8), 7, INKB);
+    for (let i = 0; i < 5; i++) tooth(p, 1240 + i * 26, cy + 52 - i * 4, 18, true, 0, 0.42);
+  }
+  beastEye(p, 1270, cy - 52, 1.45, expr, o.blink ?? 0, MEG.top, "#E8E2D0");
+}
+
+// ------------------------------------------------------------------ Titanoboa (Paleocene, ~60 Ma; ~13 m)
+// an S-shaped body along the ground rising into a striking head on the right; `walk` = slither wave, `roar` = gape.
+export const BOA = { skin: "#5C6B3C", blotch: "#2A3020", belly: "#C9BE8A", mouth: "#2A0A10", tongue: "#B0303E" };
+export function drawBoaB(p: Pen, o: AnimalPose) {
+  const light = o.light ?? rad(-120), ph = 2 * Math.PI * (o.phase ?? 0), w = o.walk ?? 0.4;
+  const roar = o.roar ?? 0, expr = o.expr ?? "angry";
+  // centreline: tail at the left on the ground, waves, then the neck rears up to the head at (1220, 420)
+  const line: P2[] = [];
+  for (let i = 0; i <= 40; i++) {
+    const t = i / 40;
+    if (t < 0.72) { const x = 60 + t / 0.72 * 980; line.push([x, GROUND - 40 - Math.sin(t * 9 - ph * 2) * 30 * (0.4 + w) - t * 20]); }
+    else { const k = (t - 0.72) / 0.28; line.push([1040 + Math.sin(k * Math.PI * 0.5) * 170, GROUND - 60 - (1 - Math.cos(k * Math.PI * 0.5)) * 470 - k * 30]); }
+  }
+  const radius = (i: number) => { const t = i / 40; return 14 + 70 * Math.sin(Math.min(1, t * 1.6) * Math.PI * 0.5) - (t > 0.78 ? (t - 0.78) * 200 : 0); };
+  // build a variable-width outline
+  const L: P2[] = [], R: P2[] = [];
+  line.forEach((q, i) => {
+    const a = line[Math.max(0, i - 1)], b = line[Math.min(line.length - 1, i + 1)];
+    let dx = b[0] - a[0], dy = b[1] - a[1]; const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l; const r = radius(i);
+    L.push([q[0] - dy * r, q[1] + dx * r]); R.push([q[0] + dy * r, q[1] - dx * r]);
+  });
+  const outline = [...L, ...R.reverse()];
+  cel(p, outline, BOA.skin, light, { d: 22, tex: () => {
+    // belly scutes along one side, blotches along the back
+    line.forEach((q, i) => { if (i % 2 || i > 37) return; const r = radius(i); p.ell(q[0] - 8, q[1] + r * 0.62, r * 0.4, r * 0.22, BOA.belly, 0); });
+    line.forEach((q, i) => { if (i % 3 || i < 2 || i > 36) return; const r = radius(i); p.poly([[q[0] - r * 0.6, q[1] - r * 0.1], [q[0], q[1] - r * 0.75], [q[0] + r * 0.6, q[1] - r * 0.1], [q[0], q[1] + r * 0.35]], BOA.blotch, 0); });
+    scales(p, 40, 380, 1300, 980, 14, BOA.blotch, 41, 0.3);
+  } });
+  // head: wedge skull, jaw drops on the strike, fangs, forked tongue
+  const H: P2 = line[line.length - 1];
+  const hx = H[0] + 30, hy = H[1] - 10, ja = rad(40) * roar;
+  const HS = 1.55; // head bigger than the neck
+  p.g.save(); p.g.translate(hx, hy); p.g.scale(HS, HS); p.g.translate(-hx, -hy);
+  const J = (q: P2[]) => rotAll(q, ja, [hx - 40, hy + 18]);
+  if (roar > 0.05) {
+    p.poly([[hx - 40, hy + 10], [hx + 140, hy + 4], ...J([[hx + 130, hy + 30], [hx - 40, hy + 30]])], BOA.mouth, 0);
+    tooth(p, hx + 100, hy + 6, 34, true, 0, 0.22); tooth(p, hx + 70, hy + 6, 26, true, 0, 0.22);
+    const tg = J([[hx + 20, hy + 26]])[0];
+    p.stroke(curve(tg, [tg[0] + 90, tg[1] - 10], [tg[0] + 150, tg[1] + 10], 6), 7, BOA.tongue);
+    cel(p, J([[hx - 40, hy + 22], [hx + 130, hy + 26], [hx + 110, hy + 60], [hx - 30, hy + 64]]), BOA.belly, light, { d: 8, ow: OW * 0.8 });
+  }
+  const head: P2[] = chaikin([[hx - 60, hy - 30], [hx + 20, hy - 66], [hx + 120, hy - 40], [hx + 160, hy + 4], [hx + 120, hy + 26], [hx - 20, hy + 36], [hx - 70, hy + 20]], 2);
+  cel(p, head, BOA.skin, light, { d: 14, tex: () => { scales(p, hx - 80, hy - 70, hx + 170, hy + 40, 12, BOA.blotch, 43, 0.35); p.poly([[hx - 30, hy - 44], [hx + 60, hy - 50], [hx + 30, hy - 26]], BOA.blotch, 0); } });
+  if (roar <= 0.05) {
+    p.stroke(curve([hx - 30, hy + 18], [hx + 60, hy + 26], [hx + 150, hy + 6], 8), 6, INKB);
+    const t = Math.sin(ph * 6) > 0.3; // tongue flicks
+    if (t) p.stroke(curve([hx + 150, hy + 8], [hx + 200, hy + 14], [hx + 230, hy + 2], 6), 6, BOA.tongue);
+  }
+  beastEye(p, hx + 60, hy - 22, 0.95, expr, o.blink ?? 0, BOA.skin, "#F2C230");
+  p.g.restore();
+}
+
+// ------------------------------------------------------------------ Acheroraptor (Hell Creek, 66 Ma; mid-sized dromaeosaurid)
+// feathered (dromaeosaurs had feathers), stiff tail with a feather fan, winged arms, sickle claw held up off the ground
+export const RAP = { skin: "#4E4A3A", feather: "#3A3328", featherLit: "#7A6A4A", belly: "#A8987A", mouth: "#2A0A10" };
+export function drawRaptorB(p: Pen, o: AnimalPose) {
+  const light = o.light ?? rad(-120), bob = 9 * Math.cos(4 * Math.PI * (o.phase ?? 0)) * (o.walk ?? 0);
+  const roar = o.roar ?? 0, expr = o.expr ?? "angry";
+  const far = walkOf(o, 0.5), near = walkOf(o, 0);
+  const featherRow = (pts: P2[], len: number, ang: number, col: string, seed: number) => {
+    const r = rng(seed);
+    for (const [x, y] of pts) { const l = len * (0.7 + r() * 0.5), a = ang + (r() - 0.5) * 0.4; p.poly(horn([[x, y], [x + Math.cos(a) * l * 0.5, y + Math.sin(a) * l * 0.5], [x + Math.cos(a) * l, y + Math.sin(a) * l]], 12), col, 4); }
+  };
+  const leg = (hip: P2, w: { swing: number; lift: number }, col: string) => {
+    const L = digiLeg(hip, 0.62, w.swing, w.lift);
+    cel(p, tube(curve(L[1], [(L[1][0] + L[2][0]) / 2 + 8, (L[1][1] + L[2][1]) / 2], L[2], 8), 26, 18), col, light, { d: 8, rim: false });
+    cel(p, tube([L[2], L[3]], 18, 14), col, light, { d: 6, rim: false });
+    for (let i = 0; i < 2; i++) claw(p, [L[3][0] + 14 + i * 14, L[3][1] + 4], 26, 0.3, 7);
+    // the sickle claw, held up
+    p.poly(horn(curve([L[3][0] - 2, L[3][1] - 8], [L[3][0] + 6, L[3][1] - 50], [L[3][0] + 40, L[3][1] - 54], 8), 12), "#160E0C", 3);
+    cel(p, rotAll(blob(hip[0] + 15, hip[1] + 30, 70, 92, 0.35, 9, -0.2, 1.7, 2.0), w.swing * 0.6, hip), col, light, { d: 12 });
+  };
+  leg([640, 640 + bob], far, mul(RAP.skin, [0.7, 0.72, 0.82]));
+  // tail: long, stiff, straight, feather fan at the end
+  const tailL = curve([560, 590 + bob], [360, 560 + bob], [90, 540 + bob + 10 * Math.sin(4 * Math.PI * (o.phase ?? 0))], 14);
+  featherRow(tailL.slice(7), 90, rad(-150), RAP.feather, 3); featherRow(tailL.slice(7), 80, rad(150), RAP.feather, 4);
+  cel(p, tube(tailL, 52, 10), RAP.skin, light, { d: 10 });
+  // body + feather cape along the back
+  const body = blob(700, 600 + bob, 170, 92, -0.12, 3, -0.12, 1.7, 2.1);
+  featherRow(curve([560, 530 + bob], [690, 500 + bob], [820, 520 + bob], 9), 70, rad(-150), RAP.feather, 5);
+  cel(p, body, RAP.skin, light, { d: 16, tex: () => { p.poly(blob(740, 660 + bob, 140, 46, -0.15, 5), RAP.belly, 0); scales(p, 520, 500, 880, 700, 14, RAP.feather, 7, 0.5); } });
+  leg([690, 650 + bob], near, RAP.skin);
+  // neck + head: long narrow snout, teeth, jaw drops on the screech
+  const neck = curve([820, 570 + bob], [880, 500 + bob], [920, 450 + bob], 8);
+  featherRow(neck.slice(1), 50, rad(-160), RAP.feather, 9);
+  cel(p, tube(neck, 52, 40), RAP.skin, light, { d: 10 });
+  const hinge: P2 = [930, 455 + bob], ja = rad(30) * roar, J = (q: P2[]) => rotAll(q, ja, hinge);
+  p.poly([[930, 448 + bob], [1110, 452 + bob], ...J([[1100, 466 + bob], [930, 470 + bob]])], RAP.mouth, 0);
+  cel(p, J([[925, 460 + bob], [1100, 462 + bob], [1090, 482 + bob], [960, 492 + bob]]), mul(RAP.skin, [0.9, 0.9, 0.92]), light, { d: 6, ow: OW * 0.8 });
+  for (let i = 0; i < 6; i++) tooth(p, 960 + i * 24, 452 + bob, 14, true, 0, 0.3);
+  const head: P2[] = chaikin([[900, 440], [930, 405], [990, 398], [1080, 420], [1125, 446], [1100, 458], [940, 466]].map(([x, y]) => [x, y + bob] as P2), 2);
+  cel(p, head, RAP.skin, light, { d: 10, tex: () => scales(p, 890, 380, 1130, 470, 10, RAP.feather, 11, 0.45) });
+  featherRow([[930, 405 + bob], [950, 400 + bob], [915, 418 + bob]], 46, rad(-140), RAP.feather, 13); // crest
+  beastEye(p, 990, 425 + bob, 0.95, expr, o.blink ?? 0, RAP.skin, "#F2D23A");
+  // winged arm folded at the side, claws out
+  const arm = curve([820, 600 + bob], [880, 630 + bob], [930, 610 + bob - 20 * roar], 6);
+  featherRow(arm.slice(1), 70, rad(120), RAP.feather, 15);
+  cel(p, tube(arm, 18, 12), RAP.skin, light, { d: 6, ow: OW * 0.75 });
+  const h = arm[arm.length - 1]; claw(p, h, 26, 0.6, 6); claw(p, [h[0] + 4, h[1] + 6], 24, 0.9, 6);
+}
+
 export const BEAST = {
   rex: { draw: drawRexB, len: 12.3, x0: 20, x1: 1320 },
   trike: { draw: drawTrikeB, len: 8.5, x0: 80, x1: 1370 },
   mammoth: { draw: drawMammothB, len: 5.6, x0: 410, x1: 1440 },
+  meg: { draw: drawMegB, len: 15, x0: 130, x1: 1395 },
+  boa: { draw: drawBoaB, len: 13, x0: 40, x1: 1440 },
+  raptor: { draw: drawRaptorB, len: 3.0, x0: 80, x1: 1130 },
 } as const;

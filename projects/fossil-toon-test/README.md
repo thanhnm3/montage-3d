@@ -33,3 +33,11 @@ Nhận xét:
 - Khác hẳn phong cách khối vuông đã duyệt của kênh (FOSSIL_3D_SHORTS.md).
 - Khi camera quay vòng quanh con vật, tấm hình 2D lộ ra là hình phẳng: nên quay ngang hoặc cắt cảnh, không orbit sát.
 - Lá cây thông Kenney còn màu xanh ngọc, cần đổi màu theo tên vật liệu nếu làm thật.
+
+## r4 (2026-11-04): more animals + "you"
+- `beastAnimals.ts` also has Megalodon (`meg`, 15 m, swimming, gape), Titanoboa (`boa`, 13 m, rearing, strike + forked
+  tongue) and Acheroraptor (`raptor`, 3 m, feathered, sickle claw held up). Megalodon and Titanoboa are not from the
+  Cretaceous: keep them for other eras.
+- `youToon.ts`: "you", an everyday person drawn with toon.ts (all its expressions) plus a heavy near-black silhouette
+  outline to sit with the beast animals.
+- Used in Fossil Short 013 (`projects/fossil-mysteries-short-013-3d`).

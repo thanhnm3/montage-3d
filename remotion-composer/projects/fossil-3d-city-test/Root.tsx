@@ -12,6 +12,7 @@ import { Short009_3D, Short009_3D_Free, Short009_3D_Ink, Thumb009 } from "./Shor
 import { Short010_3D, Thumb010 } from "./Short010_3D";
 import { Short011_3D, Thumb011 } from "./Short011_3D";
 import { Short012_3D, Thumb012 } from "./Short012_3D";
+import { Short013_3D, EST013 } from "./Short013_3D";
 import { Long006_3D, HOOK_FRAMES, EP_FRAMES } from "./Long006_3D";
 import { Thumb006 } from "./Thumb006";
 import { MerchPoster } from "./MerchPoster";
@@ -44,6 +45,7 @@ export const Root: React.FC = () => (
   <Composition id="Short009-3D-Free" component={Short009_3D_Free} durationInFrames={1309} fps={30} width={1080} height={1920} defaultProps={{} as SceneProps} calculateMetadata={calculateMetadata} />
   <Composition id="Short011-3D" component={Short011_3D} durationInFrames={1276} fps={30} width={1080} height={1920} defaultProps={{} as SceneProps} calculateMetadata={calculateMetadata} />
   <Composition id="Thumb011" component={Thumb011} durationInFrames={1} fps={30} width={1080} height={1920} />
+  <Composition id="Short013-3D" component={Short013_3D} durationInFrames={EST013.totalFrames} fps={30} width={1080} height={1920} defaultProps={EST013} calculateMetadata={calculateMetadata} />
   <Composition id="Short012-3D" component={Short012_3D} durationInFrames={1873} fps={30} width={1080} height={1920} defaultProps={{} as SceneProps} calculateMetadata={calculateMetadata} />
   <Composition id="Thumb012" component={Thumb012} durationInFrames={1} fps={30} width={1080} height={1920} />
   <Composition id="Short010-3D" component={Short010_3D} durationInFrames={1605} fps={30} width={1080} height={1920} defaultProps={{} as SceneProps} calculateMetadata={calculateMetadata} />

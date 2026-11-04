@@ -181,3 +181,9 @@ $FF -y -i video_noaudio.mp4 -i audio_sfx.wav -map 0:v -map 1:a -c:v copy -c:a aa
 - Thứ tự chân khi đi: sau-trái, trước-trái, sau-phải, trước-phải (lệch pha 0.25 chu kỳ).
 - Tham số `furPop` cho mọi khối cùng bay; muốn rụng một phần thì dùng `Debris` riêng.
 - Lệnh `rm -rf $VAR` bị chặn an toàn. Dùng thư mục bundle mới mỗi lần, hoặc đường dẫn tuyệt đối viết thẳng.
+
+## 9. Phong cách toon / beast (thử từ 2026-11-04, Short 013)
+- Thú vẽ 2D (`projects/fossil-toon-test/beastAnimals.ts`) và nhân vật "you" (`youToon.ts`) trên tấm billboard trong
+  cảnh 3D, cùng các lớp chữ của kênh. Mẫu: `Short013_3D.tsx` (thả người vào kỷ Phấn trắng, đồng hồ sinh tồn).
+- Thời gian lấy từ các từ khoá trong `props.karaoke` (`ANCHORS`). Chưa có giọng thì dùng file ước lượng `short013_est.ts`.
+- Xem ảnh tĩnh trên cloud: `PUBLIC=<thư mục public> bash tools/www_pipeline/cloud_stills.sh fossil-3d-city-test <Comp> <out> <giây...>`.
