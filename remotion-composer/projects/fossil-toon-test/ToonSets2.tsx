@@ -16,6 +16,7 @@ import * as THREE from "three";
 import { Pen } from "./toon";
 import { InkPass } from "./Ink";
 import { M, Models, useModels } from "./FreeWorld";
+import { FloraField, scatter } from "./FloraField";
 import { V3, clamp01, ease, lerp, lerpV, toon } from "./World";
 import { BeastCard3D, canvasTex, domeMat, glowTex, heightPlane, rng, toonWP, win } from "./ToonSets";
 
@@ -68,6 +69,8 @@ const paintingTex = () => canvasTex(1024, 512, (g) => {
 });
 
 // ------------------------------------------------------------------ CAVE
+const CAM0 = { pos: [0, 3, 30] as V3 };
+const CAVE_FLORA = scatter(5, 40, [["rockpile", 2], ["boulder", 1.5], ["mushrooms", 2], ["pebbles", 2], ["bones", 1]], [-16, 16, -12, 5], [-8, 8, -7]);
 export const CAVE = { rx: 22, ry: 10, rz: 16, cy: 1.6, fire: [2.2, 0, -2.5] as V3, mouthW: 6.5, mouthH: 7.5, day: "#FFF8EC", fog: "#2A1E1A" };
 export const caveFloorY = (x: number, z: number) => 0.22 * Math.sin(x * 0.7 + z * 0.3) + 0.15 * Math.sin(z * 0.9 - x * 0.4) + 0.04 * Math.sin(x * 3.1 + z * 2.3);
 const n3 = (x: number, y: number, z: number) => Math.sin(x * 2.1 + y * 1.3) * 0.5 + Math.sin(y * 3.7 - z * 2.2) * 0.3 + Math.sin(z * 5.3 + x * 4.1) * 0.15 + Math.sin(x * 9.0 + y * 8.0 + z * 7.0) * 0.06;
@@ -83,7 +86,7 @@ function chamberGeo() {
 }
 const ceilY = (x: number, z: number) => CAVE.cy + CAVE.ry * Math.sqrt(Math.max(0, 1 - (x / CAVE.rx) ** 2 - (z / CAVE.rz) ** 2)) * 0.9;
 
-export const CaveSet: React.FC<{ models: Models; t: number }> = ({ models, t }) => {
+export const CaveSet: React.FC<{ models: Models; t: number; cam?: { pos: V3 } }> = ({ models, t, cam = CAM0 }) => {
   const r = useMemo(() => {
     const uT = { value: 0 }, uPaint = { value: paintingTex() };
     const wall = toonWP("#7A6656", uT, `
@@ -140,6 +143,7 @@ export const CaveSet: React.FC<{ models: Models; t: number }> = ({ models, t }) 
         {[0, 1, 2, 3, 4, 5].map((i) => { const k = ((t * 0.25 + i / 6) % 1); return <sprite key={`s${i}`} material={r.smoke} position={[Math.sin(i * 1.7 + t * 0.3) * 0.4, 1.4 + k * 5, -k * 0.8]} scale={[1 + k * 3, 1 + k * 3, 1]} userData={{ noNormal: true }} />; })}
         <pointLight position={[0, 1.0, 0]} intensity={26 * fl} distance={0} decay={1.4} color="#FF9A48" />
       </group>
+      <FloraField items={CAVE_FLORA} ground={caveFloorY} cam={cam} t={t} pal="cave" wind={0.2} tint="#9A7A66" />
       <primitive object={r.tgt} />
       <spotLight position={[fx, 1.1, fz + 0.2]} target={r.tgt} angle={1.25} penumbra={0.7} intensity={70 * fl} decay={1.3} distance={0} color="#FFB060" castShadow
         shadow-mapSize={[2048, 2048]} shadow-bias={-0.0006} shadow-normalBias={0.04} shadow-camera-near={0.3} shadow-camera-far={40} />
@@ -148,6 +152,8 @@ export const CaveSet: React.FC<{ models: Models; t: number }> = ({ models, t }) 
 };
 
 // ------------------------------------------------------------------ VOLCANO
+const VOL_FLORA = [...scatter(29, 80, [["deadtree", 3], ["boulder", 2], ["rockpile", 2], ["pebbles", 1.5], ["fern", 0.6]], [-75, 75, -70, 25], [-18, 16, -14]),
+  ...scatter(30, 40, [["deadtree", 2], ["boulder", 2], ["rockpile", 2], ["pebbles", 2]], [-26, 26, -30, -12]), ...scatter(31, 20, [["pebbles", 2], ["rockpile", 2]], [-16, 16, 6, 22], [-7, 7, -99], 0.6)];
 export const VOL = { fog: "#5A3328", sun: [-30, 10, 30] as V3, cone: [20, 0, -170] as V3, coneR: 110, coneH: 72, riverZ: -9 };
 const RIVER = (x: number) => VOL.riverZ + 2.2 * Math.sin(x * 0.08) + 1.2 * Math.sin(x * 0.21 + 1);
 export const basaltY = (x: number, z: number) => {
@@ -162,7 +168,7 @@ function volcanoGeo() {
   for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i), a = Math.atan2(z, x); const k = 1 + 0.05 * Math.sin(a * 7 + y * 0.1) + 0.03 * Math.sin(a * 17); p.setXYZ(i, x * k, y, z * k); }
   g.computeVertexNormals(); return g;
 }
-export const VolcanoSet: React.FC<{ models: Models; t: number; erupt?: number }> = ({ models, t, erupt = 1 }) => {
+export const VolcanoSet: React.FC<{ models: Models; t: number; erupt?: number; cam?: { pos: V3 } }> = ({ models, t, erupt = 1, cam = CAM0 }) => {
   const r = useMemo(() => {
     const uT = { value: 0 };
     const ground = toonWP("#3A3330", uT, `diffuseColor.rgb *= 0.85 + 0.15 * sin(vWP.x * 2.3 + vWP.z * 1.7);`, {}, {}, "",
@@ -206,11 +212,7 @@ export const VolcanoSet: React.FC<{ models: Models; t: number; erupt?: number }>
       <mesh geometry={r.groundG} material={r.ground} receiveShadow />
       <mesh geometry={riverG} material={r.lava} userData={{ noNormal: true }} />
       <mesh geometry={r.coneG} material={r.cone} position={[cx, -2, cz]} />
-      {r.props.map((q, i) => {
-        const y = basaltY(q.x, q.z);
-        if (q.k < 0.35) return <M key={i} models={models} name={["tree_tall", "tree_cone_dark", "stump_round"][i % 3]} size={i % 3 === 2 ? 0.8 : 4 + q.s * 6} pos={[q.x, y, q.z]} rot={i} tint="#1A1412" tintK={0.92} />;
-        return <M key={i} models={models} name={["rock_largeA", "rock_largeC", "rock_tallA", "rock_smallA"][i % 4]} size={0.6 + q.s * 3} pos={[q.x, y - 0.2, q.z]} rot={i * 1.3} tint="#2A2422" tintK={0.8} />;
-      })}
+      <FloraField items={VOL_FLORA.filter((q) => Math.abs(q.z - RIVER(q.x)) > 4)} ground={basaltY} cam={cam} t={t} pal="ash" wind={0.7} tint="#D8A898" />
       {/* eruption plume: puffs rise from the crater and spread; the lowest glow from the lava */}
       {r.puffs.map((pf, i) => { const k = (pf.ph + t * 0.05) % 1, y = top - 4 + k * 190 * erupt, s = (26 + k * 130) * pf.s * (0.3 + 0.7 * erupt);
         return <sprite key={`p${i}`} material={r.plume[k < 0.12 ? 2 : i % 2]} position={[cx + pf.dx * k * 2 + k * 30, y, cz + pf.dz * k]} scale={[s, s, 1]} userData={{ noNormal: true }} />; })}
@@ -266,7 +268,7 @@ export const ToonSetsDemo2: React.FC = () => {
             <group>
               <hemisphereLight args={[new THREE.Color("#6A6A80"), new THREE.Color("#2A1E18"), 0.35]} />
               <directionalLight position={[0, 6, 40]} intensity={0.45} color="#CFE0FF" />
-              <CaveSet models={models} t={t} />
+              <CaveSet models={models} t={t} cam={cam} />
               <BeastCard3D name="bear" t={t} sun={fireSun} pos={[-2.8, 0, -4.5]} heading={0} cam={cam} pose={{ roar: win(t, 0.8, 1.8) ? 1 : 0 }} />
               <BeastCard3D name="smilo" t={t} sun={[0, 6, 40]} pos={[lerp(3.5, 1.2, clamp01((t - 3.3) / 1.4)), 0, 8.8]} heading={Math.PI} cam={cam} pose={{ walk: t < 4.7 ? 1 : 0, phase: t, roar: t > 4.7 ? 1 : 0 }} />
             </group>
@@ -275,7 +277,7 @@ export const ToonSetsDemo2: React.FC = () => {
               <hemisphereLight args={[new THREE.Color("#B07A6A"), new THREE.Color("#2A1A14"), 0.75]} />
               <directionalLight position={VOL.sun} intensity={1.6} color="#FF9A64" castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0004} shadow-normalBias={0.03}
                 shadow-camera-left={-30} shadow-camera-right={30} shadow-camera-top={30} shadow-camera-bottom={-30} shadow-camera-far={160} />
-              <VolcanoSet models={models} t={t} />
+              <VolcanoSet models={models} t={t} cam={cam} />
               {c.i !== 5 && <BeastCard3D name="rex" t={t} sun={VOL.sun} pos={[rexX, 0, 0]} heading={0} cam={cam} pose={{ walk: t < 6.8 ? 1 : 0, phase: t * 0.9, roar }} />}
               <BeastCard3D name="trike" t={t} sun={VOL.sun} pos={[4.5, 0, -5]} heading={Math.PI} cam={cam} pose={{ expr: t > 8.6 ? "shock" : "angry" }} />
             </group>

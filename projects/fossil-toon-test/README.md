@@ -170,3 +170,24 @@ User: "vẽ lại riêng 6 con đổi màu cho có dáng riêng", then "render h
   for close-ups).
 - `dragonHead` takes a palette, `fire` a `venom` flag (green).
 - `BeastCatalog` comp: all 89 animals on one page with their keys (`preview_catalog.jpg`).
+
+## r12 (2026-11-05): smooth motion, hand-drawn flora, 27 more beasts, a Jurassic forest
+User: "Thêm tối đa các con khác, làm cho chuyển động thật mượt mà, kể cả cây cỏ, đất đá, tất cả đều phải vẽ thật chi tiết"
+(picked: hand-drawn 2D flora; joints + secondary motion; sea / Palaeozoic, Cenozoic, fantasy).
+- `cardMotion.ts`: every beast card is a 64x32 subdivided plane bent in the vertex shader (shadow too): breathing,
+  a travelling tail wave, head / neck sway, swim undulation, flyer bob + pitch, serpent waves (`motionKindOf(name)`;
+  idle sway calms while attacking). `ramp` / `keys` ease poses in and out. Checked on a 4 s render (`MotionTest`):
+  consecutive frames move evenly.
+- `toonFlora.ts` + `FloraField.tsx`: 24 hand-drawn kinds (fern, tree fern, cycad, horsetail, araucaria, snowy pine,
+  palm, broadleaf, magnolia, reeds, grass, bush, sagebrush, dead tree, boulder with cracks / lichen / moss / snow,
+  rock pile, pebbles, mossy log, mushrooms, bones, kelp, sea fan, sponges, brain coral), 6 palettes; cards share one
+  texture per kind / palette / variant and sway in the wind or current. `FloraSheet` (`preview_flora.jpg`).
+  Sea, Ice Age, cave, volcano, badlands and dig sets now use them (Kenney props removed there): far scatter + a dense
+  band behind the action + small foreground fringes (`preview_sets_flora.jpg`). Sets take `cam`.
+- `ToonSets4.tsx`: Jurassic forest (`ForestSet`, `forestY`): araucarias, tree ferns, cycads, horsetails, reeds by a
+  stream, fern floor, leaf litter, pollen. `ForestDemo` (`preview_forest.jpg`).
+- `beastNew.ts` (27, sheet `BeastNewSheet`, `preview_new.jpg`): Shonisaurus, Leedsichthys, Onchopristis, coelacanth,
+  Cameroceras, giant ammonite, Opabinia, Tully monster; Doedicurus, Arsinoitherium, Uintatherium, Chalicotherium,
+  Macrauchenia, Toxodon, Arctodus, Ambulocetus, Megalochelys, Hyaenodon; wendigo, Jörmungandr, eastern dragon (lung),
+  qilin, behemoth, roc, mothman, cockatrice, Fenrir. `BEASTS` = 116 (`preview_catalog.jpg`).
+- Cloud render speed (software WebGL): ~8 s per 1080x1920 frame at scale 0.4; a 4 s clip took ~16 min.

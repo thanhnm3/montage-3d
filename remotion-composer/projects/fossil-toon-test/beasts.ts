@@ -9,8 +9,9 @@ import { drawBaryB, drawKronoB, drawOviB, drawPuruB, drawSarcoB } from "./beastE
 import { drawDeinotherB, drawHallucigeniaB, drawMegalaniaB, drawVeloB, drawXiphoB } from "./beastRedo";
 import { BEAST_ANCIENT } from "./beastAncient";
 import { BEAST_MYTH } from "./beastMyth";
+import { BEAST_NEW } from "./beastNew";
 export const BEASTS = { ...BEAST_ALL, ...BEAST_WINGS, ...BEAST_EXTRA, para: { draw: drawParaB, len: 9.5, x0: 26, x1: 1349 },
-  ...BEAST_ANCIENT, ...BEAST_MYTH,
+  ...BEAST_ANCIENT, ...BEAST_MYTH, ...BEAST_NEW,
   // variants of existing bodies (x0 / x1 measured with BeastSolo)
   diplo: { draw: drawDiploB, len: 26, x0: 6, x1: 1457 },
   igu: { draw: drawIguB, len: 10, x0: 26, x1: 1349 },

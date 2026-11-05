@@ -147,15 +147,16 @@ const GORGON: QuadSpec = { fur: "#6A5A44", dark: "#2E2418", lit: "#9A8A6A", bell
 export const drawGorgonB: Draw = (p, o) => drawQuadB(p, o, GORGON); // Inostrancevia, Late Permian, ~3.5 m, 15 cm sabres
 
 // ------------------------------------------------------------------ Glyptodon (Ice Age S. America; ~3.3 m, an armadillo the size of a car)
-const GLY = { shell: "#7A6044", dark: "#3A2A1C", lit: "#B8946A", skin: "#4A3A2E", ring: "#5A442E" };
-export function drawGlyptoB(p: Pen, o: AnimalPose) {
+const GLY0 = { shell: "#7A6044", dark: "#3A2A1C", lit: "#B8946A", skin: "#4A3A2E", ring: "#5A442E" };
+export function drawGlyptoB(p: Pen, o: AnimalPose, mace = false) {
+  const GLY = mace ? DOED : GLY0; // Doedicurus: a taller dome and a spiked mace on the tail
   const light = o.light ?? rad(-120), bob = bobOf(o, 3), roar = o.roar ?? 0, expr = o.expr ?? "angry";
   for (const [x, off, c] of [[560, 0.5, mul(GLY.skin, FAR)], [920, 0, mul(GLY.skin, FAR)]] as [number, number, string][]) colLeg(p, o, x, 820 + bob, off, c, light, { r0: 60, r1: 44, toes: 4, toe: 20, bend: 10, reach: 90 });
   // armoured tail club swings up on the threat
   const tb: P2 = [440, 760 + bob], tl = rotAll(curve(tb, [330, 790 + bob], [200, 780 + bob], 10), rad(30) * roar, tb);
   for (let i = 0; i < tl.length - 1; i++) cel(p, blob(tl[i][0], tl[i][1], 34 - i * 1.5, 40 - i * 1.6, 0, i), i % 2 ? GLY.ring : GLY.shell, light, { d: 4, ow: 8 });
-  const c = tl[tl.length - 1]; cel(p, blob(c[0] - 20, c[1], 50, 44, 0, 3), GLY.shell, light, { d: 6 }); for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2; p.poly(horn([add(c, Math.cos(a) * 36 - 20, Math.sin(a) * 34), add(c, Math.cos(a) * 52 - 20, Math.sin(a) * 50), add(c, Math.cos(a) * 66 - 20, Math.sin(a) * 64)], 10), GLY.dark, 3); }
-  const shell = chaikin(offs([[420, 820], [450, 640], [560, 520], [720, 490], [880, 530], [980, 640], [1000, 820], [720, 840]], 0, bob), 3);
+  const c = tl[tl.length - 1], mk = mace ? 1.7 : 1; cel(p, blob(c[0] - 20, c[1], 50 * mk, 44 * mk, 0, 3), GLY.shell, light, { d: 6 }); for (let i = 0; i < (mace ? 9 : 6); i++) { const a = (i / (mace ? 9 : 6)) * Math.PI * 2; p.poly(horn([add(c, Math.cos(a) * 36 * mk - 20, Math.sin(a) * 34 * mk), add(c, Math.cos(a) * 60 * mk - 20, Math.sin(a) * 56 * mk), add(c, Math.cos(a) * 84 * mk - 20, Math.sin(a) * 80 * mk)], 12), GLY.dark, 3); }
+  const shell = chaikin(offs(mace ? [[420, 820], [440, 600], [560, 440], [720, 400], [880, 450], [980, 600], [1000, 820], [720, 840]] : [[420, 820], [450, 640], [560, 520], [720, 490], [880, 530], [980, 640], [1000, 820], [720, 840]], 0, bob), 3);
   cel(p, shell, GLY.shell, light, { d: 30, tex: () => {
     for (let y = 500; y < 840; y += 46) for (let x = 420 + ((y / 46) % 2) * 26; x < 1010; x += 52) { const q = add([x, y], 0, bob); p.poly([add(q, -22, 0), add(q, -11, -20), add(q, 11, -20), add(q, 22, 0), add(q, 11, 20), add(q, -11, 20)], GLY.dark, 0); p.poly([add(q, -16, 0), add(q, -8, -14), add(q, 8, -14), add(q, 16, 0), add(q, 8, 14), add(q, -8, 14)], GLY.lit, 0); }
     p.path(shell, true); p.g.strokeStyle = GLY.dark; p.g.lineWidth = 30; p.g.stroke(); scars(p, 700, 560 + bob, "#E8D8B8", 4, 70);
@@ -170,6 +171,9 @@ export function drawGlyptoB(p: Pen, o: AnimalPose) {
   if (roar > 0.05) p.ell(...R([[140, 30]])[0], 26, 14, "#30080E", 3);
   const e = R([[70, -40]])[0]; beastEye(p, e[0], e[1], 0.7, expr, o.blink ?? 0, GLY.skin, "#FF6A1F");
 }
+
+const DOED = { shell: "#5A4A3A", dark: "#22180F", lit: "#9A7E5A", skin: "#3A2E26", ring: "#4A3A2A" };
+export const drawDoedB = (p: Pen, o: AnimalPose) => drawGlyptoB(p, o, true); // Doedicurus (~3.6 m, Pleistocene Argentina)
 
 // ------------------------------------------------------------------ swimmers: ichthyosaur, Basilosaurus, Livyatan (cy 520)
 type SwimSpec = { top: string; side: string; belly: string; fin: string; kind: "ichthy" | "basilo" | "livyatan"; teeth: number; toothL: number; iris: string; eye: number };
@@ -287,7 +291,7 @@ export const drawMoaB: Draw = (p, o) => drawGroundBirdB(p, o, false);
 export const drawDodoB: Draw = (p, o) => drawGroundBirdB(p, o, true);
 
 // ------------------------------------------------------------------ soaring giants: Argentavis (span ~6-7 m), Pelagornis (span ~6.4 m, bony teeth)
-export type SoarSpec = { body: string; lit: string; head: string; beak: string; tip: string; span: number; kind: "condor" | "pelagornis" | "phoenix" | "thunder"; iris: string };
+export type SoarSpec = { body: string; lit: string; head: string; beak: string; tip: string; span: number; kind: "condor" | "pelagornis" | "phoenix" | "thunder" | "roc"; iris: string };
 export function drawSoarB(p: Pen, o: AnimalPose, S: SoarSpec) {
   const light = o.light ?? rad(-120), roar = o.roar ?? 0, expr = o.expr ?? "angry", w = o.walk ?? 0, ph = 2 * Math.PI * (o.phase ?? 0);
   const k = roar > 0.05 ? 0.1 : 0.3 + (0.5 - 0.5 * Math.cos(ph) - 0.3) * w, bob = 12 * Math.sin(ph) * w;
@@ -295,8 +299,10 @@ export function drawSoarB(p: Pen, o: AnimalPose, S: SoarSpec) {
   if (S.kind === "phoenix") { // a trail of fire behind
     const r = rng(Math.floor((o.phase ?? 0) * 40) + 1); for (let i = 0; i < 14; i++) { const x = 560 - i * 34 + r() * 20, y = 540 + bob + (r() - 0.5) * 80; p.g.globalAlpha = 0.8 - i * 0.05; p.ell(x, y, 50 - i * 2.5, 26 - i, i % 3 ? "#FF8A20" : "#FFE07A", 0); } p.g.globalAlpha = 1; }
   featherWing(p, add(sh, 26, -12), add(hip, 50, -10), S.span * 0.96, k, mul(S.body, FAR), S.lit, light, 3, 12);
-  plumes(p, Array.from({ length: 7 }, (_, i) => [580, 520 + bob + i * 9] as P2), S.kind === "phoenix" ? 300 : 170, rad(178), S.kind === "phoenix" ? "#E84A1A" : S.body, 4, 22);
-  for (const dx of [0, 20]) { const a = add(hip, 20 + dx, 30), ft: P2 = roar > 0.05 ? add(hip, 320 + dx, 150) : add(hip, -100 + dx, 60); cel(p, tube([a, lerp2(a, ft, 0.5), ft], 26, 12), S.body, light, { d: 4, ow: 9 }); for (let i = 0; i < 4; i++) claw(p, ft, 36, (roar > 0.05 ? -0.6 : 2.2) + i * 0.45, 8); }
+  plumes(p, Array.from({ length: 7 }, (_, i) => [580, 520 + bob + i * 9] as P2), S.kind === "phoenix" || S.kind === "roc" ? 300 : 170, rad(178), S.kind === "phoenix" ? "#E84A1A" : S.body, 4, 22);
+  if (S.kind === "roc") for (let i = 0; i < 3; i++) p.stroke(curve([580, 530 + bob + i * 10], [380, 560 + bob + i * 20 + 20 * Math.sin((o.phase ?? 0) * 6 + i)], [180, 520 + bob + i * 40], 10), 10 - i * 2, S.lit); // long tail streamers
+  for (const dx of [0, 20]) { const a = add(hip, 20 + dx, 30), ft: P2 = roar > 0.05 ? add(hip, 320 + dx, 150) : S.kind === "roc" ? add(hip, 40 + dx, 170) : add(hip, -100 + dx, 60); cel(p, tube([a, lerp2(a, ft, 0.5), ft], 26, 12), S.body, light, { d: 4, ow: 9 }); for (let i = 0; i < 4; i++) claw(p, ft, 36, (roar > 0.05 ? -0.6 : S.kind === "roc" ? 0.4 : 2.2) + i * 0.45, 8); }
+  if (S.kind === "roc" && roar <= 0.05) cel(p, blob(hip[0] + 70, hip[1] + 230, 90, 70, 0, 3), "#7A7266", light, { d: 14, tex: () => p.stroke([[hip[0] + 30, hip[1] + 200], [hip[0] + 90, hip[1] + 260]], 4, INKB) }); // a boulder in its talons
   cel(p, blob(740, 515 + bob, 150, 72, -0.15, 3, -0.1, 1.8, 2.1), S.body, light, { d: 12, tex: () => furFlicks(p, 590, 430, 900, 600, 60, 3, [S.lit, mul(S.body, [0.6, 0.6, 0.6])], 22, 5) });
   if (S.kind === "condor") plumes(p, Array.from({ length: 8 }, (_, i) => [860 + i * 4, 470 + bob + i * 8] as P2), 50, rad(-30), "#E8E2D6", 5, 14); // the white ruff
   cel(p, tube(curve([860, 495 + bob], [910, 470 + bob], [950, 450 + bob], 6), 44, 34), S.kind === "condor" ? "#9A5A4A" : S.body, light, { d: 6 });
@@ -309,6 +315,7 @@ export function drawSoarB(p: Pen, o: AnimalPose, S: SoarSpec) {
   cel(p, chaikin([[1040, 418 + bob], [990 + bl * 0.6, 422 + bob], [990 + bl, 450 + bob], [1000 + bl, 490 + bob], [978 + bl, 500 + bob], [970 + bl, 470 + bob], [1035, 470 + bob]], 2), S.beak, light, { d: 6, ow: OW * 0.8, tex: () => p.poly([[975 + bl, 445 + bob], [1005 + bl, 470 + bob], [990 + bl, 505 + bob], [968 + bl, 480 + bob]], S.tip, 0) });
   p.poly([[960, 418 + bob], [1050, 412 + bob], [1052, 428 + bob], [975, 436 + bob]], INKB, 0);
   if (S.kind === "phoenix") plumes(p, [[950, 410 + bob], [930, 420 + bob], [970, 404 + bob], [910, 434 + bob]], 120, rad(-150), "#FFB020", 9, 14); // flame crest
+  if (S.kind === "roc") plumes(p, [[950, 410 + bob], [930, 420 + bob], [970, 404 + bob], [910, 434 + bob], [890, 444 + bob]], 150, rad(-160), S.tip, 9, 16); // swept crest
   beastEye(p, 1010, 440 + bob, 0.85, expr, o.blink ?? 0, S.head, S.iris);
   featherWing(p, sh, add(hip, 30, 0), S.span, k, S.body, S.lit, light, 7, 12);
   if (S.kind === "phoenix") { p.g.globalAlpha = 0.7; const r = rng(Math.floor((o.phase ?? 0) * 40) + 7); for (let i = 0; i < 26; i++) p.ell(sh[0] - r() * 400, sh[1] - (r() - 0.3) * 420 * Math.cos(Math.PI * k), 10 + r() * 16, 6 + r() * 8, r() < 0.5 ? "#FFE07A" : "#FF6A1A", 0); p.g.globalAlpha = 1; }

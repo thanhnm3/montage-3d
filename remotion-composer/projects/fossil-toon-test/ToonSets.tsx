@@ -16,8 +16,10 @@ import * as THREE from "three";
 import { Pen } from "./toon";
 import { AnimalPose, GROUND } from "./toonAnimals";
 import { BEASTS, BeastName } from "./beasts";
+import { MotionKind, motionKindOf, motionUniforms, withMotion } from "./cardMotion";
 import { InkPass } from "./Ink";
 import { M, Models, useModels } from "./FreeWorld";
+import { FloraField, scatter } from "./FloraField";
 import { Sky, V3, clamp01, ease, lerp, lerpV, toon } from "./World";
 
 const W = 1080, H = 1920, ASPECT = W / H;
@@ -57,19 +59,25 @@ const lightAngle = (sun: THREE.Vector3, cam: THREE.Camera) => {
 };
 const blinkAt = (t: number, seed: number) => { const n = Math.floor((t + seed) / 2.1); const at = n * 2.1 + 0.5 + ((Math.sin(n * 91.7 + seed) + 1) / 2) * 1.2 - seed; const d = (t - at) * 30; return d >= 0 && d < 4 ? 1 : 0; };
 /** `anchor` = design y that sits on pos.y: GROUND for walkers (feet on the ground), 520 for swimmers (body centre) */
-export const BeastCard3D: React.FC<{ name: BeastName; pose: AnimalPose; pos: V3; heading: number; cam: { pos: V3; look: V3 }; t: number; sun: V3; anchor?: number; size?: number }> =
-  ({ name, pose, pos, heading, cam, t, sun, anchor = GROUND, size = 1 }) => {
+const seedOf = (n: string) => { let h = 7; for (let i = 0; i < n.length; i++) h = (h * 31 + n.charCodeAt(i)) % 997; return (h / 997) * 5; };
+export const BeastCard3D: React.FC<{ name: BeastName; pose: AnimalPose; pos: V3; heading: number; cam: { pos: V3; look: V3 }; t: number; sun: V3; anchor?: number; size?: number; motion?: MotionKind; motionAmp?: number }> =
+  ({ name, pose, pos, heading, cam, t, sun, anchor = GROUND, size = 1, motion, motionAmp = 1 }) => {
   const A = BEASTS[name], mpu = (A.len / (A.x1 - A.x0)) * size;
   const r = useMemo(() => {
     const cv = document.createElement("canvas"); cv.width = 1600 * K; cv.height = 1000 * K;
     const g = cv.getContext("2d")!;
     const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
-    const mat = new THREE.MeshBasicMaterial({ map: tex, alphaTest: 0.5, side: THREE.DoubleSide });
-    const depth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: tex, alphaTest: 0.5 });
-    const geo = new THREE.PlaneGeometry(1600 * mpu, 1000 * mpu);
-    geo.translate((800 - (A.x0 + A.x1) / 2) * mpu, (anchor - 500) * mpu, 0);
-    return { g, tex, mat, depth, geo, camO: new THREE.PerspectiveCamera() };
-  }, [A, mpu, anchor]);
+    // subdivided plane, bent in the vertex shader for breathing / tail / swim / flight motion (cardMotion.ts)
+    const dx = (800 - (A.x0 + A.x1) / 2) * mpu, dy = (anchor - 500) * mpu, kind = motion ?? motionKindOf(name);
+    const U = motionUniforms(kind, (A.x0 - 800) * mpu + dx, (A.x1 - 800) * mpu + dx, (500 - GROUND) * mpu + dy, 1000 * mpu * 0.75);
+    const mat = withMotion(new THREE.MeshBasicMaterial({ map: tex, alphaTest: 0.5, side: THREE.DoubleSide }), U, "basic");
+    const depth = withMotion(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: tex, alphaTest: 0.5 }), U, "depth");
+    const geo = new THREE.PlaneGeometry(1600 * mpu, 1000 * mpu, 64, 32);
+    geo.translate(dx, dy, 0);
+    return { g, tex, mat, depth, geo, U, camO: new THREE.PerspectiveCamera() };
+  }, [A, mpu, anchor, name, motion]);
+  // a fixed per-animal time offset (a position-based one would speed up while the animal walks)
+  r.U.uT.value = t + seedOf(name); r.U.uAmp.value = motionAmp; r.U.uExcite.value = Math.min(1, Math.max(0, pose.roar ?? 0));
   r.camO.position.set(...cam.pos); r.camO.lookAt(...cam.look); r.camO.updateMatrixWorld();
   const camRight = new THREE.Vector3().setFromMatrixColumn(r.camO.matrixWorld, 0);
   const flip = Math.cos(heading) * camRight.x + Math.sin(heading) * camRight.z < 0;
@@ -113,6 +121,9 @@ const shaftTex = () => canvasTex(64, 256, (g) => { const gr = g.createLinearGrad
   const gx = g.createLinearGradient(0, 0, 64, 0); gx.addColorStop(0, "rgba(0,0,0,1)"); gx.addColorStop(0.5, "rgba(0,0,0,0)"); gx.addColorStop(1, "rgba(0,0,0,1)"); g.globalCompositeOperation = "destination-out"; g.fillStyle = gx; g.fillRect(0, 0, 64, 256); });
 
 // ------------------------------------------------------------------ SEA
+const CAM0 = { pos: [0, 3, 30] as V3 };
+const SEA_FLORA = [...scatter(91, 70, [["kelp", 3], ["seafan", 2], ["sponge", 2], ["braincoral", 1.5], ["boulder", 2], ["rockpile", 1.5]], [-60, 60, -45, 30], [-20, 16, -9]),
+  ...scatter(92, 46, [["kelp", 4], ["seafan", 2], ["sponge", 2], ["braincoral", 1], ["rockpile", 1]], [-24, 24, -26, -10]), ...scatter(93, 24, [["braincoral", 2], ["sponge", 1], ["rockpile", 2]], [-14, 14, 8, 22], [-7, 7, -99], 0.7)];
 export const SEA = { surf: 26, fog: "#2D7488", top: "#9FE6EE", hor: "#2D7488", deep: "#0C2A3E", sand: "#C9B88A", rock: "#4E5E66", sun: [8, 40, 18] as V3 };
 export const seaFloorY = (x: number, z: number) =>
   0.7 * Math.sin(x * 0.11 + z * 0.05) + 0.45 * Math.sin(z * 0.17 - x * 0.06) + 0.08 * Math.sin(x * 1.3 + z * 0.5) + (z < -30 ? (-30 - z) * 0.14 : 0);
@@ -123,7 +134,7 @@ export const domeMat = (top: string, hor: string, deep: string) => new THREE.Sha
     void main(){ float y = vD.y; vec3 c = y > 0.0 ? mix(hor, top, pow(y, 0.8)) : mix(hor, deep, pow(-y, 0.5));
       c += vec3(0.55, 0.85, 0.9) * pow(max(y, 0.0), 10.0) * 0.8; gl_FragColor = vec4(c, 1.0); }` });
 
-export const SeaSet: React.FC<{ models: Models; t: number }> = ({ models, t }) => {
+export const SeaSet: React.FC<{ models: Models; t: number; cam?: { pos: V3 } }> = ({ models, t, cam = CAM0 }) => {
   const r = useMemo(() => {
     const uT = { value: 0 };
     const sand = toonWP(SEA.sand, uT, `
@@ -161,7 +172,7 @@ export const SeaSet: React.FC<{ models: Models; t: number }> = ({ models, t }) =
         return <mesh key={`s${i}`} material={r.shaft} position={[x + Math.sin(t * 0.4 + i) * 0.8, SEA.surf / 2, z]} rotation={[0, i * 0.7, 0.18 + 0.04 * Math.sin(t * 0.5 + i)]} userData={{ noNormal: true }}><planeGeometry args={[2.2 + (i % 3), SEA.surf * 1.2]} /></mesh>; })}
       {r.props.map((q, i) => {
         const y = seaFloorY(q.x, q.z);
-        if (q.k < 0.42) return <M key={i} models={models} name={["rock_largeA", "rock_largeC", "rock_tallA", "rock_smallA"][i % 4]} size={0.8 + q.s * 3.2} pos={[q.x, y - 0.2, q.z]} rot={i * 1.3} tint={SEA.rock} tintK={0.7} />;
+        if (q.k < 0.42) return null; // rocks: hand-drawn now (SEA_FLORA)
         if (q.k < 0.72) { // sea lily: swaying stalk, feathery crown
           const h = 1.2 + q.s * 2.2, sw = 0.12 * Math.sin(t * 0.9 + i);
           return <group key={i} position={[q.x, y, q.z]} rotation={[sw * 0.5, i, sw]}>
@@ -170,9 +181,9 @@ export const SeaSet: React.FC<{ models: Models; t: number }> = ({ models, t }) =
               <coneGeometry args={[0.07, 0.8, 5]} /></mesh>)}
           </group>;
         }
-        const h = 0.5 + q.s * 1.4; // barrel / vase sponges
-        return <mesh key={i} material={i % 2 ? r.sponge : r.sponge2} position={[q.x, y + h / 2, q.z]} castShadow><cylinderGeometry args={[0.35 + q.s * 0.3, 0.2, h, 9, 1, true]} /></mesh>;
+        return null; // sponges: hand-drawn now (SEA_FLORA)
       })}
+      <FloraField items={SEA_FLORA} ground={seaFloorY} cam={cam} t={t} pal="sea" wind={0.8} tint="#BFE0E6" />
       {r.ams.map((a, i) => <sprite key={`a${i}`} material={r.am} position={[a.x + Math.sin(t * 0.3 + a.ph) * 1.5, a.y + Math.sin(t * 0.8 + a.ph) * 0.3, a.z]} scale={[a.s, a.s, 1]} userData={{ noNormal: true }} />)}
       {r.school.map((f, i) => { const a = f.a + t * 0.45 * f.sp; return <sprite key={`f${i}`} material={r.fish} position={[8 + Math.cos(a) * f.r * 2.2, 7 + f.y + Math.sin(a * 2) * 0.4, -10 + Math.sin(a) * f.r]} scale={[0.6, 0.3, 1]} userData={{ noNormal: true }} />; })}
       {r.snowP.map((s, i) => <sprite key={`m${i}`} material={r.snow} position={[s.x + Math.sin(t * 0.5 + i) * 0.3, ((s.y - t * 0.25) % SEA.surf + SEA.surf) % SEA.surf, s.z]} scale={[s.s, s.s, 1]} userData={{ noNormal: true }} />)}
@@ -181,6 +192,9 @@ export const SeaSet: React.FC<{ models: Models; t: number }> = ({ models, t }) =
 };
 
 // ------------------------------------------------------------------ ICE AGE
+const ICE_FLORA = scatter(17, 80, [["snowpine", 3], ["boulder", 2], ["rockpile", 1.5]], [-90, 90, -75, 25], [-18, 16, -14]);
+const ICE_GRASS = [...scatter(23, 60, [["grass", 3], ["sage", 1]], [-60, 60, -40, 25], [-18, 16, -14], 0.8), ...scatter(24, 40, [["grass", 3], ["sage", 1]], [-24, 24, -24, -6], undefined, 0.8), ...scatter(25, 20, [["grass", 2]], [-14, 14, 6, 20], [-6, 6, -99], 0.7)];
+const ICE_BACK = [...scatter(26, 22, [["snowpine", 2], ["boulder", 2], ["rockpile", 2]], [-30, 30, -34, -14]), ...scatter(27, 12, [["rockpile", 2], ["boulder", 1]], [-16, 16, 6, 22], [-7, 7, -99], 0.6)];
 export const ICE = { fog: "#C6D3DF", snow: "#EEF3F8", snowShade: "#B9CADB", grass: "#C9A55E", ice: "#8EC3DD", iceDark: "#4E8EAE", rock: "#6A6E74", pine: "#2F4A40", sun: [-34, 14, 30] as V3 };
 export const snowY = (x: number, z: number) =>
   0.45 * Math.sin(x * 0.08 + z * 0.03) + 0.3 * Math.sin(z * 0.13 - x * 0.04) + 0.05 * Math.sin(x * 0.9 - z * 0.6) + (z < -40 ? (-40 - z) * 0.08 : 0);
@@ -190,7 +204,7 @@ function glacierGeo(len: number, seed: number) {
   sh.lineTo(len / 2, -4); sh.closePath();
   const g = new THREE.ExtrudeGeometry(sh, { depth: 40, bevelEnabled: false }); g.translate(0, 0, -40); return g;
 }
-export const IceSet: React.FC<{ models: Models; t: number }> = ({ models, t }) => {
+export const IceSet: React.FC<{ models: Models; t: number; cam?: { pos: V3 } }> = ({ models, t, cam = CAM0 }) => {
   const r = useMemo(() => {
     const uT = { value: 0 };
     const snow = toonWP(ICE.snow, uT, `
@@ -225,15 +239,8 @@ export const IceSet: React.FC<{ models: Models; t: number }> = ({ models, t }) =
           <mesh material={r.mtn} position={[0, h / 2, 0]}><coneGeometry args={[h * 0.9, h, 7]} /></mesh>
           <mesh material={r.mtnSnow} position={[0, h * 0.78, 0]}><coneGeometry args={[h * 0.9 * 0.44, h * 0.44, 7]} /></mesh>
         </group>; })}
-      {r.props.map((q, i) => {
-        const y = snowY(q.x, q.z);
-        if (q.k < 0.3) return <M key={i} models={models} name={["tree_pineTallA", "tree_pineRoundC", "tree_cone_dark"][i % 3]} size={5 + q.s * 9} pos={[q.x, y, q.z]} rot={i} tint="#3C5A4A" tintK={0.75} />;
-        if (q.k < 0.5) { const s = 0.8 + q.s * 2.8; return <group key={i} position={[q.x, y - 0.2, q.z]}>
-          <M models={models} name={["rock_largeA", "rock_largeC", "rock_tallA"][i % 3]} size={s} pos={[0, 0, 0]} rot={i * 1.7} tint={ICE.rock} tintK={0.6} />
-          <mesh material={r.cap} position={[0, s * 0.92, 0]} scale={[s * 0.42, s * 0.12, s * 0.42]}><sphereGeometry args={[1, 12, 8]} /></mesh>
-        </group>; }
-        return <M key={i} models={models} name={i % 2 ? "grass_large" : "grass"} size={0.5 + q.s * 0.7} pos={[q.x, y - 0.05, q.z]} rot={i} tint={ICE.grass} tintK={0.85} />;
-      })}
+      <FloraField items={[...ICE_FLORA, ...ICE_BACK]} ground={snowY} cam={cam} t={t} pal="snow" wind={0.6} />
+      <FloraField items={ICE_GRASS} ground={snowY} cam={cam} t={t} pal="dry" wind={1.2} tint="#E8ECF2" />
       {r.flakes.map((f, i) => <sprite key={`fl${i}`} material={r.flake} position={[f.x + Math.sin(t * 0.7 + f.ph) * 0.6 + t * 0.8 % 50, ((f.y - t * 1.1) % 20 + 20) % 20, f.z]} scale={[f.s, f.s, 1]} userData={{ noNormal: true }} />)}
     </group>
   );
@@ -285,14 +292,14 @@ export const ToonSetsDemo: React.FC<{ set?: "sea" | "ice" }> = () => {
             shadow-camera-left={-30} shadow-camera-right={30} shadow-camera-top={30} shadow-camera-bottom={-30} shadow-camera-far={160} />
           {sea ? (
             <group>
-              <SeaSet models={models} t={t} />
+              <SeaSet models={models} t={t} cam={cam} />
               <BeastCard3D name="mosa" t={t} sun={sun} anchor={520} pos={[lerp(-7, 6, clamp01(t / 3.4)), 8, 0]} heading={0} cam={cam} pose={{ walk: 1, phase: t * 0.8, roar: bite }} />
               <BeastCard3D name="meg" t={t} sun={sun} anchor={520} pos={[lerp(30, 10, clamp01(t / 5)), 13, -26]} heading={Math.PI} cam={cam} pose={{ walk: 1, phase: t * 0.7 }} />
               <BeastCard3D name="dunkle" t={t} sun={sun} anchor={520} pos={[lerp(-9, -13, clamp01((t - 3.4) / 1.6)), 2.6, -6]} heading={Math.PI} cam={cam} pose={{ walk: 1, phase: t * 1.1, roar: win(t, 4.0, 5) ? 1 : 0 }} />
             </group>
           ) : (
             <group>
-              <IceSet models={models} t={t} />
+              <IceSet models={models} t={t} cam={cam} />
               {c.i === 3 && [[-6, -16, 0.0], [2, -20, 0.3], [9, -14, 0.6], [15, -22, 0.15]].map(([x, z, ph], i) => (
                 <BeastCard3D key={i} name="mammoth" t={t} sun={sun} pos={[x - (t - 5) * 1.2, snowY(x, z), z]} heading={Math.PI} cam={cam} pose={{ walk: 1, phase: t * 0.7 + ph, expr: "angry" }} />))}
               <BeastCard3D name="rhino" t={t} sun={sun} pos={[rhinoX, snowY(rhinoX, 0), 0]} heading={Math.PI} cam={cam} pose={{ walk: 1, phase: t * 1.4, roar: charge }} />

@@ -44,11 +44,11 @@ export const WingsDemo: React.FC = () => {
           <directionalLight position={vol ? VOL.sun : SEA.sun} intensity={vol ? 1.6 : 1.9} color={vol ? "#FF9A64" : "#DFFBFF"} castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0004}
             shadow-camera-left={-40} shadow-camera-right={40} shadow-camera-top={40} shadow-camera-bottom={-40} shadow-camera-far={200} />
           {vol ? <group>
-            <VolcanoSet models={models} t={t} />
+            <VolcanoSet models={models} t={t} cam={cam} />
             <BeastCard3D name="dragon" t={t} sun={VOL.sun} pos={[0, 0, 0]} heading={0} cam={cam} pose={{ roar: fire, phase: t }} />
             <BeastCard3D name="dragonfly" t={t} sun={VOL.sun} anchor={520} pos={[lerp(-30, 40, t / 4), 22, -18]} heading={0} cam={cam} pose={{ walk: 1, phase: t * 0.9 }} />
           </group> : <group>
-            <SeaSet models={models} t={t} />
+            <SeaSet models={models} t={t} cam={cam} />
             {[[-6, 0, 0], [5, -6, 0.4], [12, -12, 0.7]].map(([x, z, ph], i) => (
               <BeastCard3D key={i} name="pteranodon" t={t} sun={SEA.sun} anchor={520} pos={[x + (t - 4) * 3, SEA.surf + 6 + i * 2, z - 12]} heading={0} cam={cam} pose={{ walk: 1, phase: t * 1.1 + ph, roar: i === 0 && t > 5 ? 1 : 0 }} />))}
             <BeastCard3D name="quetzfly" t={t} sun={SEA.sun} anchor={520} pos={[-14 + (t - 4) * 2, SEA.surf + 14, -30]} heading={0} cam={cam} pose={{ walk: 0.3, phase: t * 0.5 }} />

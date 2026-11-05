@@ -16,6 +16,7 @@ import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { InkPass } from "./Ink";
 import { M, Models, useModels } from "./FreeWorld";
+import { FloraField, scatter } from "./FloraField";
 import { Sky, V3, clamp01, ease, lerp, lerpV, toon } from "./World";
 import { BeastCard3D, heightPlane as hp0, rng, toonWP, win } from "./ToonSets";
 /** height plane whose gentle slopes get an upward normal (no toon bands on the flats); steep cuts keep theirs */
@@ -40,6 +41,9 @@ const STRATA = `
   sc = pow(sc, vec3(2.2));`;
 const strataMat = (uT: { value: number }) => toonWP("#FFFFFF", uT, STRATA + "\n  diffuseColor.rgb = sc;");
 
+const CAM0 = { pos: [0, 3, 30] as V3 };
+const BAD_FLORA = [...scatter(37, 90, [["sage", 3], ["grass", 3], ["boulder", 2], ["rockpile", 1.5], ["pebbles", 2], ["deadtree", 0.4], ["bones", 0.3]], [-60, 60, -50, 25], [-16, 14, -12]),
+  ...scatter(38, 50, [["sage", 3], ["grass", 3], ["boulder", 1.5], ["rockpile", 1.5], ["pebbles", 2], ["deadtree", 0.5]], [-26, 26, -28, -9], undefined, 1.6), ...scatter(39, 26, [["grass", 2], ["pebbles", 2], ["sage", 1]], [-16, 16, 6, 24], [-7, 7, -99], 0.7)];
 export const BAD = { fog: "#E8CDA6", sun: [-26, 30, 22] as V3 };
 export const badY = (x: number, z: number) => {
   const wash = Math.abs(z - (9 + 5 * Math.sin(x * 0.05)));
@@ -74,7 +78,7 @@ function hoodooGeo(R: number, Hh: number, seed: number) {
   const g = new THREE.LatheGeometry(pts, 24); g.computeVertexNormals(); return g;
 }
 
-export const BadlandsSet: React.FC<{ models: Models; t: number; dig?: boolean }> = ({ models, t, dig = false }) => {
+export const BadlandsSet: React.FC<{ models: Models; t: number; dig?: boolean; cam?: { pos: V3 } }> = ({ models, t, dig = false, cam = CAM0 }) => {
   const r = useMemo(() => {
     const uT = { value: 0 }, rr = rng(41);
     const mounds: { x: number; z: number; R: number; H: number; mesa: boolean; s: number }[] = [];
@@ -101,11 +105,7 @@ export const BadlandsSet: React.FC<{ models: Models; t: number; dig?: boolean }>
         <mesh geometry={h.g} material={r.strata} castShadow receiveShadow />
         <mesh material={r.cap} position={[0, h.H + 0.25, 0]} scale={[h.R * 1.7, 0.45, h.R * 1.5]} rotation={[0.1, h.s, 0.12]} castShadow><sphereGeometry args={[1, 12, 8]} /></mesh>
       </group>)}
-      {r.props.map((q, i) => { const y = Y(q.x, q.z);
-        if (q.k < 0.45) return <M key={i} models={models} name={i % 2 ? "plant_bush" : "plant_bushLarge"} size={0.5 + q.s * 0.8} pos={[q.x, y - 0.05, q.z]} rot={i} tint="#8E9A6A" tintK={0.75} />;
-        if (q.k < 0.75) return <M key={i} models={models} name={i % 2 ? "grass" : "grass_large"} size={0.4 + q.s * 0.5} pos={[q.x, y - 0.05, q.z]} rot={i} tint="#D2B26A" tintK={0.85} />;
-        return <M key={i} models={models} name={["rock_largeA", "rock_largeC", "rock_smallA"][i % 3]} size={0.4 + q.s * 1.6} pos={[q.x, y - 0.15, q.z]} rot={i * 1.3} tint="#A8583A" tintK={0.6} />;
-      })}
+      <FloraField items={dig ? BAD_FLORA.filter((q) => !(Math.abs(q.x - DIG.cx) < DIG.hx + 1.5 && Math.abs(q.z - DIG.cz) < DIG.hz + 1.5)) : BAD_FLORA} ground={Y} cam={cam} t={t} pal="dry" wind={1} />
     </group>
   );
 };
@@ -261,7 +261,7 @@ export const ToonSetsDemo3: React.FC = () => {
           <hemisphereLight args={[new THREE.Color("#CFE0FF"), new THREE.Color("#B07A50"), 1.05]} />
           <directionalLight position={BAD.sun} intensity={2.5} color="#FFE2B8" castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0008} shadow-normalBias={0.08}
             shadow-camera-left={-30} shadow-camera-right={30} shadow-camera-top={30} shadow-camera-bottom={-30} shadow-camera-far={160} />
-          <BadlandsSet models={models} t={t} dig={dig} />
+          <BadlandsSet models={models} t={t} dig={dig} cam={cam} />
           {dig ? <group>
             <Skeleton pos={[3.0, DIG.floor + 0.02, -3.2]} yaw={0.06} s={0.72} />
             <DigProps />

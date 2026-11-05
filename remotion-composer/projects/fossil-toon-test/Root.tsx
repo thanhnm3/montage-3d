@@ -7,6 +7,9 @@ import { ToonSetsDemo2 } from "./ToonSets2";
 import { WingsDemo } from "./WingsDemo";
 import { ToonSetsDemo3 } from "./ToonSets3";
 import { MythDemo } from "./MythDemo";
+import { MotionTest } from "./MotionTest";
+import { FloraSheet } from "./FloraField";
+import { ForestDemo } from "./ToonSets4";
 import { FossilToonScene } from "./FossilToonScene";
 
 export const Root: React.FC = () => (
@@ -18,13 +21,17 @@ export const Root: React.FC = () => (
     <Composition id="BeastAncientSheet" component={BeastMoreSheet} fps={30} width={1480} height={12100} durationInFrames={1} defaultProps={{ group: "ancient" }} />
     <Composition id="BeastMythSheet" component={BeastMoreSheet} fps={30} width={1480} height={7750} durationInFrames={1} defaultProps={{ group: "myth" }} />
     <Composition id="BeastRedoSheet" component={BeastMoreSheet} fps={30} width={1480} height={5800} durationInFrames={1} defaultProps={{ group: "redo" }} />
-    <Composition id="BeastCatalog" component={BeastCatalog} fps={30} width={1480} height={2950} durationInFrames={1} />
+    <Composition id="BeastCatalog" component={BeastCatalog} fps={30} width={1480} height={3800} durationInFrames={1} />
+    <Composition id="BeastNewSheet" component={BeastMoreSheet} fps={30} width={1480} height={13050} durationInFrames={1} defaultProps={{ group: "new" }} />
     <Composition id="BeastSolo" component={BeastSolo} fps={30} width={1600} height={1000} durationInFrames={1} defaultProps={{ name: "steg" }} />
     <Composition id="ToonSetsDemo" component={ToonSetsDemo} fps={30} width={1080} height={1920} durationInFrames={300} />
     <Composition id="ToonSetsDemo2" component={ToonSetsDemo2} fps={30} width={1080} height={1920} durationInFrames={300} />
     <Composition id="WingsDemo" component={WingsDemo} fps={30} width={1080} height={1920} durationInFrames={180} />
     <Composition id="ToonSetsDemo3" component={ToonSetsDemo3} fps={30} width={1080} height={1920} durationInFrames={300} />
     <Composition id="MythDemo" component={MythDemo} fps={30} width={1080} height={1920} durationInFrames={180} />
+    <Composition id="MotionTest" component={MotionTest} fps={30} width={1080} height={1920} durationInFrames={120} />
+    <Composition id="FloraSheet" component={FloraSheet} fps={30} width={1480} height={1640} durationInFrames={1} />
+    <Composition id="ForestDemo" component={ForestDemo} fps={30} width={1080} height={1920} durationInFrames={180} />
     <Composition id="FossilToonScene" component={FossilToonScene} fps={30} width={1080} height={1920} durationInFrames={270} />
     <Composition id="FossilToonSceneFierce" component={FossilToonScene} fps={30} width={1080} height={1920} durationInFrames={270} defaultProps={{ fierce: true }} />
     <Composition id="FossilToonSceneBeast" component={FossilToonScene} fps={30} width={1080} height={1920} durationInFrames={270} defaultProps={{ beast: true }} />

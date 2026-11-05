@@ -36,13 +36,13 @@ export const MythDemo: React.FC = () => {
           <hemisphereLight args={[new THREE.Color(set === "vol" ? "#B07A6A" : "#CFE6FF"), new THREE.Color(set === "vol" ? "#2A1A14" : "#4A5A6A"), set === "vol" ? 0.75 : 1.05]} />
           <directionalLight position={sun} intensity={2} color={set === "vol" ? "#FF9A64" : "#FFF0DC"} castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0006} shadow-normalBias={0.05}
             shadow-camera-left={-40} shadow-camera-right={40} shadow-camera-top={40} shadow-camera-bottom={-40} shadow-camera-far={200} />
-          {set === "sea" ? <group><SeaSet models={models} t={t} />
+          {set === "sea" ? <group><SeaSet models={models} t={t} cam={cam} />
             <BeastCard3D name="kraken" t={t} sun={sun} anchor={520} pos={[-3, 9, -6]} heading={0} cam={cam} pose={{ walk: 1, phase: t * 0.5, roar: roar(1) }} />
             <BeastCard3D name="leviathan" t={t} sun={sun} anchor={520} pos={[lerp(30, 10, t / 2), 17, -40]} heading={Math.PI} cam={cam} pose={{ walk: 1, phase: t * 0.6 }} />
-          </group> : set === "ice" ? <group><IceSet models={models} t={t} />
+          </group> : set === "ice" ? <group><IceSet models={models} t={t} cam={cam} />
             <BeastCard3D name="yeti" t={t} sun={sun} pos={[-1.6, snowY(-1.6, 0), 0]} heading={0} cam={cam} pose={{ roar: roar(2.8) }} />
             <BeastCard3D name="griffin" t={t} sun={sun} pos={[2.6, snowY(2.6, -3), -3]} heading={Math.PI} cam={cam} pose={{ walk: 0.6, phase: t, roar: roar(3) }} />
-          </group> : <group><VolcanoSet models={models} t={t} />
+          </group> : <group><VolcanoSet models={models} t={t} cam={cam} />
             <BeastCard3D name="hydra" t={t} sun={sun} pos={[0, 0, 0]} heading={0} cam={cam} pose={{ roar: roar(4.6), phase: t }} />
           </group>}
           <InkPass p={{ focus, blur: 4, night: set === "vol" ? 0.2 : 0, cow: 0, flash: 0, redPulse: 0, ink: 1, cold: set === "vol" ? 0 : 0.4, warm: set === "vol" ? 0.5 : 0 }} />
